@@ -1,0 +1,2118 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ANTHOLOGY - Speculative Geometries & Archival Traces</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#c6c6c6",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#1b1b1b",
+                        "on-error": "#ffffff",
+                        "on-surface": "#1b1b1b",
+                        "surface-dim": "#dadada",
+                        "surface-container-low": "#f3f3f3",
+                        "on-secondary-fixed-variant": "#454747",
+                        "on-secondary-container": "#616363",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#e2e2e2",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e2e2e2",
+                        "secondary-container": "#dfe0e0",
+                        "secondary-fixed": "#e2e2e2",
+                        "surface": "#f9f9f9",
+                        "surface-bright": "#f9f9f9",
+                        "on-background": "#1b1b1b",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "outline-variant": "#cfc4c5",
+                        "primary": "#000000",
+                        "inverse-primary": "#c6c6c6",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary": "#000000",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "primary-container": "#1b1b1b",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#eeeeee",
+                        "secondary": "#5d5f5f",
+                        "surface-tint": "#5e5e5e",
+                        "surface-variant": "#e2e2e2",
+                        "on-tertiary-container": "#848484",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#1b1b1b",
+                        "on-surface-variant": "#4c4546",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "inverse-on-surface": "#f1f1f1",
+                        "background": "#f9f9f9",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-primary-container": "#848484",
+                        "inverse-surface": "#303030",
+                        "outline": "#7e7576",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#474747"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "xs": "8px",
+                        "margin-mobile": "20px",
+                        "sm": "16px",
+                        "base": "4px",
+                        "xl": "128px",
+                        "gutter": "24px",
+                        "lg": "64px",
+                        "md": "32px",
+                        "margin-desktop": "64px"
+                    },
+                    fontFamily: {
+                        "headline-md": ["Syne"],
+                        "label-technical": ["Space Mono"],
+                        "body-md": ["Geist"],
+                        "headline-lg": ["Syne"],
+                        "body-lg": ["Geist"],
+                        "label-small": ["Space Mono"],
+                        "headline-lg-mobile": ["Syne"],
+                        "display-lg": ["Syne"]
+                    },
+                    fontSize: {
+                        "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "label-technical": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-small": ["10px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.1", "fontWeight": "700" }],
+                        "display-lg": ["80px", { "lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Style System (Neo-Brutalism & Technical Minimalism) -->
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body, a, button, input, textarea, select {
+            cursor: none !important;
+        }
+
+        /* Scrollbar customization */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f9f9f9;
+            border-left: 1px solid #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #000;
+            border-radius: 0px;
+        }
+
+        /* Grayscale contrast filters for art archive images */
+        .grayscale-contrast {
+            filter: grayscale(100%) contrast(140%) brightness(95%);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .group:hover .grayscale-contrast {
+            filter: grayscale(100%) contrast(150%) brightness(115%);
+            transform: scale(1.03);
+        }
+
+        /* 1px Hairline Bounding Box on Hover */
+        .bounding-box {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 1px solid #000;
+            opacity: 0;
+            transform: scale(0.97);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .group:hover .bounding-box {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Grid Background pattern */
+        .technical-grid {
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+            background-position: center top;
+        }
+
+        /* Scanline Filter */
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.015) 50%,
+                rgba(0,0,0,0.015)
+            );
+            background-size: 100% 4px;
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9990;
+        }
+
+        /* CRT Flicker Effects */
+        .crt-flicker {
+            animation: flicker 0.15s infinite;
+        }
+        @keyframes flicker {
+            0% { opacity: 0.97; }
+            50% { opacity: 1; }
+            100% { opacity: 0.98; }
+        }
+
+        .text-flicker {
+            animation: textFlicker 4s infinite alternate;
+        }
+        @keyframes textFlicker {
+            0%, 95% { opacity: 1; }
+            96% { opacity: 0.7; }
+            97% { opacity: 1; }
+            98% { opacity: 0.4; }
+            99% { opacity: 1; }
+        }
+
+        /* Custom Crosshair Cursor */
+        #custom-cursor {
+            position: fixed;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 10000;
+            mix-blend-mode: difference;
+            color: white;
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            will-change: transform;
+            transform: translate3d(0, 0, 0) translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s;
+        }
+
+        #custom-cursor .cross {
+            position: relative;
+            width: 20px; height: 20px;
+            transition: all 0.2s ease;
+        }
+
+        #custom-cursor .cross::before, #custom-cursor .cross::after {
+            content: '';
+            position: absolute;
+            background: white;
+        }
+        #custom-cursor .cross::before { top: 50%; left: 0; width: 100%; height: 1px; }
+        #custom-cursor .cross::after { top: 0; left: 50%; width: 1px; height: 100%; }
+
+        #custom-cursor.hovering .cross {
+            width: 32px; height: 32px;
+            transform: rotate(45deg);
+        }
+
+        #custom-cursor .coords {
+            margin-top: 6px;
+            white-space: nowrap;
+            letter-spacing: 0.05em;
+        }
+
+        /* Scanning Line animation */
+        .scanning-line {
+            position: fixed;
+            top: -10px;
+            left: 0;
+            width: 100vw;
+            height: 2px;
+            background: #000;
+            z-index: 9995;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .scan-active {
+            animation: scanDown 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes scanDown {
+            0% { top: -10px; opacity: 1; }
+            100% { top: 100vh; opacity: 1; }
+        }
+
+        /* Blueprint Reveal for Detail Page Images */
+        @keyframes resolve-blueprint {
+            0% { opacity: 0; filter: contrast(300%) grayscale(100%) blur(12px); }
+            50% { opacity: 0.5; filter: contrast(200%) grayscale(100%) blur(4px); }
+            100% { opacity: 1; filter: grayscale(100%) contrast(125%) blur(0); }
+        }
+        .blueprint-reveal {
+            animation: resolve-blueprint 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Blinking Terminal Inputs */
+        .terminal-input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .terminal-input-container::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            font-family: 'Space Mono', monospace;
+            color: #5d5f5f;
+        }
+        .terminal-input {
+            padding-left: 20px !important;
+            caret-color: transparent;
+        }
+        .blinking-cursor::after {
+            content: '_';
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Glitch skew effect for specific active cards */
+        .glitch-box {
+            position: relative;
+        }
+        .glitch-box.active {
+            animation: glitch-skew 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+            background: black;
+            color: white;
+        }
+        @keyframes glitch-skew {
+            0% { transform: skew(0deg); }
+            20% { transform: skew(-1.5deg); }
+            40% { transform: skew(1.5deg); }
+            60% { transform: skew(-0.5deg); }
+            80% { transform: skew(0.5deg); }
+            100% { transform: skew(0deg); }
+        }
+
+        /* Hairline Division Layout */
+        .hairline-grid {
+            background-color: #000;
+            gap: 1px;
+        }
+        .hairline-grid > * {
+            background-color: #ffffff;
+        }
+
+        /* Data dump scroll animation */
+        .data-dump-container {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: #ffffff;
+            z-index: 10;
+            overflow: hidden;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: #000000;
+            padding: 32px;
+        }
+        .data-dump-content {
+            white-space: pre-wrap;
+            animation: scrollUp 2.5s linear forwards;
+        }
+        @keyframes scrollUp {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(-100%); }
+        }
+
+        /* Page Transitions container wrapper */
+        .page-container {
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .page-container:not(.hidden) {
+            opacity: 1;
+        }
+
+        /* Progress Bar fill */
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: #ffffff;
+            width: 0%;
+            transition: width 1.2s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-surface text-primary antialiased min-h-screen selection:bg-primary selection:text-surface-lowest overflow-x-hidden">
+
+    <!-- Custom Mechanical Cursor -->
+    <div id="custom-cursor">
+        <div class="cross"></div>
+        <div class="coords" id="cursor-coords">X:0000 Y:0000</div>
+    </div>
+
+    <!-- Background CRT Effects -->
+    <div class="scanlines"></div>
+    <canvas class="fixed inset-0 w-full h-full pointer-events-none z-[9992] opacity-[0.035]" id="noise-canvas"></canvas>
+    
+    <!-- Scanning Line for Transitions -->
+    <div class="scanning-line" id="scan-line"></div>
+
+    <!-- ---------------------------------------------------- -->
+    <!-- GLOBAL TOP HEADER (Hidden on initialization screen) -->
+    <!-- ---------------------------------------------------- -->
+    <header id="global-header" class="fixed top-0 left-0 w-full z-50 justify-between items-center px-margin-mobile md:px-margin-desktop h-16 bg-surface border-b border-primary hidden">
+        <div class="flex items-center h-full">
+            <a href="#/index" class="font-headline-md text-headline-md font-bold tracking-tighter text-primary uppercase select-none hover:text-secondary transition-colors">
+                ANTHOLOGY
+            </a>
+        </div>
+        <nav class="hidden md:flex h-full items-center gap-lg">
+            <a id="nav-index-link" class="h-full flex items-center font-label-technical text-label-technical border-b-2 border-primary scale-95 transition-transform uppercase" href="#/index">INDEX</a>
+            <a id="nav-transmission-link" class="h-full flex items-center font-label-technical text-label-technical text-secondary hover:bg-primary hover:text-on-primary transition-colors duration-200 px-sm uppercase" href="#/transmission">TRANSMISSION</a>
+        </nav>
+        <div class="flex items-center gap-sm">
+            <!-- Programmatic Audio Indicator/Toggle -->
+            <button id="audio-toggle" class="text-primary hover:bg-primary hover:text-on-primary transition-colors duration-200 p-base flex items-center justify-center border border-transparent hover:border-primary gap-1 px-2" title="Toggle System Audio">
+                <span class="material-symbols-outlined text-[18px]">volume_off</span>
+                <span class="font-label-technical text-[10px] hidden sm:inline">AUDIO: OFF</span>
+            </button>
+            <button id="info-btn" class="text-primary hover:bg-primary hover:text-on-primary transition-colors duration-200 p-base flex items-center justify-center border border-transparent hover:border-primary" title="System Specifications">
+                <span class="material-symbols-outlined text-[18px]">info</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ---------------------------------------------------- -->
+    <!-- GLOBAL SIDEBAR NAVIGATION (Hidden on initialization) -->
+    <!-- ---------------------------------------------------- -->
+    <aside id="global-sidebar" class="fixed left-0 top-0 h-full w-64 hidden flex-col pt-24 pb-12 px-xs bg-surface border-r border-primary z-40">
+        <div class="mb-xl px-xs border-b border-primary pb-sm">
+            <h1 class="font-headline-md text-headline-md text-primary uppercase text-flicker">ARCHIVE_COORD</h1>
+            <p class="font-label-technical text-label-technical text-secondary mt-base">V.1.0.A // SECURE</p>
+        </div>
+        <ul class="flex flex-col space-y-sm flex-grow">
+            <li>
+                <a id="sidebar-greeting" class="flex items-center gap-xs font-label-technical text-label-technical text-primary opacity-60 px-xs py-2 hover:border-l-4 hover:border-primary transition-all group" href="#/greeting">
+                    <span class="material-symbols-outlined text-[18px] opacity-0 group-hover:opacity-100 transition-opacity">arrow_outward</span>
+                    <span>01 GREETING</span>
+                </a>
+            </li>
+            <li>
+                <a id="sidebar-index" class="flex items-center gap-xs font-label-technical text-label-technical text-primary opacity-60 px-xs py-2 hover:border-l-4 hover:border-primary transition-all group" href="#/index">
+                    <span class="material-symbols-outlined text-[18px] opacity-0 group-hover:opacity-100 transition-opacity">list</span>
+                    <span>02 INDEX</span>
+                </a>
+            </li>
+            <li>
+                <a id="sidebar-artifact" class="flex items-center gap-xs font-label-technical text-label-technical text-primary opacity-60 px-xs py-2 hover:border-l-4 hover:border-primary transition-all group" href="#/artifact">
+                    <span class="material-symbols-outlined text-[18px] opacity-0 group-hover:opacity-100 transition-opacity">database</span>
+                    <span>03 ARTIFACT</span>
+                </a>
+            </li>
+            <li>
+                <a id="sidebar-transmission" class="flex items-center gap-xs font-label-technical text-label-technical text-primary opacity-60 px-xs py-2 hover:border-l-4 hover:border-primary transition-all group" href="#/transmission">
+                    <span class="material-symbols-outlined text-[18px] opacity-0 group-hover:opacity-100 transition-opacity">sensors</span>
+                    <span>04 SIGNAL</span>
+                </a>
+            </li>
+        </ul>
+        <div class="px-xs mt-auto">
+            <div class="font-label-technical text-[9px] text-secondary">
+                LAT: <span id="sidebar-lat">34.0522 N</span><br/>
+                LON: <span id="sidebar-lon">118.2437 W</span><br/>
+                UTC: <span id="sidebar-time">00:00:00</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ---------------------------------------------------- -->
+    <!-- MAIN APPLICATION CONTAINERS -->
+    <!-- ---------------------------------------------------- -->
+    <main id="main-content" class="w-full min-h-screen bg-surface-lowest relative">
+
+        <!-- ========================================== -->
+        <!-- 1. INITIALIZATION SEQUENCE PAGE -->
+        <!-- ========================================== -->
+        <section id="page-initialization" class="page-container w-screen h-screen flex items-center justify-center relative technical-grid p-margin-mobile">
+            <!-- Central Grid Alignment lines -->
+            <div class="absolute inset-y-0 left-1/2 w-[1px] bg-primary -translate-x-1/2 opacity-15 pointer-events-none z-0"></div>
+            <div class="absolute inset-y-0 left-1/4 w-[1px] bg-primary -translate-x-1/2 opacity-5 pointer-events-none z-0"></div>
+            <div class="absolute inset-y-0 right-1/4 w-[1px] bg-primary translate-x-1/2 opacity-5 pointer-events-none z-0"></div>
+            <div class="absolute inset-x-0 top-1/4 h-[1px] bg-primary opacity-5 pointer-events-none z-0"></div>
+            <div class="absolute inset-x-0 bottom-1/4 h-[1px] bg-primary opacity-5 pointer-events-none z-0"></div>
+
+            <!-- Main authorization container -->
+            <div id="init-box" class="relative z-20 flex flex-col items-center border border-primary bg-surface p-8 md:p-xl max-w-xl w-full">
+                <!-- Decorative Corners -->
+                <div class="absolute top-0 left-0 w-3 h-3 border-t border-l border-primary -translate-x-[1px] -translate-y-[1px]"></div>
+                <div class="absolute top-0 right-0 w-3 h-3 border-t border-r border-primary translate-x-[1px] -translate-y-[1px]"></div>
+                <div class="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-primary -translate-x-[1px] translate-y-[1px]"></div>
+                <div class="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-primary translate-x-[1px] translate-y-[1px]"></div>
+
+                <!-- Box Header -->
+                <div class="absolute top-0 left-0 w-full flex justify-between px-xs py-base border-b border-primary">
+                    <span class="font-label-technical text-label-technical text-secondary text-flicker scramble-target" data-original="SYS.STATE: IDLE">SYS.STATE: IDLE</span>
+                    <span class="font-label-technical text-label-technical text-secondary text-flicker">V.1.0.A</span>
+                </div>
+
+                <!-- Content -->
+                <div class="mt-lg mb-lg text-center">
+                    <h1 class="font-display-lg text-headline-lg md:text-display-lg text-primary tracking-tighter uppercase relative inline-block scramble-target" data-original="ANTHOLOGY">
+                        ANTHOLOGY
+                        <span class="absolute -right-6 top-0 font-label-technical text-label-technical text-primary">®</span>
+                    </h1>
+                    <p class="font-label-technical text-label-technical text-secondary mt-sm max-w-md mx-auto text-center leading-relaxed scramble-target" data-original="A SECURE PORTFOLIO FOR DIGITAL DRAWINGS, SPECULATIVE GEOMETRIES, AND NARRATIVE CONSTRUCTS. PROCEED WITH INITIALIZATION.">
+                        A SECURE PORTFOLIO FOR DIGITAL DRAWINGS, SPECULATIVE GEOMETRIES, AND NARRATIVE CONSTRUCTS. PROCEED WITH INITIALIZATION.
+                    </p>
+                </div>
+
+                <!-- Trigger Button -->
+                <div class="mt-md flex flex-col items-center gap-sm w-full">
+                    <button class="border-2 border-primary bg-primary text-on-primary px-lg py-sm font-label-technical text-label-technical uppercase tracking-widest hover:bg-surface hover:text-primary transition-colors duration-300 w-full max-w-xs relative overflow-hidden group" id="init-btn" onclick="initiateSystemSequence()">
+                        <span class="relative z-10 flex items-center justify-center gap-xs">
+                            INITIALIZE_SEQUENCE
+                            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                        </span>
+                        <div class="progress-bar z-10"></div>
+                        <div class="absolute inset-0 bg-surface translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out z-0"></div>
+                    </button>
+                    <div class="flex items-center gap-xs mt-base opacity-60">
+                        <span class="material-symbols-outlined text-[12px] text-primary">lock</span>
+                        <span class="font-label-technical text-label-technical text-primary text-flicker">SECURE INTERACTION</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer data -->
+            <div class="absolute bottom-margin-desktop left-margin-desktop font-label-technical text-label-technical text-secondary hidden md:block text-flicker">
+                LAT: 34.0522 N<br/>
+                LON: 118.2437 W<br/>
+                SYS.TIME: <span id="init-clock">00:00:00:00</span>
+            </div>
+            <div class="absolute top-margin-desktop right-margin-desktop font-label-technical text-label-technical text-secondary text-right hidden md:block text-flicker scramble-target" data-original="NODE: PRIMARY | NET: ACTIVE | INTEGRITY: 100%">
+                NODE: PRIMARY<br/>
+                NET: ACTIVE<br/>
+                INTEGRITY: 100%
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 2. GREETING / MANIFESTO PAGE -->
+        <!-- ========================================== -->
+        <section id="page-greeting" class="page-container hidden md:pl-64 pt-16 min-h-screen flex flex-col bg-surface-lowest relative">
+            <!-- Gridlines -->
+            <div class="fixed top-16 left-0 md:left-64 w-full md:w-[calc(100%-16rem)] h-[1px] bg-primary opacity-20 pointer-events-none z-0"></div>
+            <div class="fixed top-0 left-0 md:left-64 h-full w-[1px] bg-primary opacity-20 pointer-events-none z-0 md:ml-margin-desktop"></div>
+
+            <div class="relative z-10 px-margin-mobile md:px-margin-desktop py-xl flex-grow flex flex-col justify-between max-w-4xl">
+                <div>
+                    <header class="mb-lg border-b border-primary pb-sm">
+                        <span class="font-label-technical text-label-technical uppercase text-secondary">01 / MANIFESTO</span>
+                        <h2 class="font-display-lg text-headline-lg-mobile md:text-display-lg uppercase text-primary mt-base tracking-tighter">THE MANIFESTO</h2>
+                    </header>
+                    <div class="space-y-sm font-body-lg text-body-lg text-primary max-w-2xl leading-relaxed">
+                        <p class="font-bold">
+                            I draw because the physical line is absolute. Unlike digital renders, a black ink drawing cannot lie about its structure.
+                        </p>
+                        <p class="text-secondary font-light">
+                            Anthology is a digital vault housing my structural, architectural, and brutalist ink specimens. These lines represent hours of physical tension, architectural drafts, and spatial exploration mapping out physical concepts into high-contrast voids.
+                        </p>
+                        <p class="text-secondary font-light">
+                            This website serves as an archival register, logging vector data coordinates, material attributes, and volumetric densities. Treat each specimen not as a flat drawing, but as a monument in a speculative grid.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-xl border-t border-primary pt-md grid grid-cols-1 md:grid-cols-2 gap-md">
+                    <div>
+                        <h3 class="font-label-technical text-label-technical text-primary uppercase font-bold mb-sm">ARCHIVAL PARAMETERS</h3>
+                        <ul class="space-y-xs font-label-technical text-label-small text-secondary">
+                            <li><span class="text-primary font-bold">GRID:</span> 12-COLUMN SUBDIVISIONS</li>
+                            <li><span class="text-primary font-bold">CONTRAST:</span> BINARY ABSOLUTE (0/1)</li>
+                            <li><span class="text-primary font-bold">TYPOGRAPHY:</span> GEIST + SYNE + SPACE MONO</li>
+                            <li><span class="text-primary font-bold">SOURCE:</span> HAND-DRAWN SPECIMENS (100% INK)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-label-technical text-label-technical text-primary uppercase font-bold mb-sm">DIGITAL RELAYS (SOCIALS)</h3>
+                        <ul class="space-y-xs font-label-technical text-label-technical">
+                            <li class="flex items-center gap-xs">
+                                <span class="material-symbols-outlined text-[16px] text-secondary">link</span>
+                                <a href="https://instagram.com" target="_blank" class="hover:underline hover:text-secondary">INSTAGRAM</a>
+                            </li>
+                            <li class="flex items-center gap-xs">
+                                <span class="material-symbols-outlined text-[16px] text-secondary">link</span>
+                                <a href="https://behance.net" target="_blank" class="hover:underline hover:text-secondary">BEHANCE</a>
+                            </li>
+                            <li class="flex items-center gap-xs">
+                                <span class="material-symbols-outlined text-[16px] text-secondary">mail</span>
+                                <a href="mailto:artist@anthology.core" class="hover:underline hover:text-secondary">ARTIST@ANTHOLOGY.CORE</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scroll to Index Indicator Overlay -->
+            <div class="w-full flex justify-center items-center py-4 border-t border-primary/10 bg-surface-lowest relative z-10">
+                <div class="flex items-center gap-xs font-label-technical text-label-technical text-secondary animate-bounce">
+                    <span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+                    <span>SCROLL TO ENTER INDEX</span>
+                    <span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+                </div>
+            </div>
+
+            <!-- Global Footer -->
+            <footer class="w-full flex justify-between items-center px-margin-mobile md:px-margin-desktop py-xs mt-auto border-t border-primary bg-surface z-20 relative">
+                <span class="font-label-technical text-label-technical font-bold text-primary uppercase">©2026 ANTHOLOGY.CORE</span>
+                <nav class="flex gap-sm">
+                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="#/greeting">LEGAL</a>
+                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="https://github.com" target="_blank">SOURCE</a>
+                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="#/">LOGOUT</a>
+                </nav>
+            </footer>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 3. THE INDEX (PORTFOLIO GRID) PAGE -->
+        <!-- ========================================== -->
+        <section id="page-index" class="page-container hidden md:pl-64 pt-16 min-h-screen flex flex-col bg-surface-lowest relative">
+            <!-- Gridlines -->
+            <div class="fixed top-16 left-0 md:left-64 w-full md:w-[calc(100%-16rem)] h-[1px] bg-primary opacity-20 pointer-events-none z-0"></div>
+            <div class="fixed top-0 left-0 md:left-64 h-full w-[1px] bg-primary opacity-20 pointer-events-none z-0 md:ml-margin-desktop"></div>
+
+            <div class="relative z-10 px-margin-mobile md:px-margin-desktop py-xl">
+                <!-- Section Header -->
+                <header class="mb-xl md:mb-[160px] max-w-2xl">
+                    <span class="font-label-technical text-label-technical uppercase text-secondary">02 / ARCHIVES</span>
+                    <h2 class="font-display-lg text-display-lg uppercase mb-md mt-base tracking-tighter">The Index</h2>
+                    <p class="font-label-technical text-label-technical uppercase border-l-2 border-primary pl-sm leading-relaxed">
+                        Structural timeline of archived specimens. Display parameters restricted to monochromatic high-contrast mapping. Proceed with absolute coordinate tracking.
+                    </p>
+                </header>
+
+                <!-- Portfolio Grid -->
+                <div id="archives-grid" class="grid grid-cols-4 md:grid-cols-12 gap-x-gutter gap-y-xl md:gap-y-[180px]">
+                    <!-- Items populated dynamically by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Global Footer -->
+            <footer class="w-full flex justify-between items-center px-margin-mobile md:px-margin-desktop py-xs mt-auto border-t border-primary bg-surface z-20 relative">
+                <span class="font-label-technical text-label-technical font-bold text-primary uppercase">©2026 ANTHOLOGY.CORE</span>
+                <nav class="flex gap-sm">
+                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="#/greeting">LEGAL</a>
+                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="https://github.com" target="_blank">SOURCE</a>
+                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="#/">LOGOUT</a>
+                </nav>
+            </footer>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 4. THE ARTIFACT (SPECIMEN VIEW) PAGE -->
+        <!-- ========================================== -->
+        <section id="page-artifact" class="page-container hidden md:pl-64 pt-16 min-h-screen flex flex-col bg-surface relative">
+            <!-- Inner Navigation Header -->
+            <header class="h-16 border-b border-primary flex justify-between items-center px-margin-mobile md:px-margin-desktop bg-surface sticky top-0 z-30">
+                <a class="flex items-center gap-2 font-label-technical text-label-technical text-primary hover:bg-primary hover:text-on-primary px-xs py-base transition-colors duration-200 border border-transparent hover:border-primary" href="#/index">
+                    <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+                    BACK TO INDEX
+                </a>
+                <div class="flex items-center gap-4">
+                    <div class="font-label-technical text-label-technical text-secondary hidden md:block mr-2" id="artifact-title-breadcrumb">
+                        VIEWING: ARTIFACT_XX
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button id="prev-artifact-btn" class="border border-primary bg-surface hover:bg-primary hover:text-on-primary px-3 py-1 font-label-technical text-[11px] flex items-center gap-1 transition-colors uppercase">
+                            <span class="material-symbols-outlined text-[14px]">arrow_back</span>
+                            PREV
+                        </button>
+                        <button id="next-artifact-btn" class="border border-primary bg-surface hover:bg-primary hover:text-on-primary px-3 py-1 font-label-technical text-[11px] flex items-center gap-1 transition-colors uppercase">
+                            NEXT
+                            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Canvas / Detail View -->
+            <main class="flex-grow p-margin-mobile md:p-margin-desktop flex flex-col relative z-10">
+                <!-- Framing Container -->
+                <div class="flex-grow border border-primary flex flex-col bg-surface-container-lowest hairline-grid relative">
+                    
+                    <!-- Top Frame Metadata -->
+                    <div class="p-sm flex flex-col md:flex-row justify-between items-start md:items-center font-label-technical text-label-technical uppercase tracking-widest bg-surface-container-lowest">
+                        <div class="flex items-center gap-4">
+                            <span class="bg-primary text-on-primary px-2 py-1 font-bold tracking-widest scramble-target" id="artifact-obj-id">OBJ_ID: XXXX-X</span>
+                            <span class="hidden md:inline text-secondary" id="artifact-classification">MEDIUM: SKETCH</span>
+                        </div>
+                        <div class="mt-2 md:mt-0 flex gap-4 text-secondary">
+                            <span>SECTOR: 04</span>
+                            <span id="detail-coords-tracker">COORD: X.00 Y.00 Z.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Middle Detail Section -->
+                    <div class="flex-grow flex flex-col lg:flex-row bg-surface-container-lowest">
+                        <!-- Left Metadata Column -->
+                        <div class="w-full lg:w-64 shrink-0 p-sm flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-primary bg-surface-container-lowest relative">
+                            <div class="flex flex-col gap-8">
+                                <div>
+                                    <h2 class="font-headline-md text-headline-md mb-xs" id="artifact-name">NULL VECTOR</h2>
+                                    <p class="font-label-technical text-label-technical text-secondary leading-relaxed" id="artifact-description">
+                                        A study in absolute presence through absence. Structural integrity maintained by tension points along the z-axis.
+                                    </p>
+                                </div>
+                                <div class="flex flex-col gap-2 font-label-technical text-label-technical">
+                                    <div class="flex justify-between border-b border-surface-dim pb-1 group">
+                                        <span class="text-secondary">STYLE</span>
+                                        <span class="group-hover:text-primary transition-colors" id="artifact-material">CARBON/SILICA</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-surface-dim pb-1 group">
+                                        <span class="text-secondary">SUBJECT</span>
+                                        <span class="group-hover:text-primary transition-colors scramble-target" id="artifact-mass">14.02 MT</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-surface-dim pb-1 group">
+                                        <span class="text-secondary">DIMENSIONS</span>
+                                        <span class="group-hover:text-primary transition-colors" id="artifact-resonance">0.004 Hz</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hidden lg:block">
+                                <span class="material-symbols-outlined text-[32px] text-primary opacity-20 hover:opacity-100 transition-opacity duration-500">fingerprint</span>
+                            </div>
+                        </div>
+
+                        <!-- Center Large Artwork Frame -->
+                        <div class="flex-grow relative p-4 md:p-xl flex items-center justify-center bg-surface overflow-hidden group">
+                            <!-- Subtle technical grid -->
+                            <div class="absolute inset-0 opacity-[0.06] pointer-events-none" style="background-image: linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px); background-size: 40px 40px;"></div>
+                            
+                            <div class="relative w-full max-w-2xl aspect-[4/5] md:aspect-video border border-primary bg-surface-container-lowest p-2 shadow-none transition-transform duration-500 group-hover:scale-[1.01]">
+                                <img id="artifact-image" class="blueprint-reveal w-full h-full object-cover" src="" alt="Specimen Graphic"/>
+                                <!-- Expanding Crosshair Corners on Hover -->
+                                <div class="absolute top-0 left-0 w-4 h-4 border-t border-l border-primary -translate-x-1/2 -translate-y-1/2 transition-all duration-300 group-hover:scale-150"></div>
+                                <div class="absolute top-0 right-0 w-4 h-4 border-t border-r border-primary translate-x-1/2 -translate-y-1/2 transition-all duration-300 group-hover:scale-150"></div>
+                                <div class="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-primary -translate-x-1/2 translate-y-1/2 transition-all duration-300 group-hover:scale-150"></div>
+                                <div class="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-primary translate-x-1/2 translate-y-1/2 transition-all duration-300 group-hover:scale-150"></div>
+                            </div>
+                        </div>
+
+                        <!-- Right Metadata Column -->
+                        <div class="w-full lg:w-64 shrink-0 p-sm flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-primary bg-surface-container-lowest">
+                            <div class="flex flex-col gap-6 font-label-technical text-label-technical">
+                                <div>
+                                    <span class="block text-secondary mb-1">DATE OF ORIGIN</span>
+                                    <span class="text-lg" id="artifact-date">2024.11.04</span>
+                                </div>
+                                <div>
+                                    <span class="block text-secondary mb-1">HASH VERIFICATION</span>
+                                    <span class="break-all text-[10px] leading-tight block h-8 overflow-hidden relative">
+                                        <span class="absolute inset-0 flex flex-col scramble-target" id="artifact-hash">
+                                            0x7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b
+                                        </span>
+                                    </span>
+                                </div>
+                                <div>
+                                    <span class="block text-secondary mb-1">STATUS</span>
+                                    <div class="inline-flex items-center gap-2 border border-primary px-2 py-1 bg-surface-container-lowest">
+                                        <div class="w-2 h-2 bg-primary rounded-full animate-pulse shadow-[0_0_4px_rgba(0,0,0,0.4)]"></div>
+                                        <span id="artifact-status">STABLE</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-8 lg:mt-0 relative overflow-hidden">
+                                <button id="acquire-btn" class="w-full border border-primary bg-surface text-primary hover:bg-primary hover:text-on-primary py-3 font-label-technical text-label-technical uppercase transition-colors flex justify-center items-center gap-2 relative z-10">
+                                    <span class="material-symbols-outlined text-[16px]">download</span>
+                                    ACQUIRE DATA
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Frame Log Console -->
+                    <div class="p-xs px-sm border-t border-primary flex justify-between items-center font-label-technical text-label-technical bg-surface-container-lowest text-secondary text-[10px]">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[12px] animate-pulse">terminal</span>
+                            <span id="console-log">SYSTEM.LOG // ARTIFACT READY FOR PARSE</span>
+                        </div>
+                        <div>
+                            LATENCY: <span id="console-latency">12ms</span>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 5. TRANSMISSION (CONTACT) PAGE -->
+        <!-- ========================================== -->
+        <section id="page-transmission" class="page-container hidden md:pl-64 pt-16 min-h-screen flex flex-col bg-surface-lowest relative technical-grid">
+            <div class="flex-1 flex items-center justify-center p-margin-mobile md:p-xl">
+                <div class="w-full max-w-2xl bg-surface-container-lowest border-2 border-primary flex flex-col relative overflow-hidden" id="transmission-box">
+                    
+                    <!-- Box Corner indicators -->
+                    <div class="absolute -top-3 -left-3 w-2 h-2 bg-primary z-20"></div>
+                    <div class="absolute -top-3 -right-3 w-2 h-2 bg-primary z-20"></div>
+                    <div class="absolute -bottom-3 -left-3 w-2 h-2 bg-primary z-20"></div>
+                    <div class="absolute -bottom-3 -right-3 w-2 h-2 bg-primary z-20"></div>
+
+                    <!-- Header -->
+                    <div class="border-b-2 border-primary p-md flex flex-col sm:flex-row sm:items-center justify-between gap-sm bg-surface-container-low relative z-10">
+                        <div>
+                            <h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg uppercase text-primary leading-none crt-flicker">Transmission</h1>
+                            <p class="font-label-technical text-label-technical text-secondary mt-2 uppercase tracking-widest">Establish Secure Link</p>
+                        </div>
+                        <div class="flex items-center gap-2 border border-primary px-3 py-1 bg-surface-container-lowest">
+                            <div class="w-2 h-2 bg-primary animate-pulse"></div>
+                            <span class="font-label-technical text-label-technical text-primary">SYS.READY</span>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <form class="flex flex-col p-md md:p-lg gap-lg relative z-10" id="transmission-form" onsubmit="event.preventDefault();">
+                        <div class="flex flex-col gap-xs group">
+                            <label class="font-label-technical text-label-technical text-primary flex items-center gap-2" for="identifier">
+                                IDENTIFIER
+                            </label>
+                            <div class="terminal-input-container">
+                                <input class="w-full bg-transparent border-b border-primary border-dashed focus:border-solid focus:ring-0 focus:outline-none font-label-technical text-label-technical text-primary py-2 px-0 placeholder:text-transparent transition-all terminal-input blinking-cursor" id="identifier" type="text" autocomplete="off"/>
+                                <span class="absolute left-5 font-label-technical text-label-technical text-secondary pointer-events-none opacity-70 blinking-cursor" id="identifier-placeholder">write down your email address</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-xs group">
+                            <label class="font-label-technical text-label-technical text-primary flex items-center gap-2" for="subject">
+                                SUBJECT
+                            </label>
+                            <div class="terminal-input-container">
+                                <input class="w-full bg-transparent border-b border-primary border-dashed focus:border-solid focus:ring-0 focus:outline-none font-label-technical text-label-technical text-primary py-2 px-0 placeholder:text-transparent transition-all terminal-input blinking-cursor" id="subject" type="text" autocomplete="off"/>
+                                <span class="absolute left-5 font-label-technical text-label-technical text-secondary pointer-events-none opacity-70 blinking-cursor" id="subject-placeholder">Define primary node parameter</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-xs group relative">
+                            <label class="font-label-technical text-label-technical text-primary flex items-center gap-2" for="payload">
+                                PAYLOAD
+                            </label>
+                            <div class="terminal-input-container items-start">
+                                <textarea class="w-full bg-surface-container-low border border-primary p-sm pl-5 focus:ring-0 focus:outline-none focus:bg-surface-container-lowest font-label-technical text-label-technical text-primary resize-none placeholder:text-transparent transition-colors mt-2 terminal-input blinking-cursor" id="payload" rows="6"></textarea>
+                                <span class="absolute left-5 top-4 font-label-technical text-label-technical text-secondary pointer-events-none opacity-70 blinking-cursor" id="payload-placeholder">Begin data stream...</span>
+                            </div>
+                            <div class="absolute bottom-2 right-2 font-label-technical text-label-small text-outline pointer-events-none">
+                                [EOF]
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Send Action Button -->
+                    <button class="w-full bg-primary text-on-primary py-md font-headline-md text-headline-md uppercase hover:bg-surface hover:text-primary transition-colors duration-300 border-t-2 border-primary flex items-center justify-center gap-sm group relative z-10" id="send-btn" type="button">
+                        SEND_SIGNAL
+                        <span class="material-symbols-outlined transform group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                    </button>
+
+                    <!-- Terminal Code Upload Animation Overlays -->
+                    <div class="data-dump-container" id="data-dump">
+                        <div class="data-dump-content" id="data-dump-text">
+                        </div>
+                    </div>
+                    
+                    <div class="absolute inset-0 bg-primary text-on-primary flex items-center justify-center flex-col z-20 opacity-0 pointer-events-none transition-opacity duration-300" id="transmission-complete">
+                        <h3 class="font-display-lg text-headline-lg uppercase tracking-tighter">TRANSMISSION COMPLETE</h3>
+                        <p class="font-label-technical text-label-technical mt-2 text-primary-fixed-dim">DATA PACKET SECURED & ROUTED</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Global Footer -->
+            <footer class="w-full flex justify-between items-center px-margin-mobile md:px-margin-desktop py-xs mt-auto border-t border-primary bg-surface z-20 relative">
+                <span class="font-label-technical text-label-technical font-bold text-primary uppercase">©2026 ANTHOLOGY.CORE</span>
+                <nav class="flex gap-sm">
+                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="#/greeting">LEGAL</a>
+                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="https://github.com" target="_blank">SOURCE</a>
+                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="#/">LOGOUT</a>
+                </nav>
+            </footer>
+        </section>
+
+        <!-- ---------------------------------------------------- -->
+        <!-- SECRET UPLOADER TERMINAL SECTION (Route: #/console) -->
+        <!-- ---------------------------------------------------- -->
+        <section id="page-console" class="page-container hidden flex-col w-full min-h-screen pt-24 pb-12 px-margin-mobile md:px-margin-desktop bg-surface-lowest relative overflow-hidden">
+            <div class="max-w-4xl mx-auto w-full border border-primary bg-surface flex flex-col relative z-10 md:my-auto my-xs">
+                
+                <!-- Terminal Header Bar -->
+                <div class="border-b border-primary p-xs flex justify-between items-center bg-surface-container-low select-none">
+                    <div class="flex items-center gap-xs">
+                        <span class="w-2 h-2 bg-primary animate-pulse"></span>
+                        <h2 class="font-headline-md text-headline-sm tracking-tight text-primary uppercase">[SYS.ADMIN.CONSOLE]</h2>
+                    </div>
+                    <span id="control-conn-status" class="font-label-technical text-label-technical text-secondary uppercase">[STATUS: DISCONNECTED]</span>
+                </div>
+
+                <div class="p-md flex flex-col md:grid md:grid-cols-12 md:gap-md">
+                    
+                    <!-- LEFT COLUMN: AUTH & METADATA -->
+                    <div class="md:col-span-7 flex flex-col space-y-md">
+                        
+                        <!-- 1. AUTHENTICATE NODE -->
+                        <div class="border border-primary p-sm bg-surface-container-lowest">
+                            <h3 class="font-label-technical text-label-technical text-primary font-bold border-b border-primary pb-base mb-xs flex items-center gap-xs">
+                                <span class="material-symbols-outlined text-[14px]">key</span>
+                                01_AUTHENTICATE_NODE
+                            </h3>
+                            <div class="space-y-sm mt-sm">
+                                <div class="flex flex-col gap-base">
+                                    <label class="font-label-technical text-[10px] text-secondary" for="ctrl-github-token">GITHUB PERSONAL ACCESS TOKEN</label>
+                                    <input type="password" id="ctrl-github-token" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="ghp_************************************" />
+                                </div>
+                                <div class="grid grid-cols-2 gap-sm">
+                                    <div class="flex flex-col gap-base">
+                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-github-owner">OWNER (USERNAME)</label>
+                                        <input type="text" id="ctrl-github-owner" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="e.g. username" />
+                                    </div>
+                                    <div class="flex flex-col gap-base">
+                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-github-repo">REPOSITORY NAME</label>
+                                        <input type="text" id="ctrl-github-repo" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="e.g. anthology-archive" />
+                                    </div>
+                                </div>
+                                <button id="btn-save-auth" class="w-full bg-primary text-on-primary py-xs font-label-technical text-label-technical uppercase border border-primary hover:bg-surface hover:text-primary transition-colors mt-2" type="button">
+                                    SAVE CREDENTIALS LOCALLY
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 2. SPECIMEN METADATA -->
+                        <div class="border border-primary p-sm bg-surface-container-lowest">
+                            <h3 class="font-label-technical text-label-technical text-primary font-bold border-b border-primary pb-base mb-xs flex items-center gap-xs">
+                                <span class="material-symbols-outlined text-[14px]">edit</span>
+                                02_SPECIMEN_METADATA
+                            </h3>
+                            <div class="space-y-sm mt-sm">
+                                <div class="grid grid-cols-2 gap-sm">
+                                    <div class="flex flex-col gap-base">
+                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-title">SPECIMEN TITLE</label>
+                                        <input type="text" id="ctrl-title" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="e.g. Void Horizon" />
+                                    </div>
+                                    <div class="flex flex-col gap-base">
+                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-classification">MEDIUM</label>
+                                        <input type="text" id="ctrl-classification" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="e.g. Manga Ink, Pencil Sketch" />
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-3 gap-sm">
+                                    <div class="flex flex-col gap-base">
+                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-material">STYLE</label>
+                                        <input type="text" id="ctrl-material" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="e.g. Cross-hatching, Cell Shading" />
+                                    </div>
+                                    <div class="flex flex-col gap-base">
+                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-mass">SUBJECT</label>
+                                        <input type="text" id="ctrl-mass" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="e.g. Character Anatomy, Animal, Scenery" />
+                                    </div>
+                                    <div class="flex flex-col gap-base">
+                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-resonance">DIMENSIONS</label>
+                                        <input type="text" id="ctrl-resonance" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="e.g. A4 Paper, 4000x5000px" />
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-sm">
+                                    <div class="flex flex-col gap-base">
+                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-coord-x">COORD X (00.0 - 99.9)</label>
+                                        <input type="text" id="ctrl-coord-x" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="32.8" />
+                                    </div>
+                                    <div class="flex flex-col gap-base">
+                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-coord-y">COORD Y (00.0 - 99.9)</label>
+                                        <input type="text" id="ctrl-coord-y" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="77.1" />
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col gap-base">
+                                    <label class="font-label-technical text-[10px] text-secondary" for="ctrl-description">DESCRIPTION</label>
+                                    <textarea id="ctrl-description" rows="3" class="w-full bg-surface border border-primary p-xs font-label-technical text-label-technical text-primary focus:outline-none resize-none" placeholder="Enter detailed specimen narrative..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT COLUMN: IMAGE PAYLOAD & TELEMETRY -->
+                    <div class="md:col-span-5 flex flex-col space-y-md mt-md md:mt-0">
+                        
+                        <!-- 3. DATA PAYLOAD (IMAGE SELECT) -->
+                        <div class="border border-primary p-sm bg-surface-container-lowest flex flex-col flex-grow">
+                            <h3 class="font-label-technical text-label-technical text-primary font-bold border-b border-primary pb-base mb-xs flex items-center gap-xs">
+                                <span class="material-symbols-outlined text-[14px]">image</span>
+                                03_DATA_PAYLOAD
+                            </h3>
+                            
+                            <!-- Blueprint Style Preview Box -->
+                            <div class="relative w-full aspect-square border border-dashed border-primary bg-surface overflow-hidden flex flex-col items-center justify-center p-sm mt-sm" id="ctrl-preview-container">
+                                <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(93,95,95,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(93,95,95,0.05)_1px,transparent_1px)] bg-[size:10px_10px] pointer-events-none"></div>
+                                
+                                <img id="ctrl-preview-img" src="" class="hidden w-full h-full object-contain z-10" />
+                                
+                                <div id="ctrl-preview-placeholder" class="text-center flex flex-col items-center gap-xs select-none">
+                                    <span class="material-symbols-outlined text-[48px] text-outline text-flicker">add_photo_alternate</span>
+                                    <span class="font-label-technical text-[10px] text-secondary uppercase">DRAG_DROP // SELECT SPECIMEN PHOTO</span>
+                                </div>
+                                <input type="file" id="ctrl-file-input" class="absolute inset-0 opacity-0 cursor-pointer z-20" accept="image/*" />
+                            </div>
+
+                            <!-- Image File Data Details -->
+                            <div class="mt-sm space-y-base font-label-technical text-[10px] text-secondary border-t border-primary pt-xs">
+                                <div>FILE_NAME: <span id="ctrl-file-name" class="text-primary">-</span></div>
+                                <div>FILE_SIZE: <span id="ctrl-file-size" class="text-primary">-</span></div>
+                                <div>RESOLUTION: <span id="ctrl-file-res" class="text-primary">-</span></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- BOTTOM LOGGER CONSOLE -->
+                <div class="border-t border-primary p-sm bg-surface-container-lowest">
+                    <h3 class="font-label-technical text-label-technical text-primary font-bold mb-xs">
+                        TELEMETRY OUTPUT LOG
+                    </h3>
+                    <div id="ctrl-log-console" class="w-full h-24 bg-black text-[#00ff00] p-xs font-label-technical text-[10px] overflow-y-auto space-y-1 select-text">
+                        <div>> STANDBY FOR ARCHIVE INJECTION...</div>
+                        <div>> WAITING FOR AUTHENTICATION TOKEN...</div>
+                    </div>
+                </div>
+
+                <!-- TRANSMIT SUBMIT BUTTON -->
+                <button class="w-full bg-primary text-on-primary py-md font-headline-md text-headline-md uppercase hover:bg-surface hover:text-primary transition-colors duration-300 border-t-2 border-primary flex items-center justify-center gap-sm group relative z-10" id="btn-transmit-specimen" type="button">
+                    TRANSMIT_TO_MAIN_ARCHIVE_CORE
+                    <span class="material-symbols-outlined transform group-hover:translate-x-2 transition-transform">send</span>
+                </button>
+
+            </div>
+
+            <!-- Global Footer -->
+            <footer class="w-full flex justify-between items-center px-margin-mobile md:px-margin-desktop py-xs mt-auto border-t border-primary bg-surface z-20 relative">
+                <span class="font-label-technical text-label-technical font-bold text-primary uppercase">©2026 ANTHOLOGY.CORE</span>
+                <nav class="flex gap-sm">
+                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="#/greeting">LEGAL</a>
+                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="https://github.com" target="_blank">SOURCE</a>
+                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="#/">LOGOUT</a>
+                </nav>
+            </footer>
+        </section>
+
+    </main>
+
+    <!-- ---------------------------------------------------- -->
+    <!-- JAVASCRIPT SYSTEM & SPA ROUTER -->
+    <!-- ---------------------------------------------------- -->
+    <script>
+        // ==========================================
+        // 1. DATA REPOSITORY (THE PORTFOLIO SPECIMENS)
+        // ==========================================
+        let specimens = [];
+
+        // Currently selected specimen in detail view
+        let selectedSpecimen = null;
+
+        // ==========================================
+        // 2. AUDIO SYNTHESIZER SYSTEM (Web Audio API)
+        // ==========================================
+        let audioCtx = null;
+        let isMuted = true;
+        let ambientDrone = null;
+
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        // Programmatic Mechanical click sound (Short highpass white noise + pitch sweep)
+        function playTickSound(type = 'click') {
+            if (isMuted) return;
+            initAudioContext();
+            
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            if (type === 'click') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(1500, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.0, audioCtx.currentTime + 0.08);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.08);
+            } else if (type === 'hover') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(1000, audioCtx.currentTime + 0.02);
+                gain.gain.setValueAtTime(0.015, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.0, audioCtx.currentTime + 0.04);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.04);
+            } else if (type === 'glitch') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(120, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(80, audioCtx.currentTime + 0.05);
+                gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.0, audioCtx.currentTime + 0.12);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.12);
+            }
+        }
+
+        // Programmatic low ambient server hum loop
+        function startAmbientDrone() {
+            if (isMuted) {
+                stopAmbientDrone();
+                return;
+            }
+            initAudioContext();
+            
+            if (ambientDrone) return;
+
+            const osc1 = audioCtx.createOscillator();
+            const osc2 = audioCtx.createOscillator();
+            const lowpass = audioCtx.createBiquadFilter();
+            const gain = audioCtx.createGain();
+
+            osc1.type = 'sawtooth';
+            osc1.frequency.value = 55; // A1 note
+            
+            osc2.type = 'sine';
+            osc2.frequency.value = 55.5; // detuned
+
+            lowpass.type = 'lowpass';
+            lowpass.frequency.value = 120;
+            lowpass.Q.value = 4;
+
+            gain.gain.value = 0.15;
+
+            osc1.connect(lowpass);
+            osc2.connect(lowpass);
+            lowpass.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc1.start();
+            osc2.start();
+
+            // Store nodes to stop later
+            ambientDrone = {
+                osc1,
+                osc2,
+                gain
+            };
+        }
+
+        function stopAmbientDrone() {
+            if (ambientDrone) {
+                try {
+                    ambientDrone.osc1.stop();
+                    ambientDrone.osc2.stop();
+                } catch(e) {}
+                ambientDrone = null;
+            }
+        }
+
+        // Bind Audio Toggle Action
+        document.getElementById('audio-toggle').addEventListener('click', () => {
+            isMuted = !isMuted;
+            const btn = document.getElementById('audio-toggle');
+            if (isMuted) {
+                btn.innerHTML = `<span class="material-symbols-outlined text-[18px]">volume_off</span><span class="font-label-technical text-[10px] hidden sm:inline">AUDIO: OFF</span>`;
+                stopAmbientDrone();
+            } else {
+                btn.innerHTML = `<span class="material-symbols-outlined text-[18px]">volume_up</span><span class="font-label-technical text-[10px] hidden sm:inline">AUDIO: ON</span>`;
+                initAudioContext();
+                startAmbientDrone();
+                playTickSound('glitch');
+            }
+        });
+
+        // Add Hover Audio blips to all interactive items
+        function bindHoverAudio(selector) {
+            document.querySelectorAll(selector).forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    playTickSound('hover');
+                    document.getElementById('custom-cursor').classList.add('hovering');
+                });
+                el.addEventListener('mouseleave', () => {
+                    document.getElementById('custom-cursor').classList.remove('hovering');
+                });
+                el.addEventListener('click', () => {
+                    playTickSound('click');
+                });
+            });
+        }
+
+
+        // ==========================================
+        // 3. SPA DYNAMIC ROUTER
+        // ==========================================
+        const routes = {
+            '/': 'page-initialization',
+            '/greeting': 'page-greeting',
+            '/index': 'page-index',
+            '/artifact': 'page-artifact',
+            '/transmission': 'page-transmission',
+            '/console': 'page-console'
+        };
+
+        function triggerScanlineEffect(callback) {
+            const scanLine = document.getElementById('scan-line');
+            scanLine.classList.remove('scan-active');
+            void scanLine.offsetWidth; // Trigger reflow
+            scanLine.classList.add('scan-active');
+            playTickSound('glitch');
+            
+            setTimeout(callback, 500); // Route change half-way through scan
+        }
+
+        function navigateToHash() {
+            let hash = window.location.hash || '#/';
+            
+            // Parse artifact parameter id
+            let pageId = routes[hash.replace('#', '')];
+            let artifactId = null;
+
+            if (hash.startsWith('#/artifact/')) {
+                pageId = 'page-artifact';
+                artifactId = hash.replace('#/artifact/', '');
+            }
+
+            if (!pageId) {
+                pageId = 'page-initialization';
+            }
+
+            // Global layout updates based on active screen
+            const header = document.getElementById('global-header');
+            const sidebar = document.getElementById('global-sidebar');
+            const body = document.body;
+
+            if (pageId === 'page-initialization') {
+                header.classList.remove('md:flex');
+                header.classList.add('hidden');
+                sidebar.classList.remove('md:flex');
+                sidebar.classList.add('hidden');
+                body.classList.remove('pl-64');
+            } else {
+                header.classList.remove('hidden');
+                header.classList.add('md:flex', 'flex');
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('md:flex', 'flex');
+            }
+
+            // Toggle page containers by applying/removing hidden class
+            document.querySelectorAll('.page-container').forEach(container => {
+                container.classList.add('hidden');
+            });
+            document.getElementById(pageId).classList.remove('hidden');
+            
+            // Auto scroll page to top
+            window.scrollTo({ top: 0, behavior: 'instant' });
+
+            // Render details if Artifact detail route is selected
+            if (pageId === 'page-artifact') {
+                if (artifactId) {
+                    const foundSpecimen = specimens.find(s => s.id === artifactId);
+                    if (foundSpecimen) {
+                        selectedSpecimen = foundSpecimen;
+                    }
+                } else {
+                    // Default to latest specimen if clicked directly
+                    selectedSpecimen = specimens[0];
+                }
+                renderArtifactDetails();
+            }
+
+            // Sync navigation active indicator styling
+            syncNavStates(hash);
+
+            // Re-bind click / hover sounds for newly active items
+            bindHoverAudio('a, button, input, textarea, select, .interactive-card');
+        }
+
+        function syncNavStates(hash) {
+            // Reset active states
+            const resetNav = (el) => {
+                if (el) {
+                    el.className = "flex items-center gap-xs font-label-technical text-label-technical text-primary opacity-60 px-xs py-2 hover:border-l-4 hover:border-primary transition-all group";
+                    const icon = el.querySelector('.material-symbols-outlined');
+                    if (icon) icon.className = "material-symbols-outlined text-[18px] opacity-0 group-hover:opacity-100 transition-opacity";
+                }
+            };
+
+            const setActiveNav = (el, activeIcon) => {
+                if (el) {
+                    el.className = "flex items-center gap-xs font-label-technical text-label-technical text-on-primary bg-primary px-xs py-2 translate-x-1 transition-transform border border-primary";
+                    const icon = el.querySelector('.material-symbols-outlined');
+                    if (icon) {
+                        icon.className = "material-symbols-outlined text-[18px]";
+                        icon.style.fontVariationSettings = "'FILL' 1";
+                        icon.textContent = activeIcon;
+                    }
+                }
+            };
+
+            const greetingSide = document.getElementById('sidebar-greeting');
+            const indexSide = document.getElementById('sidebar-index');
+            const artifactSide = document.getElementById('sidebar-artifact');
+            const transmissionSide = document.getElementById('sidebar-transmission');
+            const indexHeader = document.getElementById('nav-index-link');
+            const transHeader = document.getElementById('nav-transmission-link');
+
+            // Reset all
+            resetNav(greetingSide);
+            resetNav(indexSide);
+            resetNav(artifactSide);
+            resetNav(transmissionSide);
+            
+            if (indexHeader) {
+                indexHeader.className = "h-full flex items-center font-label-technical text-label-technical text-secondary hover:bg-primary hover:text-on-primary transition-colors duration-200 px-sm uppercase";
+            }
+            if (transHeader) {
+                transHeader.className = "h-full flex items-center font-label-technical text-label-technical text-secondary hover:bg-primary hover:text-on-primary transition-colors duration-200 px-sm uppercase";
+            }
+
+
+
+            // Match hash to activate navbar
+            if (hash.startsWith('#/index')) {
+                setActiveNav(indexSide, 'list');
+                if (indexHeader) indexHeader.className = "h-full flex items-center font-label-technical text-label-technical border-b-2 border-primary scale-95 transition-transform uppercase px-sm";
+            } else if (hash.startsWith('#/artifact')) {
+                setActiveNav(artifactSide, 'database');
+            } else if (hash.startsWith('#/transmission')) {
+                setActiveNav(transmissionSide, 'sensors');
+                if (transHeader) transHeader.className = "h-full flex items-center font-label-technical text-label-technical border-b-2 border-primary scale-95 transition-transform uppercase px-sm";
+            } else if (hash.startsWith('#/greeting')) {
+                setActiveNav(greetingSide, 'arrow_outward');
+            }
+        }
+
+        // Router triggers on hash changes or initial page load
+        window.addEventListener('hashchange', () => {
+            triggerScanlineEffect(() => {
+                navigateToHash();
+                scramblePageText();
+            });
+        });
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await fetch('specimens.json');
+                specimens = await res.json();
+            } catch (err) {
+                console.error("Failed to load specimens:", err);
+            }
+            renderIndexGrid();
+            // Always boot at initialization sequence on page reload/load
+            window.location.hash = '#/';
+            navigateToHash();
+            updateClock();
+        });
+
+
+        // ==========================================
+        // 4. THE INDEX CARD GRID RENDERING
+        // ==========================================
+        function renderIndexGrid() {
+            const container = document.getElementById('archives-grid');
+            container.innerHTML = '';
+
+            specimens.forEach(s => {
+                const article = document.createElement('article');
+                article.className = `${s.colSpan} flex flex-col group parallax-item interactive-card`;
+                article.setAttribute('data-speed', s.speed);
+                article.style.cursor = 'none';
+                
+                article.innerHTML = `
+                    <a href="#/artifact/${s.id}" class="block w-full">
+                        <div class="flex items-center w-full mb-xs">
+                            <span class="font-label-technical text-label-technical bg-primary text-on-primary px-xs py-base">${s.id}</span>
+                            <div class="h-[1px] bg-primary flex-grow ml-xs"></div>
+                        </div>
+                        <div class="border border-primary p-xs bg-surface relative overflow-hidden">
+                            <div class="bounding-box"></div>
+                            <img alt="${s.title}" class="w-full ${s.aspectRatio} object-cover grayscale-contrast block" src="${s.imgUrl}"/>
+                        </div>
+                        <div class="mt-sm border-t border-primary pt-xs flex justify-between items-start">
+                            <h3 class="font-headline-md text-headline-md uppercase leading-none">${s.title}</h3>
+                            <span class="font-label-technical text-label-technical text-right coord-label text-flicker">COORD_X: ${s.coordinates.x}<br/>COORD_Y: ${s.coordinates.y}</span>
+                        </div>
+                    </a>
+                `;
+                container.appendChild(article);
+            });
+        }
+
+        // Parallax Effect for Index Grid Items
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let targetScrollY = window.scrollY, currentScrollY = window.scrollY;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        window.addEventListener('scroll', () => {
+            targetScrollY = window.scrollY;
+        });
+
+        function animateParallax() {
+            currentScrollY += (targetScrollY - currentScrollY) * 0.1;
+            const cx = window.innerWidth / 2;
+            const cy = window.innerHeight / 2;
+            const dx = mouseX - cx;
+            const dy = mouseY - cy;
+
+            document.querySelectorAll('.parallax-item').forEach(item => {
+                const speed = parseFloat(item.getAttribute('data-speed')) || 0;
+                const yOffset = currentScrollY * speed * -1.5;
+                const xMouseOffset = dx * speed * 0.25;
+                const yMouseOffset = dy * speed * 0.25;
+                
+                item.style.transform = `translate3d(${xMouseOffset}px, ${yOffset + yMouseOffset}px, 0)`;
+            });
+            
+            requestAnimationFrame(animateParallax);
+        }
+        animateParallax();
+
+
+        // ==========================================
+        // 5. THE ARTIFACT DETAILS INJECTOR
+        // ==========================================
+        function renderArtifactDetails() {
+            document.getElementById('artifact-title-breadcrumb').textContent = `VIEWING: ${selectedSpecimen.id}`;
+            document.getElementById('artifact-obj-id').textContent = `OBJ_ID: ${selectedSpecimen.objId}`;
+            document.getElementById('artifact-classification').textContent = `MEDIUM: ${selectedSpecimen.classification}`;
+            document.getElementById('artifact-name').textContent = selectedSpecimen.title;
+            document.getElementById('artifact-description').textContent = selectedSpecimen.description;
+            document.getElementById('artifact-material').textContent = selectedSpecimen.material;
+            document.getElementById('artifact-mass').textContent = selectedSpecimen.mass;
+            document.getElementById('artifact-resonance').textContent = selectedSpecimen.resonance;
+            document.getElementById('artifact-date').textContent = selectedSpecimen.originDate;
+            document.getElementById('artifact-status').textContent = selectedSpecimen.status;
+            
+            // Random hash generator
+            document.getElementById('artifact-hash').textContent = '0x' + Array.from({length: 64}, () => Math.floor(Math.random()*16).toString(16)).join('');
+
+            const img = document.getElementById('artifact-image');
+            img.src = selectedSpecimen.imgUrl;
+            img.classList.remove('blueprint-reveal');
+            void img.offsetWidth; // Trigger reflow
+            img.classList.add('blueprint-reveal');
+
+            // Reset the console log message
+            document.getElementById('console-log').innerHTML = `<span class="data-stream-inline">SYSTEM.LOG // ARTIFACT LOADED SUCCESSFUL [${selectedSpecimen.id}]</span>`;
+        }
+
+        // Interactive "ACQUIRE DATA" log console download sequence simulation
+        const acquireBtn = document.getElementById('acquire-btn');
+        let downloading = false;
+
+        acquireBtn.addEventListener('click', () => {
+            if (downloading) return;
+            downloading = true;
+            
+            const consoleLog = document.getElementById('console-log');
+            const steps = [
+                "SYSTEM.LOG // INITIATING RETRIEVAL SIGNAL...",
+                "SYSTEM.LOG // REQUESTING SECURE DECRYPTION...",
+                "SYSTEM.LOG // DOWNLOADING RAW VECTOR STREAM...",
+                "SYSTEM.LOG // ASSEMBLING PACKET SEGMENTS...",
+                "SYSTEM.LOG // VERIFYING ARCHIVE CHECKSUM...",
+                `SYSTEM.LOG // COMPLETE: SPECIMEN DATA SAVED [${selectedSpecimen.objId}.DAT]`
+            ];
+
+            let step = 0;
+            const logInterval = setInterval(() => {
+                consoleLog.textContent = steps[step];
+                playTickSound('click');
+                document.getElementById('console-latency').textContent = `${Math.floor(Math.random()*12 + 4)}ms`;
+                step++;
+                if (step >= steps.length) {
+                    clearInterval(logInterval);
+                    downloading = false;
+                    
+                    // Simple trigger browser download for the raw image URL
+                    const a = document.createElement('a');
+                    a.href = selectedSpecimen.imgUrl;
+                    a.download = `${selectedSpecimen.title.toLowerCase().replace(' ', '_')}.jpg`;
+                    a.target = '_blank';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+            }, 600);
+        });
+
+
+        // ==========================================
+        // 6. TRANSMISSION FORM & TERMINAL UPLOAD ANIMATION
+        // ==========================================
+        const inputs = ['identifier', 'subject', 'payload'];
+        inputs.forEach(id => {
+            const input = document.getElementById(id);
+            const placeholder = document.getElementById(`${id}-placeholder`);
+            
+            input.addEventListener('input', () => {
+                if (input.value.length > 0) {
+                    placeholder.style.display = 'none';
+                    input.classList.remove('blinking-cursor');
+                } else {
+                    placeholder.style.display = 'block';
+                    input.classList.add('blinking-cursor');
+                }
+            });
+
+            input.addEventListener('focus', () => {
+                if (input.value.length === 0) {
+                    placeholder.style.opacity = '0.8';
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                if (input.value.length === 0) {
+                    placeholder.style.opacity = '0.5';
+                }
+            });
+        });
+
+        // Sending Contact Form Animation Logic
+        const sendBtn = document.getElementById('send-btn');
+        const dataDump = document.getElementById('data-dump');
+        const dataDumpText = document.getElementById('data-dump-text');
+        const transmissionComplete = document.getElementById('transmission-complete');
+        const transmissionForm = document.getElementById('transmission-form');
+
+        sendBtn.addEventListener('click', () => {
+            const identVal = document.getElementById('identifier').value || 'GUEST_RELAY';
+            const subVal = document.getElementById('subject').value || 'EMPTY_NODE';
+            const payloadVal = document.getElementById('payload').value || 'NO_DATA';
+
+            // Generate diagnostic logs for terminal sequence
+            dataDumpText.innerHTML = `
+01010111 01100001 01101011 01100101 00100000 01110101 01110000 
+INITIATING SECURE HANDSHAKE...
+ESTABLISHING CONNECTION PROTOCOL...
+SENDER: ${identVal.toUpperCase()}
+SUBJECT: ${subVal.toUpperCase()}
+STREAM_LENGTH: ${payloadVal.length} BYTES
+
+[################################] 100%
+UPLOADING PAYLOAD SEGMENTS...
+FRAG_01 (HEADER): OK
+FRAG_02 (PAYLOAD): OK
+CHECKSUM VERIFICATION: 0x${Math.floor(Math.random()*16777215).toString(16).toUpperCase()}
+TRANSMITTING PACKET DATA STREAM...
+${Array.from({length: 4}, () => '0x' + Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('')).join('\n')}
+
+DATA TRANSMISSION SUCCESSFUL.
+CLOSING RELAY CONNECTION.
+            `;
+
+            dataDump.style.display = 'block';
+            transmissionForm.style.opacity = '0.05';
+            sendBtn.style.opacity = '0.05';
+            playTickSound('glitch');
+
+            setTimeout(() => {
+                dataDump.style.display = 'none';
+                transmissionComplete.classList.remove('opacity-0', 'pointer-events-none');
+                playTickSound('glitch');
+                
+                setTimeout(() => {
+                    transmissionComplete.classList.add('opacity-0', 'pointer-events-none');
+                    transmissionForm.style.opacity = '1';
+                    sendBtn.style.opacity = '1';
+                    
+                    // Reset inputs
+                    inputs.forEach(id => {
+                        const input = document.getElementById(id);
+                        input.value = '';
+                        const placeholder = document.getElementById(`${id}-placeholder`);
+                        placeholder.style.display = 'block';
+                        input.classList.add('blinking-cursor');
+                    });
+                    
+                    // Redirect back to Index dashboard
+                    window.location.hash = '#/index';
+                }, 2000);
+            }, 2600);
+        });
+
+
+        // ==========================================
+        // 7. AMBIENT GLOBAL INTERACTION & CLOCK
+        // ==========================================
+        const cursorNode = document.getElementById('custom-cursor');
+        const coordsDisplay = document.getElementById('cursor-coords');
+        const detailCoords = document.getElementById('detail-coords-tracker');
+
+        let lastCoordsUpdate = 0;
+
+        function updateCursorAndCoords(timestamp) {
+            // Position cursor with GPU-accelerated translate3d to prevent layout recalculation
+            if (cursorNode) {
+                cursorNode.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+            }
+
+            // Throttle string mutations to 20 updates per second, avoiding heavy reflow overhead
+            if (timestamp - lastCoordsUpdate > 50) {
+                if (coordsDisplay) {
+                    coordsDisplay.textContent = `X:${String(Math.round(mouseX)).padStart(4, '0')} Y:${String(Math.round(mouseY)).padStart(4, '0')}`;
+                }
+                if (detailCoords) {
+                    const xVal = (mouseX / window.innerWidth).toFixed(3).substring(1);
+                    const yVal = (mouseY / window.innerHeight).toFixed(3).substring(1);
+                    detailCoords.textContent = `COORD: X${xVal} Y${yVal} Z.00`;
+                }
+                lastCoordsUpdate = timestamp;
+            }
+
+            requestAnimationFrame(updateCursorAndCoords);
+        }
+        requestAnimationFrame(updateCursorAndCoords);
+
+        // Global ticking clocks
+        function updateClock() {
+            const now = new Date();
+            const timeString = 
+                String(now.getUTCHours()).padStart(2, '0') + ':' + 
+                String(now.getUTCMinutes()).padStart(2, '0') + ':' + 
+                String(now.getUTCSeconds()).padStart(2, '0');
+            
+            const milliseconds = String(Math.floor(now.getMilliseconds() / 10)).padStart(2, '0');
+
+            const initClock = document.getElementById('init-clock');
+            if (initClock) {
+                initClock.textContent = timeString + ':' + milliseconds;
+            }
+            
+            const sidebarTime = document.getElementById('sidebar-time');
+            if (sidebarTime) {
+                sidebarTime.textContent = timeString;
+            }
+
+            requestAnimationFrame(updateClock);
+        }
+
+        // High-Performance Noise Overlay (GPU-accelerated pre-rendered noise frames)
+        const canvas = document.getElementById('noise-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
+            window.addEventListener('resize', resize);
+            resize();
+
+            // Pre-render 6 frames of noise onto 128x128 canvases
+            const noiseFrames = [];
+            for (let f = 0; f < 6; f++) {
+                const offCanvas = document.createElement('canvas');
+                offCanvas.width = 128;
+                offCanvas.height = 128;
+                const offCtx = offCanvas.getContext('2d');
+                const idata = offCtx.createImageData(128, 128);
+                const buffer32 = new Uint32Array(idata.data.buffer);
+                for (let i = 0; i < buffer32.length; i++) {
+                    if (Math.random() < 0.5) buffer32[i] = 0xff000000;
+                }
+                offCtx.putImageData(idata, 0, 0);
+                noiseFrames.push(offCanvas);
+            }
+
+            let lastNoiseFrameTime = 0;
+            const renderNoise = (timestamp) => {
+                // Throttle static grain update to 20fps for organic retro look & low GPU usage
+                if (timestamp - lastNoiseFrameTime > 50) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    const randomFrame = noiseFrames[Math.floor(Math.random() * noiseFrames.length)];
+                    const pattern = ctx.createPattern(randomFrame, 'repeat');
+                    ctx.fillStyle = pattern;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    lastNoiseFrameTime = timestamp;
+                }
+                requestAnimationFrame(renderNoise);
+            };
+            requestAnimationFrame(renderNoise);
+        }
+
+        // ==========================================
+        // 8. TEXT SCRAMBLING & GLITCH INJECTIONS
+        // ==========================================
+        const scrambleChars = '0123456789!@#$%^&*()_+{}|:<>?~';
+
+        function scrambleElementText(element, iterations = 8) {
+            const originalText = element.getAttribute('data-original') || element.textContent;
+            if (!element.hasAttribute('data-original')) {
+                element.setAttribute('data-original', originalText);
+            }
+            
+            let currentIteration = 0;
+            const interval = setInterval(() => {
+                element.textContent = originalText.split('').map((char, index) => {
+                    if (char === ' ' || char === '\n') return char;
+                    if (currentIteration > index + iterations / 2) return originalText[index];
+                    return scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+                }).join('');
+                
+                if (currentIteration >= originalText.length + iterations) {
+                    clearInterval(interval);
+                    element.textContent = originalText;
+                }
+                currentIteration++;
+            }, 25);
+        }
+
+        function scramblePageText() {
+            document.querySelectorAll('.scramble-target').forEach(el => {
+                scrambleElementText(el);
+            });
+        }
+
+        // Random organic text scramble to mimic unstable system state
+        setInterval(() => {
+            const elements = document.querySelectorAll('.scramble-target');
+            if (elements.length > 0 && Math.random() > 0.8) {
+                const randomEl = elements[Math.floor(Math.random() * elements.length)];
+                scrambleElementText(randomEl, 4);
+            }
+        }, 3000);
+
+
+        // ==========================================
+        // 9. INITIALIZATION LAUNCH BUTTON INTERACTION
+        // ==========================================
+        function initiateSystemSequence() {
+            const btn = document.getElementById('init-btn');
+            const scanLine = document.getElementById('scan-line');
+            const scrambleElements = document.querySelectorAll('#init-box .scramble-target');
+            const progressBar = btn.querySelector('.progress-bar');
+            
+            btn.style.pointerEvents = 'none';
+            btn.querySelector('span.relative').innerHTML = `CONNECTING PORTAL...`;
+            
+            progressBar.style.width = '100%';
+            
+            // Play mechanical loading ticks
+            let count = 0;
+            const ticks = setInterval(() => {
+                playTickSound('click');
+                count++;
+                if (count > 5) clearInterval(ticks);
+            }, 200);
+
+            scanLine.classList.add('scan-active');
+            
+            setTimeout(() => {
+                scrambleElements.forEach(el => scrambleElementText(el));
+                document.getElementById('init-box').classList.add('glitch-box', 'active');
+                playTickSound('glitch');
+            }, 300);
+            
+            setTimeout(() => {
+                document.getElementById('init-box').classList.remove('glitch-box', 'active');
+                window.location.hash = '#/greeting';
+            }, 1400);
+        }
+
+        // Next/Prev Artifact Navigation
+        const prevBtn = document.getElementById('prev-artifact-btn');
+        const nextBtn = document.getElementById('next-artifact-btn');
+
+        function navigateArtifact(direction) {
+            if (!selectedSpecimen) return;
+            const currentIndex = specimens.findIndex(s => s.id === selectedSpecimen.id);
+            if (currentIndex === -1) return;
+
+            let newIndex;
+            if (direction === 'next') {
+                newIndex = (currentIndex + 1) % specimens.length;
+            } else {
+                newIndex = (currentIndex - 1 + specimens.length) % specimens.length;
+            }
+
+            window.location.hash = `#/artifact/${specimens[newIndex].id}`;
+        }
+
+        if (prevBtn) prevBtn.addEventListener('click', () => navigateArtifact('prev'));
+        if (nextBtn) nextBtn.addEventListener('click', () => navigateArtifact('next'));
+
+        // Scroll detection to transition from Greeting to Index
+        let transitioningGreeting = false;
+        
+        function handleGreetingScroll(e) {
+            if (window.location.hash !== '#/greeting' || transitioningGreeting) return;
+            
+            const delta = e.deltaY;
+            if (delta && delta > 20) {
+                transitioningGreeting = true;
+                triggerScanlineEffect(() => {
+                    window.location.hash = '#/index';
+                    transitioningGreeting = false;
+                });
+            }
+        }
+        
+        window.addEventListener('wheel', handleGreetingScroll);
+        
+        // Touch handling for mobile scroll gesture
+        let touchStart = 0;
+        window.addEventListener('touchstart', (e) => {
+            if (window.location.hash === '#/greeting') {
+                touchStart = e.touches[0].clientY;
+            }
+        });
+        window.addEventListener('touchmove', (e) => {
+            if (window.location.hash === '#/greeting' && touchStart > 0 && !transitioningGreeting) {
+                const touchEnd = e.touches[0].clientY;
+                const diff = touchStart - touchEnd;
+                if (diff > 50) {
+                    transitioningGreeting = true;
+                    touchStart = 0;
+                    triggerScanlineEffect(() => {
+                        window.location.hash = '#/index';
+                        transitioningGreeting = false;
+                    });
+                }
+            }
+        });
+
+        // ==========================================
+        // 10. SYSTEM ADMIN CONSOLE & GITHUB UPLOADER
+        // ==========================================
+        const ctrlLogConsole = document.getElementById('ctrl-log-console');
+        function logCtrl(msg) {
+            if (ctrlLogConsole) {
+                const line = document.createElement('div');
+                line.textContent = `> ${msg}`;
+                ctrlLogConsole.appendChild(line);
+                ctrlLogConsole.scrollTop = ctrlLogConsole.scrollHeight;
+            }
+        }
+
+        // Credentials Local Storage handling
+        function loadCtrlCredentials() {
+            const token = localStorage.getItem('ctrl-github-token') || '';
+            const owner = localStorage.getItem('ctrl-github-owner') || '';
+            const repo = localStorage.getItem('ctrl-github-repo') || '';
+
+            document.getElementById('ctrl-github-token').value = token;
+            document.getElementById('ctrl-github-owner').value = owner;
+            document.getElementById('ctrl-github-repo').value = repo;
+
+            const statusLabel = document.getElementById('control-conn-status');
+            if (token && owner && repo) {
+                if (statusLabel) statusLabel.textContent = '[STATUS: NODE READY]';
+                logCtrl("LOCAL CREDENTIALS LOADED. STANDBY FOR TRANSMISSION.");
+            } else {
+                if (statusLabel) statusLabel.textContent = '[STATUS: CREDENTIALS REQUIRED]';
+            }
+        }
+
+        document.getElementById('btn-save-auth').addEventListener('click', () => {
+            const token = document.getElementById('ctrl-github-token').value.trim();
+            const owner = document.getElementById('ctrl-github-owner').value.trim();
+            const repo = document.getElementById('ctrl-github-repo').value.trim();
+
+            localStorage.setItem('ctrl-github-token', token);
+            localStorage.setItem('ctrl-github-owner', owner);
+            localStorage.setItem('ctrl-github-repo', repo);
+
+            const statusLabel = document.getElementById('control-conn-status');
+            if (token && owner && repo) {
+                if (statusLabel) statusLabel.textContent = '[STATUS: NODE READY]';
+                logCtrl("CREDENTIALS SUCCESSFULLY REGISTERED TO LOCAL STORAGE.");
+            } else {
+                if (statusLabel) statusLabel.textContent = '[STATUS: DISCONNECTED]';
+                logCtrl("WARNING: CREDENTIALS CLEARED.");
+            }
+            playTickSound('click');
+        });
+
+        // Initialize default random coordinates & date
+        function initCtrlDefaults() {
+            const dateStr = new Date().toISOString().split('T')[0].replace(/-/g, '.');
+            const randX = (Math.random() * 99).toFixed(1);
+            const randY = (Math.random() * 99).toFixed(1);
+
+            document.getElementById('ctrl-coord-x').placeholder = randX;
+            document.getElementById('ctrl-coord-y').placeholder = randY;
+            logCtrl(`TELEMETRY INITIALIZED // DATE: ${dateStr} // DEFAULT_COORD: X:${randX} Y:${randY}`);
+        }
+
+        // File Selection Preview
+        let selectedFile = null;
+        let selectedFileBase64 = null;
+
+        const fileInput = document.getElementById('ctrl-file-input');
+        const previewImg = document.getElementById('ctrl-preview-img');
+        const previewPlaceholder = document.getElementById('ctrl-preview-placeholder');
+
+        if (fileInput) {
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                selectedFile = file;
+                playTickSound('click');
+
+                document.getElementById('ctrl-file-name').textContent = file.name;
+                document.getElementById('ctrl-file-size').textContent = `${(file.size / 1024).toFixed(1)} KB`;
+
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const dataURL = evt.target.result;
+                    selectedFileBase64 = dataURL.split(',')[1];
+                    
+                    if (previewImg) {
+                        previewImg.src = dataURL;
+                        previewImg.classList.remove('hidden');
+                    }
+                    if (previewPlaceholder) {
+                        previewPlaceholder.classList.add('hidden');
+                    }
+
+                    // Extract image dimensions
+                    const img = new Image();
+                    img.onload = function() {
+                        document.getElementById('ctrl-file-res').textContent = `${img.width} x ${img.height} px`;
+                    };
+                    img.src = dataURL;
+
+                    logCtrl(`PAYLOAD BUFFER LOADED: ${file.name} [OK]`);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Trigger Transmission Process
+        document.getElementById('btn-transmit-specimen').addEventListener('click', async () => {
+            playTickSound('click');
+            const token = localStorage.getItem('ctrl-github-token') || '';
+            const owner = localStorage.getItem('ctrl-github-owner') || '';
+            const repo = localStorage.getItem('ctrl-github-repo') || '';
+
+            if (!token || !owner || !repo) {
+                logCtrl("ERROR: AUTHENTICATE NODE CREDENTIALS BEFORE TRANSMITTING.");
+                return;
+            }
+
+            const title = document.getElementById('ctrl-title').value.trim() || "Untitled Sketch";
+            const classification = document.getElementById('ctrl-classification').value.trim() || "SKETCH";
+            const material = document.getElementById('ctrl-material').value.trim() || "PENCIL";
+            const mass = document.getElementById('ctrl-mass').value.trim() || "HUMAN ANATOMY";
+            const resonance = document.getElementById('ctrl-resonance').value.trim() || "A4 PAPER";
+            
+            const coordX = document.getElementById('ctrl-coord-x').value.trim() || document.getElementById('ctrl-coord-x').placeholder;
+            const coordY = document.getElementById('ctrl-coord-y').value.trim() || document.getElementById('ctrl-coord-y').placeholder;
+            
+            const description = document.getElementById('ctrl-description').value.trim() || "No narrative details recorded.";
+
+            if (!selectedFile || !selectedFileBase64) {
+                logCtrl("ERROR: DATA PAYLOAD (IMAGE) IS EMPTY. CHOOSE A FILE.");
+                return;
+            }
+
+            logCtrl("========================================");
+            logCtrl("INITIATING MAIN ARCHIVE CORE INJECTION...");
+            
+            const nextIdx = specimens.length + 1;
+            const newId = `ARCHIVE_${String(nextIdx).padStart(2, '0')}`;
+            const randomHex = Math.floor(Math.random()*65535).toString(16).toUpperCase().padStart(4, '0');
+            const randomChar = String.fromCharCode(65 + Math.floor(Math.random()*26));
+            const newObjId = `${randomHex}-${randomChar}`;
+            
+            const cleanFileName = selectedFile.name.replace(/[^a-zA-Z0-9.]/g, '_').toLowerCase();
+            const imagePath = `assets/${newId.toLowerCase()}_${cleanFileName}`;
+
+            try {
+                // 1. Upload the image file to GitHub
+                logCtrl(`COMMITTING IMAGE TO REPOSITORY: ${imagePath}...`);
+                
+                const imgUploadUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${imagePath}`;
+                const imgUploadRes = await fetch(imgUploadUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `Upload specimen artwork image: ${newId}`,
+                        content: selectedFileBase64
+                    })
+                });
+
+                if (!imgUploadRes.ok) {
+                    const errorDetails = await imgUploadRes.json();
+                    throw new Error(`Asset upload failed: ${errorDetails.message}`);
+                }
+                logCtrl(`ASSET SECURED [OK]`);
+
+                // 2. Fetch specimens.json from GitHub
+                logCtrl("FETCHING CURRENT MASTER INDEX FROM GITHUB...");
+                const jsonFileUrl = `https://api.github.com/repos/${owner}/${repo}/contents/specimens.json`;
+                const jsonFileRes = await fetch(jsonFileUrl, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (!jsonFileRes.ok) {
+                    throw new Error("Failed to fetch specimens.json from GitHub.");
+                }
+
+                const jsonFileData = await jsonFileRes.json();
+                const jsonSha = jsonFileData.sha;
+                const decodedText = atob(jsonFileData.content.replace(/\s/g, ''));
+                const currentList = JSON.parse(decodedText);
+
+                logCtrl(`MASTER INDEX DOWNLOADED. SHA: ${jsonSha.substring(0, 8)}... [OK]`);
+
+                // 3. Prepend the new specimen entry
+                const newSpecimen = {
+                    id: newId,
+                    objId: newObjId,
+                    title: title,
+                    classification: classification,
+                    sector: String(nextIdx).padStart(2, '0'),
+                    originDate: new Date().toISOString().split('T')[0].replace(/-/g, '.'),
+                    coordinates: { x: coordX, y: coordY },
+                    status: "STABLE",
+                    material: material,
+                    mass: mass,
+                    resonance: resonance,
+                    imgUrl: `./assets/${newId.toLowerCase()}_${cleanFileName}`,
+                    description: description,
+                    aspectRatio: "aspect-square",
+                    colSpan: "col-span-4 md:col-start-3 md:col-span-3",
+                    speed: "0.06"
+                };
+
+                // Add to start of list so it defaults as the latest/first artwork
+                currentList.unshift(newSpecimen);
+
+                logCtrl(`INJECTING NEW SPECIMEN ID: ${newId} // OBJ_ID: ${newObjId}`);
+
+                // 4. Push updated specimens.json back to GitHub
+                logCtrl("PUSHING UPDATED MASTER INDEX TO GITHUB...");
+                
+                const updatedContentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(currentList, null, 2))));
+                const updateIndexRes = await fetch(jsonFileUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `Archive entry update: ${newId} (${title})`,
+                        content: updatedContentBase64,
+                        sha: jsonSha
+                    })
+                });
+
+                if (!updateIndexRes.ok) {
+                    const errorDetails = await updateIndexRes.json();
+                    throw new Error(`Index upload failed: ${errorDetails.message}`);
+                }
+
+                logCtrl("MASTER INDEX MODIFICATION COMMITTED [OK]");
+                logCtrl("========================================");
+                logCtrl("TRANSMISSION COMPLETED SUCCESSFULLY.");
+                logCtrl("REBUILD DEPLOY TRIGGERED ON MAIN BRANCH.");
+
+                // Play glitch success tone
+                playTickSound('glitch');
+
+                // Reload local specimens array dynamically
+                specimens = currentList;
+                renderIndexGrid();
+
+                // Clear input form
+                document.getElementById('ctrl-title').value = '';
+                document.getElementById('ctrl-classification').value = '';
+                document.getElementById('ctrl-material').value = '';
+                document.getElementById('ctrl-mass').value = '';
+                document.getElementById('ctrl-resonance').value = '';
+                document.getElementById('ctrl-description').value = '';
+                if (previewImg) previewImg.classList.add('hidden');
+                if (previewPlaceholder) previewPlaceholder.classList.remove('hidden');
+                selectedFile = null;
+                selectedFileBase64 = null;
+                document.getElementById('ctrl-file-name').textContent = '-';
+                document.getElementById('ctrl-file-size').textContent = '-';
+                document.getElementById('ctrl-file-res').textContent = '-';
+
+                // Re-initialize random coords
+                initCtrlDefaults();
+
+                // Redirect to main index page after short delay so they see the result!
+                setTimeout(() => {
+                    window.location.hash = '#/index';
+                }, 2000);
+
+            } catch (err) {
+                console.error(err);
+                logCtrl(`ERROR: ${err.message}`);
+            }
+        });
+
+        // Load credentials and default coordinates on layout load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadCtrlCredentials();
+            initCtrlDefaults();
+        });
+
+    </script>
+</body>
+</html>
