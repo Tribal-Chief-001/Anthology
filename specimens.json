@@ -16,9 +16,9 @@
     "resonance": "square",
     "imgUrl": "./assets/archive_10_1780695038065_20251207_1403072.jpg",
     "description": "No narrative details recorded.",
-    "aspectRatio": "aspect-[4/5]",
-    "colSpan": "col-span-4 md:col-start-2 md:col-span-3",
-    "speed": "0.04"
+    "aspectRatio": "aspect-square",
+    "colSpan": "col-span-4 md:col-start-4 md:col-span-3 md:-mt-[40px]",
+    "speed": "0.06"
   },
   {
     "id": "ARCHIVE_07",
