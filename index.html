@@ -927,6 +927,16 @@
                     <span id="control-conn-status" class="font-label-technical text-label-technical text-secondary uppercase">[STATUS: DISCONNECTED]</span>
                 </div>
 
+                <!-- Console Mode Tab Selector -->
+                <div class="border-b border-primary bg-surface-container-low flex select-none">
+                    <button id="console-tab-inject" class="border-r border-primary px-sm py-xs font-label-technical text-label-technical uppercase bg-primary text-on-primary focus:outline-none transition-colors" type="button">
+                        [01_INJECT_NEW_SPECIMEN]
+                    </button>
+                    <button id="console-tab-manage" class="border-r border-primary px-sm py-xs font-label-technical text-label-technical uppercase text-secondary hover:text-primary focus:outline-none transition-colors" type="button">
+                        [02_MANAGE_EXISTING_ARCHIVE]
+                    </button>
+                </div>
+
                 <div class="p-md flex flex-col md:grid md:grid-cols-12 md:gap-md">
                     
                     <!-- LEFT COLUMN: AUTH & METADATA -->
@@ -959,53 +969,117 @@
                             </div>
                         </div>
 
-                        <!-- 2. SPECIMEN METADATA -->
-                        <div class="border border-primary p-sm bg-surface-container-lowest">
-                            <h3 class="font-label-technical text-label-technical text-primary font-bold border-b border-primary pb-base mb-xs flex items-center gap-xs">
-                                <span class="material-symbols-outlined text-[14px]">edit</span>
-                                02_SPECIMEN_METADATA
-                            </h3>
-                            <div class="space-y-sm mt-sm">
-                                <div class="grid grid-cols-2 gap-sm">
-                                    <div class="flex flex-col gap-base">
-                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-title">SPECIMEN TITLE</label>
-                                        <input type="text" id="ctrl-title" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="e.g. Void Horizon" />
+                        <!-- Panel toggled container for Inject -->
+                        <div id="panel-inject-left" class="space-y-md">
+                            <!-- 2. SPECIMEN METADATA -->
+                            <div class="border border-primary p-sm bg-surface-container-lowest">
+                                <h3 class="font-label-technical text-label-technical text-primary font-bold border-b border-primary pb-base mb-xs flex items-center gap-xs">
+                                    <span class="material-symbols-outlined text-[14px]">edit</span>
+                                    02_SPECIMEN_METADATA
+                                </h3>
+                                <div class="space-y-sm mt-sm">
+                                    <div class="grid grid-cols-2 gap-sm">
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-title">SPECIMEN TITLE</label>
+                                            <input type="text" id="ctrl-title" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="e.g. Void Horizon" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-classification">MEDIUM</label>
+                                            <input type="text" id="ctrl-classification" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="e.g. Manga Ink, Pencil Sketch" />
+                                        </div>
                                     </div>
+
+                                    <div class="grid grid-cols-3 gap-sm">
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-material">STYLE</label>
+                                            <input type="text" id="ctrl-material" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="e.g. Cross-hatching, Cell Shading" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-mass">SUBJECT</label>
+                                            <input type="text" id="ctrl-mass" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="e.g. Character Anatomy, Animal, Scenery" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-resonance">DIMENSIONS</label>
+                                            <input type="text" id="ctrl-resonance" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="e.g. A4 Paper, 4000x5000px" />
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 gap-sm">
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-coord-x">COORD X (00.0 - 99.9)</label>
+                                            <input type="text" id="ctrl-coord-x" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="32.8" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-coord-y">COORD Y (00.0 - 99.9)</label>
+                                            <input type="text" id="ctrl-coord-y" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="77.1" />
+                                        </div>
+                                    </div>
+
                                     <div class="flex flex-col gap-base">
-                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-classification">MEDIUM</label>
-                                        <input type="text" id="ctrl-classification" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="e.g. Manga Ink, Pencil Sketch" />
+                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-description">DESCRIPTION</label>
+                                        <textarea id="ctrl-description" rows="3" class="w-full bg-surface border border-primary p-xs font-label-technical text-label-technical text-primary focus:outline-none resize-none" placeholder="Enter detailed specimen narrative..."></textarea>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
 
-                                <div class="grid grid-cols-3 gap-sm">
+                        <!-- Panel toggled container for Manage -->
+                        <div id="panel-manage-left" class="hidden space-y-md">
+                            <!-- 2. MANAGE SPECIMEN METADATA -->
+                            <div class="border border-primary p-sm bg-surface-container-lowest">
+                                <h3 class="font-label-technical text-label-technical text-primary font-bold border-b border-primary pb-base mb-xs flex items-center gap-xs">
+                                    <span class="material-symbols-outlined text-[14px]">construction</span>
+                                    02_MANAGE_SPECIMEN
+                                </h3>
+                                <div class="space-y-sm mt-sm">
                                     <div class="flex flex-col gap-base">
-                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-material">STYLE</label>
-                                        <input type="text" id="ctrl-material" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="e.g. Cross-hatching, Cell Shading" />
+                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-select">SELECT SPECIMEN TO EDIT / DELETE</label>
+                                        <select id="ctrl-manage-select" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                            <option value="">-- SELECT SPECIMEN --</option>
+                                        </select>
                                     </div>
-                                    <div class="flex flex-col gap-base">
-                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-mass">SUBJECT</label>
-                                        <input type="text" id="ctrl-mass" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="e.g. Character Anatomy, Animal, Scenery" />
-                                    </div>
-                                    <div class="flex flex-col gap-base">
-                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-resonance">DIMENSIONS</label>
-                                        <input type="text" id="ctrl-resonance" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="e.g. A4 Paper, 4000x5000px" />
-                                    </div>
-                                </div>
 
-                                <div class="grid grid-cols-2 gap-sm">
-                                    <div class="flex flex-col gap-base">
-                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-coord-x">COORD X (00.0 - 99.9)</label>
-                                        <input type="text" id="ctrl-coord-x" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="32.8" />
+                                    <div class="grid grid-cols-2 gap-sm">
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-title">SPECIMEN TITLE</label>
+                                            <input type="text" id="ctrl-manage-title" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="Title" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-classification">MEDIUM</label>
+                                            <input type="text" id="ctrl-manage-classification" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="Medium" />
+                                        </div>
                                     </div>
-                                    <div class="flex flex-col gap-base">
-                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-coord-y">COORD Y (00.0 - 99.9)</label>
-                                        <input type="text" id="ctrl-coord-y" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="77.1" />
-                                    </div>
-                                </div>
 
-                                <div class="flex flex-col gap-base">
-                                    <label class="font-label-technical text-[10px] text-secondary" for="ctrl-description">DESCRIPTION</label>
-                                    <textarea id="ctrl-description" rows="3" class="w-full bg-surface border border-primary p-xs font-label-technical text-label-technical text-primary focus:outline-none resize-none" placeholder="Enter detailed specimen narrative..."></textarea>
+                                    <div class="grid grid-cols-3 gap-sm">
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-material">STYLE</label>
+                                            <input type="text" id="ctrl-manage-material" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="Style" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-mass">SUBJECT</label>
+                                            <input type="text" id="ctrl-manage-mass" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="Subject" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-resonance">DIMENSIONS</label>
+                                            <input type="text" id="ctrl-manage-resonance" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="Dimensions" />
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 gap-sm">
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-coord-x">COORD X (00.0 - 99.9)</label>
+                                            <input type="text" id="ctrl-manage-coord-x" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="00.0" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-coord-y">COORD Y (00.0 - 99.9)</label>
+                                            <input type="text" id="ctrl-manage-coord-y" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="00.0" />
+                                        </div>
+                                    </div>
+
+                                    <div class="flex flex-col gap-base">
+                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-description">DESCRIPTION</label>
+                                        <textarea id="ctrl-manage-description" rows="3" class="w-full bg-surface border border-primary p-xs font-label-technical text-label-technical text-primary focus:outline-none resize-none" placeholder="Enter detailed specimen narrative..."></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1015,31 +1089,65 @@
                     <!-- RIGHT COLUMN: IMAGE PAYLOAD & TELEMETRY -->
                     <div class="md:col-span-5 flex flex-col space-y-md mt-md md:mt-0">
                         
-                        <!-- 3. DATA PAYLOAD (IMAGE SELECT) -->
-                        <div class="border border-primary p-sm bg-surface-container-lowest flex flex-col flex-grow">
-                            <h3 class="font-label-technical text-label-technical text-primary font-bold border-b border-primary pb-base mb-xs flex items-center gap-xs">
-                                <span class="material-symbols-outlined text-[14px]">image</span>
-                                03_DATA_PAYLOAD
-                            </h3>
-                            
-                            <!-- Blueprint Style Preview Box -->
-                            <div class="relative w-full aspect-square border border-dashed border-primary bg-surface overflow-hidden flex flex-col items-center justify-center p-sm mt-sm" id="ctrl-preview-container">
-                                <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(93,95,95,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(93,95,95,0.05)_1px,transparent_1px)] bg-[size:10px_10px] pointer-events-none"></div>
+                        <!-- Panel toggled container for Inject -->
+                        <div id="panel-inject-right" class="flex flex-col flex-grow">
+                            <!-- 3. DATA PAYLOAD (IMAGE SELECT) -->
+                            <div class="border border-primary p-sm bg-surface-container-lowest flex flex-col flex-grow">
+                                <h3 class="font-label-technical text-label-technical text-primary font-bold border-b border-primary pb-base mb-xs flex items-center gap-xs">
+                                    <span class="material-symbols-outlined text-[14px]">image</span>
+                                    03_DATA_PAYLOAD
+                                </h3>
                                 
-                                <img id="ctrl-preview-img" src="" class="hidden w-full h-full object-contain z-10" />
-                                
-                                <div id="ctrl-preview-placeholder" class="text-center flex flex-col items-center gap-xs select-none">
-                                    <span class="material-symbols-outlined text-[48px] text-outline text-flicker">add_photo_alternate</span>
-                                    <span class="font-label-technical text-[10px] text-secondary uppercase">DRAG_DROP // SELECT SPECIMEN PHOTO</span>
+                                <!-- Blueprint Style Preview Box -->
+                                <div class="relative w-full aspect-square border border-dashed border-primary bg-surface overflow-hidden flex flex-col items-center justify-center p-sm mt-sm" id="ctrl-preview-container">
+                                    <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(93,95,95,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(93,95,95,0.05)_1px,transparent_1px)] bg-[size:10px_10px] pointer-events-none"></div>
+                                    
+                                    <img id="ctrl-preview-img" src="" class="hidden w-full h-full object-contain z-10" />
+                                    
+                                    <div id="ctrl-preview-placeholder" class="text-center flex flex-col items-center gap-xs select-none">
+                                        <span class="material-symbols-outlined text-[48px] text-outline text-flicker">add_photo_alternate</span>
+                                        <span class="font-label-technical text-[10px] text-secondary uppercase">DRAG_DROP // SELECT SPECIMEN PHOTO</span>
+                                    </div>
+                                    <input type="file" id="ctrl-file-input" class="absolute inset-0 opacity-0 cursor-pointer z-20" accept="image/*" />
                                 </div>
-                                <input type="file" id="ctrl-file-input" class="absolute inset-0 opacity-0 cursor-pointer z-20" accept="image/*" />
-                            </div>
 
-                            <!-- Image File Data Details -->
-                            <div class="mt-sm space-y-base font-label-technical text-[10px] text-secondary border-t border-primary pt-xs">
-                                <div>FILE_NAME: <span id="ctrl-file-name" class="text-primary">-</span></div>
-                                <div>FILE_SIZE: <span id="ctrl-file-size" class="text-primary">-</span></div>
-                                <div>RESOLUTION: <span id="ctrl-file-res" class="text-primary">-</span></div>
+                                <!-- Image File Data Details -->
+                                <div class="mt-sm space-y-base font-label-technical text-[10px] text-secondary border-t border-primary pt-xs">
+                                    <div>FILE_NAME: <span id="ctrl-file-name" class="text-primary">-</span></div>
+                                    <div>FILE_SIZE: <span id="ctrl-file-size" class="text-primary">-</span></div>
+                                    <div>RESOLUTION: <span id="ctrl-file-res" class="text-primary">-</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panel toggled container for Manage -->
+                        <div id="panel-manage-right" class="hidden flex flex-col flex-grow">
+                            <!-- 3. DATA PAYLOAD (IMAGE EDIT/REPLACE) -->
+                            <div class="border border-primary p-sm bg-surface-container-lowest flex flex-col flex-grow">
+                                <h3 class="font-label-technical text-label-technical text-primary font-bold border-b border-primary pb-base mb-xs flex items-center gap-xs">
+                                    <span class="material-symbols-outlined text-[14px]">image</span>
+                                    03_DATA_PAYLOAD_EDIT
+                                </h3>
+                                
+                                <!-- Blueprint Style Preview Box -->
+                                <div class="relative w-full aspect-square border border-dashed border-primary bg-surface overflow-hidden flex flex-col items-center justify-center p-sm mt-sm" id="ctrl-manage-preview-container">
+                                    <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(93,95,95,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(93,95,95,0.05)_1px,transparent_1px)] bg-[size:10px_10px] pointer-events-none"></div>
+                                    
+                                    <img id="ctrl-manage-preview-img" src="" class="hidden w-full h-full object-contain z-10" />
+                                    
+                                    <div id="ctrl-manage-preview-placeholder" class="text-center flex flex-col items-center gap-xs select-none">
+                                        <span class="material-symbols-outlined text-[48px] text-outline">image</span>
+                                        <span class="font-label-technical text-[10px] text-secondary uppercase">NO SPECIMEN SELECTED</span>
+                                    </div>
+                                    <input type="file" id="ctrl-manage-file-input" class="absolute inset-0 opacity-0 cursor-pointer z-20" accept="image/*" />
+                                </div>
+
+                                <!-- Image File Data Details -->
+                                <div class="mt-sm space-y-base font-label-technical text-[10px] text-secondary border-t border-primary pt-xs">
+                                    <div>FILE_NAME: <span id="ctrl-manage-file-name" class="text-primary">-</span></div>
+                                    <div>FILE_SIZE: <span id="ctrl-manage-file-size" class="text-primary">-</span></div>
+                                    <div>RESOLUTION: <span id="ctrl-manage-file-res" class="text-primary">-</span></div>
+                                </div>
                             </div>
                         </div>
 
@@ -1058,11 +1166,23 @@
                     </div>
                 </div>
 
-                <!-- TRANSMIT SUBMIT BUTTON -->
-                <button class="w-full bg-primary text-on-primary py-md font-headline-md text-headline-md uppercase hover:bg-surface hover:text-primary transition-colors duration-300 border-t-2 border-primary flex items-center justify-center gap-sm group relative z-10" id="btn-transmit-specimen" type="button">
-                    TRANSMIT_TO_MAIN_ARCHIVE_CORE
-                    <span class="material-symbols-outlined transform group-hover:translate-x-2 transition-transform">send</span>
-                </button>
+                <!-- TRANSMIT / MANAGE ACTIONS -->
+                <div id="btn-container-inject" class="w-full">
+                    <button class="w-full bg-primary text-on-primary py-md font-headline-md text-headline-md uppercase hover:bg-surface hover:text-primary transition-colors duration-300 border-t-2 border-primary flex items-center justify-center gap-sm group relative z-10" id="btn-transmit-specimen" type="button">
+                        TRANSMIT_TO_MAIN_ARCHIVE_CORE
+                        <span class="material-symbols-outlined transform group-hover:translate-x-2 transition-transform">send</span>
+                    </button>
+                </div>
+                <div id="btn-container-manage" class="hidden w-full grid grid-cols-2">
+                    <button class="w-full bg-primary text-on-primary py-md font-headline-md text-headline-md uppercase hover:bg-surface hover:text-primary transition-colors duration-300 border-t-2 border-primary flex items-center justify-center gap-sm group relative z-10 border-r border-primary" id="btn-update-specimen" type="button">
+                        COMMIT_SPECIMEN_MODIFICATIONS
+                        <span class="material-symbols-outlined transform group-hover:translate-x-2 transition-transform">edit</span>
+                    </button>
+                    <button class="w-full bg-error text-on-error py-md font-headline-md text-headline-md uppercase hover:bg-surface hover:text-error transition-colors duration-300 border-t-2 border-primary flex items-center justify-center gap-sm group relative z-10" id="btn-delete-specimen" type="button">
+                        DELETE_SPECIMEN_FROM_ARCHIVE
+                        <span class="material-symbols-outlined transform group-hover:translate-x-2 transition-transform">delete</span>
+                    </button>
+                </div>
 
             </div>
 
@@ -2181,6 +2301,442 @@ CLOSING RELAY CONNECTION.
 
                 // Re-initialize random coords
                 initCtrlDefaults();
+
+                // Redirect to main index page after short delay so they see the result!
+                setTimeout(() => {
+                    window.location.hash = '#/index';
+                }, 3000);
+
+            } catch (err) {
+                console.error(err);
+                logCtrl(`ERROR: ${err.message}`);
+            }
+        });
+
+        // ==========================================
+        // 11. MANAGEMENT PORTAL CONTROLLER & EDIT/DELETE UTILITIES
+        // ==========================================
+        const tabInject = document.getElementById('console-tab-inject');
+        const tabManage = document.getElementById('console-tab-manage');
+        const panelInjectLeft = document.getElementById('panel-inject-left');
+        const panelManageLeft = document.getElementById('panel-manage-left');
+        const panelInjectRight = document.getElementById('panel-inject-right');
+        const panelManageRight = document.getElementById('panel-manage-right');
+        const btnContainerInject = document.getElementById('btn-container-inject');
+        const btnContainerManage = document.getElementById('btn-container-manage');
+
+        function switchConsoleTab(mode) {
+            playTickSound('click');
+            if (mode === 'inject') {
+                tabInject.classList.add('bg-primary', 'text-on-primary');
+                tabInject.classList.remove('text-secondary');
+                tabManage.classList.remove('bg-primary', 'text-on-primary');
+                tabManage.classList.add('text-secondary');
+
+                panelInjectLeft.classList.remove('hidden');
+                panelManageLeft.classList.add('hidden');
+                panelInjectRight.classList.remove('hidden');
+                panelManageRight.classList.add('hidden');
+
+                btnContainerInject.classList.remove('hidden');
+                btnContainerManage.classList.add('hidden');
+                logCtrl("SWITCHED TO INJECT PORTAL MODE.");
+            } else {
+                tabManage.classList.add('bg-primary', 'text-on-primary');
+                tabManage.classList.remove('text-secondary');
+                tabInject.classList.remove('bg-primary', 'text-on-primary');
+                tabInject.classList.add('text-secondary');
+
+                panelInjectLeft.classList.add('hidden');
+                panelManageLeft.classList.remove('hidden');
+                panelInjectRight.classList.add('hidden');
+                panelManageRight.classList.remove('hidden');
+
+                btnContainerInject.classList.add('hidden');
+                btnContainerManage.classList.remove('hidden');
+                
+                logCtrl("SWITCHED TO MANAGEMENT PORTAL MODE.");
+                populateManageDropdown();
+            }
+        }
+
+        tabInject.addEventListener('click', () => switchConsoleTab('inject'));
+        tabManage.addEventListener('click', () => switchConsoleTab('manage'));
+
+        // Populate specimens list in the dropdown
+        function populateManageDropdown() {
+            const dropdown = document.getElementById('ctrl-manage-select');
+            if (!dropdown) return;
+            
+            // Clear current options except the placeholder
+            dropdown.innerHTML = '<option value="">-- SELECT SPECIMEN --</option>';
+            
+            specimens.forEach(spec => {
+                const opt = document.createElement('option');
+                opt.value = spec.id;
+                opt.textContent = `${spec.id} - ${spec.title}`;
+                dropdown.appendChild(opt);
+            });
+            logCtrl(`POPULATED SPECIMENS DROPDOWN // COUNT: ${specimens.length}`);
+        }
+
+        // Selected edit state
+        let manageSelectedFile = null;
+        let manageSelectedFileBase64 = null;
+
+        // Populate specimen fields on selection change
+        document.getElementById('ctrl-manage-select').addEventListener('change', (e) => {
+            const id = e.target.value;
+            const spec = specimens.find(s => s.id === id);
+            
+            const previewImg = document.getElementById('ctrl-manage-preview-img');
+            const previewPlaceholder = document.getElementById('ctrl-manage-preview-placeholder');
+            
+            if (!spec) {
+                // Clear fields
+                document.getElementById('ctrl-manage-title').value = '';
+                document.getElementById('ctrl-manage-classification').value = '';
+                document.getElementById('ctrl-manage-material').value = '';
+                document.getElementById('ctrl-manage-mass').value = '';
+                document.getElementById('ctrl-manage-resonance').value = '';
+                document.getElementById('ctrl-manage-coord-x').value = '';
+                document.getElementById('ctrl-manage-coord-y').value = '';
+                document.getElementById('ctrl-manage-description').value = '';
+                
+                if (previewImg) previewImg.classList.add('hidden');
+                if (previewPlaceholder) previewPlaceholder.classList.remove('hidden');
+                document.getElementById('ctrl-manage-file-name').textContent = '-';
+                document.getElementById('ctrl-manage-file-size').textContent = '-';
+                document.getElementById('ctrl-manage-file-res').textContent = '-';
+                manageSelectedFile = null;
+                manageSelectedFileBase64 = null;
+                return;
+            }
+
+            playTickSound('click');
+            logCtrl(`LOADED SPECIMEN DETAILS // ID: ${spec.id}`);
+
+            document.getElementById('ctrl-manage-title').value = spec.title || '';
+            document.getElementById('ctrl-manage-classification').value = spec.classification || '';
+            document.getElementById('ctrl-manage-material').value = spec.material || '';
+            document.getElementById('ctrl-manage-mass').value = spec.mass || '';
+            document.getElementById('ctrl-manage-resonance').value = spec.resonance || '';
+            document.getElementById('ctrl-manage-coord-x').value = (spec.coordinates && spec.coordinates.x !== undefined) ? spec.coordinates.x : '';
+            document.getElementById('ctrl-manage-coord-y').value = (spec.coordinates && spec.coordinates.y !== undefined) ? spec.coordinates.y : '';
+            document.getElementById('ctrl-manage-description').value = spec.description || '';
+
+            // Render current image
+            if (previewImg) {
+                previewImg.src = spec.imgUrl;
+                previewImg.classList.remove('hidden');
+            }
+            if (previewPlaceholder) previewPlaceholder.classList.add('hidden');
+
+            document.getElementById('ctrl-manage-file-name').textContent = `[CURRENT] ${spec.imgUrl.split('/').pop()}`;
+            document.getElementById('ctrl-manage-file-size').textContent = '-';
+            document.getElementById('ctrl-manage-file-res').textContent = '-';
+            
+            manageSelectedFile = null;
+            manageSelectedFileBase64 = null;
+        });
+
+        // Image Selection for Manage panel
+        const manageFileInput = document.getElementById('ctrl-manage-file-input');
+        if (manageFileInput) {
+            manageFileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                manageSelectedFile = file;
+                playTickSound('click');
+
+                document.getElementById('ctrl-manage-file-name').textContent = `[NEW] ${file.name}`;
+                document.getElementById('ctrl-manage-file-size').textContent = `${(file.size / 1024).toFixed(1)} KB`;
+
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const dataURL = evt.target.result;
+                    manageSelectedFileBase64 = dataURL.split(',')[1];
+                    
+                    const previewImg = document.getElementById('ctrl-manage-preview-img');
+                    const previewPlaceholder = document.getElementById('ctrl-manage-preview-placeholder');
+                    if (previewImg) {
+                        previewImg.src = dataURL;
+                        previewImg.classList.remove('hidden');
+                    }
+                    if (previewPlaceholder) {
+                        previewPlaceholder.classList.add('hidden');
+                    }
+
+                    // Extract image dimensions
+                    const img = new Image();
+                    img.onload = function() {
+                        document.getElementById('ctrl-manage-file-res').textContent = `${img.width} x ${img.height} px`;
+                    };
+                    img.src = dataURL;
+
+                    logCtrl(`NEW IMAGE PAYLOAD BUFFER LOADED [OK]`);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Commit Modifications Action
+        document.getElementById('btn-update-specimen').addEventListener('click', async () => {
+            playTickSound('click');
+            const id = document.getElementById('ctrl-manage-select').value;
+            if (!id) {
+                logCtrl("ERROR: NO SPECIMEN SELECTED.");
+                return;
+            }
+
+            const token = localStorage.getItem('ctrl-github-token') || '';
+            const owner = localStorage.getItem('ctrl-github-owner') || '';
+            const repo = localStorage.getItem('ctrl-github-repo') || '';
+
+            if (!token || !owner || !repo) {
+                logCtrl("ERROR: AUTHENTICATE NODE CREDENTIALS BEFORE TRANSMITTING.");
+                return;
+            }
+
+            const title = document.getElementById('ctrl-manage-title').value.trim() || "Untitled Sketch";
+            const classification = document.getElementById('ctrl-manage-classification').value.trim() || "SKETCH";
+            const material = document.getElementById('ctrl-manage-material').value.trim() || "PENCIL";
+            const mass = document.getElementById('ctrl-manage-mass').value.trim() || "HUMAN ANATOMY";
+            const resonance = document.getElementById('ctrl-manage-resonance').value.trim() || "A4 PAPER";
+            const coordX = document.getElementById('ctrl-manage-coord-x').value.trim() || "0.0";
+            const coordY = document.getElementById('ctrl-manage-coord-y').value.trim() || "0.0";
+            const description = document.getElementById('ctrl-manage-description').value.trim() || "No narrative details recorded.";
+
+            logCtrl("========================================");
+            logCtrl(`INITIATING METADATA MODIFICATION FOR ID: ${id}...`);
+
+            try {
+                const specIndex = specimens.findIndex(s => s.id === id);
+                if (specIndex === -1) {
+                    throw new Error("Specimen not found in current local array.");
+                }
+                const targetSpecimenObj = specimens[specIndex];
+
+                let finalImgUrl = targetSpecimenObj.imgUrl;
+
+                // 1. Upload new image if chosen
+                if (manageSelectedFile && manageSelectedFileBase64) {
+                    const cleanFileName = manageSelectedFile.name.replace(/[^a-zA-Z0-9.]/g, '_').toLowerCase();
+                    const timestamp = Date.now();
+                    const imagePath = `assets/${id.toLowerCase()}_${timestamp}_${cleanFileName}`;
+                    
+                    logCtrl(`UPLOADING NEW IMAGE TO REPOSITORY: ${imagePath}...`);
+                    
+                    const imgUploadUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${imagePath}`;
+                    const imgUploadRes = await fetch(imgUploadUrl, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: `Update image for specimen: ${id}`,
+                            content: manageSelectedFileBase64
+                        })
+                    });
+
+                    if (!imgUploadRes.ok) {
+                        const errorDetails = await imgUploadRes.json();
+                        throw new Error(`Asset upload failed: ${errorDetails.message}`);
+                    }
+                    logCtrl(`NEW ASSET SECURED [OK]`);
+                    finalImgUrl = `./assets/${id.toLowerCase()}_${timestamp}_${cleanFileName}`;
+                }
+
+                // 2. Fetch current specimens.json from GitHub
+                logCtrl("FETCHING CURRENT MASTER INDEX FROM GITHUB...");
+                const jsonFileUrl = `https://api.github.com/repos/${owner}/${repo}/contents/specimens.json`;
+                const jsonFileRes = await fetch(jsonFileUrl, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (!jsonFileRes.ok) {
+                    throw new Error("Failed to fetch specimens.json from GitHub.");
+                }
+
+                const jsonFileData = await jsonFileRes.json();
+                const jsonSha = jsonFileData.sha;
+                const decodedText = atob(jsonFileData.content.replace(/\s/g, ''));
+                const currentList = JSON.parse(decodedText);
+
+                logCtrl(`MASTER INDEX DOWNLOADED. SHA: ${jsonSha.substring(0, 8)}... [OK]`);
+
+                // 3. Find target entry and modify it in-place
+                const serverIndex = currentList.findIndex(s => s.id === id);
+                if (serverIndex === -1) {
+                    throw new Error("Selected Specimen does not exist on Master index server.");
+                }
+
+                currentList[serverIndex].title = title;
+                currentList[serverIndex].classification = classification;
+                currentList[serverIndex].material = material;
+                currentList[serverIndex].mass = mass;
+                currentList[serverIndex].resonance = resonance;
+                currentList[serverIndex].coordinates = { x: coordX, y: coordY };
+                currentList[serverIndex].description = description;
+                currentList[serverIndex].imgUrl = finalImgUrl;
+
+                logCtrl(`COMMITTING UPDATES ON ID: ${id} FOR MASTER INDEX...`);
+
+                // 4. Push updated specimens.json back to GitHub
+                const updatedContentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(currentList, null, 2))));
+                const updateIndexRes = await fetch(jsonFileUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `Archive entry modification: ${id} (${title})`,
+                        content: updatedContentBase64,
+                        sha: jsonSha
+                    })
+                });
+
+                if (!updateIndexRes.ok) {
+                    const errorDetails = await updateIndexRes.json();
+                    throw new Error(`Index upload failed: ${errorDetails.message}`);
+                }
+
+                logCtrl("MASTER INDEX MODIFICATION COMMITTED [OK]");
+                logCtrl("========================================");
+                logCtrl("MODIFICATION COMPLETED SUCCESSFULLY.");
+                logCtrl("REBUILD DEPLOY TRIGGERED ON MAIN BRANCH.");
+
+                playTickSound('glitch');
+
+                // Keep local base64 Data URL for immediate in-memory rendering so the image shows up instantly
+                const tempLocalImgUrl = (manageSelectedFile && manageSelectedFileBase64) ? document.getElementById('ctrl-manage-preview-img').src : null;
+                
+                // Deep copy list and inject the temporary data URL for local state
+                specimens = JSON.parse(JSON.stringify(currentList));
+                if (tempLocalImgUrl) {
+                    const localIdx = specimens.findIndex(s => s.id === id);
+                    if (localIdx !== -1) {
+                        specimens[localIdx].imgUrl = tempLocalImgUrl;
+                    }
+                }
+                
+                renderIndexGrid();
+
+                // Clear/reset dropdown and form
+                document.getElementById('ctrl-manage-select').value = '';
+                document.getElementById('ctrl-manage-select').dispatchEvent(new Event('change'));
+
+                // Redirect to main index page after short delay so they see the result!
+                setTimeout(() => {
+                    window.location.hash = '#/index';
+                }, 3000);
+
+            } catch (err) {
+                console.error(err);
+                logCtrl(`ERROR: ${err.message}`);
+            }
+        });
+
+        // Delete Specimen Action
+        document.getElementById('btn-delete-specimen').addEventListener('click', async () => {
+            playTickSound('click');
+            const id = document.getElementById('ctrl-manage-select').value;
+            if (!id) {
+                logCtrl("ERROR: NO SPECIMEN SELECTED.");
+                return;
+            }
+
+            const confirmDel = confirm(`ARE YOU ABSOLUTELY SURE YOU WANT TO REMOVE '${id}' FROM THE MAIN ARCHIVE?\nTHIS ACTION CANNOT BE UNDONE.`);
+            if (!confirmDel) {
+                logCtrl("DELETION CANCELLED.");
+                return;
+            }
+
+            const token = localStorage.getItem('ctrl-github-token') || '';
+            const owner = localStorage.getItem('ctrl-github-owner') || '';
+            const repo = localStorage.getItem('ctrl-github-repo') || '';
+
+            if (!token || !owner || !repo) {
+                logCtrl("ERROR: AUTHENTICATE NODE CREDENTIALS BEFORE TRANSMITTING.");
+                return;
+            }
+
+            logCtrl("========================================");
+            logCtrl(`DELETING SPECIMEN ID: ${id} FROM MAIN REPOSITORY...`);
+
+            try {
+                // 1. Fetch current specimens.json from GitHub
+                logCtrl("FETCHING CURRENT MASTER INDEX FROM GITHUB...");
+                const jsonFileUrl = `https://api.github.com/repos/${owner}/${repo}/contents/specimens.json`;
+                const jsonFileRes = await fetch(jsonFileUrl, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (!jsonFileRes.ok) {
+                    throw new Error("Failed to fetch specimens.json from GitHub.");
+                }
+
+                const jsonFileData = await jsonFileRes.json();
+                const jsonSha = jsonFileData.sha;
+                const decodedText = atob(jsonFileData.content.replace(/\s/g, ''));
+                const currentList = JSON.parse(decodedText);
+
+                logCtrl(`MASTER INDEX DOWNLOADED. SHA: ${jsonSha.substring(0, 8)}... [OK]`);
+
+                // 2. Filter out entry
+                const updatedList = currentList.filter(s => s.id !== id);
+                if (updatedList.length === currentList.length) {
+                    throw new Error("Selected Specimen does not exist on Master index server.");
+                }
+
+                logCtrl(`REMOVING ENTRY ID: ${id}...`);
+
+                // 3. Push updated specimens.json back to GitHub
+                const updatedContentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(updatedList, null, 2))));
+                const updateIndexRes = await fetch(jsonFileUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `Archive entry deletion: ${id}`,
+                        content: updatedContentBase64,
+                        sha: jsonSha
+                    })
+                });
+
+                if (!updateIndexRes.ok) {
+                    const errorDetails = await updateIndexRes.json();
+                    throw new Error(`Index upload failed: ${errorDetails.message}`);
+                }
+
+                logCtrl("MASTER INDEX MODIFICATION COMMITTED [OK]");
+                logCtrl("========================================");
+                logCtrl("DELETION COMPLETED SUCCESSFULLY.");
+                logCtrl("REBUILD DEPLOY TRIGGERED ON MAIN BRANCH.");
+
+                playTickSound('glitch');
+
+                // Update local state
+                specimens = updatedList;
+                renderIndexGrid();
+
+                // Clear/reset dropdown and form
+                document.getElementById('ctrl-manage-select').value = '';
+                document.getElementById('ctrl-manage-select').dispatchEvent(new Event('change'));
 
                 // Redirect to main index page after short delay so they see the result!
                 setTimeout(() => {
