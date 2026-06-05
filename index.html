@@ -1049,7 +1049,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="grid grid-cols-2 gap-sm">
+                                    <div class="grid grid-cols-3 gap-sm">
                                         <div class="flex flex-col gap-base">
                                             <label class="font-label-technical text-[10px] text-secondary" for="ctrl-coord-x">COORD X (00.0 - 99.9)</label>
                                             <input type="text" id="ctrl-coord-x" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="32.8" />
@@ -1057,6 +1057,10 @@
                                         <div class="flex flex-col gap-base">
                                             <label class="font-label-technical text-[10px] text-secondary" for="ctrl-coord-y">COORD Y (00.0 - 99.9)</label>
                                             <input type="text" id="ctrl-coord-y" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="77.1" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-origin-date">DATE OF ORIGIN (YYYY.MM.DD)</label>
+                                            <input type="text" id="ctrl-origin-date" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="2024.11.04" />
                                         </div>
                                     </div>
 
@@ -1144,7 +1148,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="grid grid-cols-2 gap-sm">
+                                    <div class="grid grid-cols-3 gap-sm">
                                         <div class="flex flex-col gap-base">
                                             <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-coord-x">COORD X (00.0 - 99.9)</label>
                                             <input type="text" id="ctrl-manage-coord-x" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="00.0" />
@@ -1152,6 +1156,10 @@
                                         <div class="flex flex-col gap-base">
                                             <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-coord-y">COORD Y (00.0 - 99.9)</label>
                                             <input type="text" id="ctrl-manage-coord-y" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="00.0" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-origin-date">DATE OF ORIGIN</label>
+                                            <input type="text" id="ctrl-manage-origin-date" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="YYYY.MM.DD" />
                                         </div>
                                     </div>
 
@@ -1367,6 +1375,11 @@
             <button id="fs-next-btn" class="absolute right-4 top-1/2 -translate-y-1/2 border border-primary bg-surface/80 hover:bg-primary hover:text-on-primary p-3 transition-colors duration-200 z-30 flex items-center justify-center">
                 <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
             </button>
+
+            <!-- End of Reel Alert -->
+            <div id="fs-end-reel-alert" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-surface border-2 border-primary text-primary px-6 py-4 tracking-widest z-45 hidden uppercase text-[12px] font-bold font-label-technical shadow-2xl backdrop-blur-md">
+                [ SYSTEM_ALERT: END OF REEL REACHED ]
+            </div>
         </div>
 
         <!-- HUD Footer -->
@@ -2410,6 +2423,42 @@ CLOSING RELAY CONNECTION.
             playTickSound('glitch');
         }
 
+        let endReelTimeout = null;
+        function showEndReelNotification() {
+            const alertBox = document.getElementById('fs-end-reel-alert');
+            if (!alertBox) return;
+
+            alertBox.classList.remove('hidden');
+            playTickSound('glitch'); // Play alert tone
+
+            if (endReelTimeout) clearTimeout(endReelTimeout);
+            endReelTimeout = setTimeout(() => {
+                alertBox.classList.add('hidden');
+            }, 1500);
+        }
+
+        function navigateArtifactFullscreen(direction) {
+            if (!selectedSpecimen) return;
+            const currentIndex = specimens.findIndex(s => s.id === selectedSpecimen.id);
+            if (currentIndex === -1) return;
+
+            if (direction === 'next') {
+                if (currentIndex === specimens.length - 1) {
+                    showEndReelNotification();
+                    return;
+                }
+                stopSlideshow();
+                window.location.hash = `#/artifact/${specimens[currentIndex + 1].id}`;
+            } else {
+                if (currentIndex === 0) {
+                    showEndReelNotification();
+                    return;
+                }
+                stopSlideshow();
+                window.location.hash = `#/artifact/${specimens[currentIndex - 1].id}`;
+            }
+        }
+
         function closeFullscreenHUD() {
             fsHud.classList.add('hidden');
             if (document.fullscreenElement) {
@@ -2421,8 +2470,21 @@ CLOSING RELAY CONNECTION.
 
         if (fsOpenBtn) fsOpenBtn.addEventListener('click', openFullscreenHUD);
         if (fsCloseBtn) fsCloseBtn.addEventListener('click', closeFullscreenHUD);
-        if (fsPrevBtn) fsPrevBtn.addEventListener('click', () => { stopSlideshow(); navigateArtifact('prev'); });
-        if (fsNextBtn) fsNextBtn.addEventListener('click', () => { stopSlideshow(); navigateArtifact('next'); });
+        if (fsPrevBtn) fsPrevBtn.addEventListener('click', () => { navigateArtifactFullscreen('prev'); });
+        if (fsNextBtn) fsNextBtn.addEventListener('click', () => { navigateArtifactFullscreen('next'); });
+
+        // Bind Arrow Key Navigation
+        document.addEventListener('keydown', (e) => {
+            if (fsHud && !fsHud.classList.contains('hidden')) {
+                if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    navigateArtifactFullscreen('next');
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    navigateArtifactFullscreen('prev');
+                }
+            }
+        });
 
         // Synchronize on native window resize / exit fullscreen escape
         document.addEventListener('fullscreenchange', () => {
@@ -2578,6 +2640,10 @@ CLOSING RELAY CONNECTION.
 
             document.getElementById('ctrl-coord-x').placeholder = randX;
             document.getElementById('ctrl-coord-y').placeholder = randY;
+            const originDateInput = document.getElementById('ctrl-origin-date');
+            if (originDateInput) {
+                originDateInput.value = dateStr;
+            }
             logCtrl(`TELEMETRY INITIALIZED // DATE: ${dateStr} // DEFAULT_COORD: X:${randX} Y:${randY}`);
         }
 
@@ -2725,13 +2791,15 @@ CLOSING RELAY CONNECTION.
                 const colSpanVal = document.getElementById('ctrl-colspan').value.trim() || preset.colSpan;
                 const speedVal = document.getElementById('ctrl-speed').value.trim() || preset.speed;
 
+                const originDateVal = document.getElementById('ctrl-origin-date').value.trim() || new Date().toISOString().split('T')[0].replace(/-/g, '.');
+
                 const newSpecimen = {
                     id: newId,
                     objId: newObjId,
                     title: title,
                     classification: classification,
                     sector: String(nextIdx).padStart(2, '0'),
-                    originDate: new Date().toISOString().split('T')[0].replace(/-/g, '.'),
+                    originDate: originDateVal,
                     coordinates: { x: coordX, y: coordY },
                     status: "STABLE",
                     material: material,
@@ -2952,6 +3020,7 @@ CLOSING RELAY CONNECTION.
                 document.getElementById('ctrl-manage-resonance').value = '';
                 document.getElementById('ctrl-manage-coord-x').value = '';
                 document.getElementById('ctrl-manage-coord-y').value = '';
+                document.getElementById('ctrl-manage-origin-date').value = '';
                 document.getElementById('ctrl-manage-description').value = '';
                 
                 document.getElementById('ctrl-manage-layout-preset').value = '0';
@@ -2979,6 +3048,7 @@ CLOSING RELAY CONNECTION.
             document.getElementById('ctrl-manage-resonance').value = spec.resonance || '';
             document.getElementById('ctrl-manage-coord-x').value = (spec.coordinates && spec.coordinates.x !== undefined) ? spec.coordinates.x : '';
             document.getElementById('ctrl-manage-coord-y').value = (spec.coordinates && spec.coordinates.y !== undefined) ? spec.coordinates.y : '';
+            document.getElementById('ctrl-manage-origin-date').value = spec.originDate || '';
             document.getElementById('ctrl-manage-description').value = spec.description || '';
             
             document.getElementById('ctrl-manage-aspect-ratio').value = spec.aspectRatio || 'aspect-square';
@@ -3082,6 +3152,7 @@ CLOSING RELAY CONNECTION.
             const coordX = document.getElementById('ctrl-manage-coord-x').value.trim() || "0.0";
             const coordY = document.getElementById('ctrl-manage-coord-y').value.trim() || "0.0";
             const description = document.getElementById('ctrl-manage-description').value.trim() || "No narrative details recorded.";
+            const originDate = document.getElementById('ctrl-manage-origin-date').value.trim() || new Date().toISOString().split('T')[0].replace(/-/g, '.');
 
             logCtrl("========================================");
             logCtrl(`INITIATING METADATA MODIFICATION FOR ID: ${id}...`);
@@ -3162,6 +3233,7 @@ CLOSING RELAY CONNECTION.
                 currentList[serverIndex].mass = mass;
                 currentList[serverIndex].resonance = resonance;
                 currentList[serverIndex].coordinates = { x: coordX, y: coordY };
+                currentList[serverIndex].originDate = originDate;
                 currentList[serverIndex].description = description;
                 currentList[serverIndex].imgUrl = finalImgUrl;
                 currentList[serverIndex].aspectRatio = aspectRatioVal;
