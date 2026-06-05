@@ -1866,45 +1866,7 @@ CLOSING RELAY CONNECTION.
         if (prevBtn) prevBtn.addEventListener('click', () => navigateArtifact('prev'));
         if (nextBtn) nextBtn.addEventListener('click', () => navigateArtifact('next'));
 
-        // Scroll detection to transition from Greeting to Index
-        let transitioningGreeting = false;
-        
-        function handleGreetingScroll(e) {
-            if (window.location.hash !== '#/greeting' || transitioningGreeting) return;
-            
-            const delta = e.deltaY;
-            if (delta && delta > 20) {
-                transitioningGreeting = true;
-                triggerScanlineEffect(() => {
-                    window.location.hash = '#/index';
-                    transitioningGreeting = false;
-                });
-            }
-        }
-        
-        window.addEventListener('wheel', handleGreetingScroll);
-        
-        // Touch handling for mobile scroll gesture
-        let touchStart = 0;
-        window.addEventListener('touchstart', (e) => {
-            if (window.location.hash === '#/greeting') {
-                touchStart = e.touches[0].clientY;
-            }
-        });
-        window.addEventListener('touchmove', (e) => {
-            if (window.location.hash === '#/greeting' && touchStart > 0 && !transitioningGreeting) {
-                const touchEnd = e.touches[0].clientY;
-                const diff = touchStart - touchEnd;
-                if (diff > 50) {
-                    transitioningGreeting = true;
-                    touchStart = 0;
-                    triggerScanlineEffect(() => {
-                        window.location.hash = '#/index';
-                        transitioningGreeting = false;
-                    });
-                }
-            }
-        });
+
 
         // ==========================================
         // 10. SYSTEM ADMIN CONSOLE & GITHUB UPLOADER
