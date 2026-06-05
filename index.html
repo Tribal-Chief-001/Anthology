@@ -2019,7 +2019,16 @@ CLOSING RELAY CONNECTION.
 
                 logCtrl(`MASTER INDEX DOWNLOADED. SHA: ${jsonSha.substring(0, 8)}... [OK]`);
 
-                // 3. Prepend the new specimen entry
+                // 3. Prepend the new specimen entry with staggered, asymmetric grid layout presets
+                const layoutPresets = [
+                    { aspectRatio: "aspect-[4/5]", colSpan: "col-span-4 md:col-start-2 md:col-span-3", speed: "0.04" },
+                    { aspectRatio: "aspect-[16/9]", colSpan: "col-span-4 md:col-start-8 md:col-span-4 md:mt-[60px]", speed: "0.08" },
+                    { aspectRatio: "aspect-square", colSpan: "col-span-4 md:col-start-4 md:col-span-3 md:-mt-[40px]", speed: "0.06" },
+                    { aspectRatio: "aspect-[3/4]", colSpan: "col-span-4 md:col-start-9 md:col-span-3", speed: "0.11" },
+                    { aspectRatio: "aspect-[21/9]", colSpan: "col-span-4 md:col-start-1 md:col-span-5 md:mt-[40px]", speed: "0.05" }
+                ];
+                const preset = layoutPresets[nextIdx % layoutPresets.length];
+
                 const newSpecimen = {
                     id: newId,
                     objId: newObjId,
@@ -2034,9 +2043,9 @@ CLOSING RELAY CONNECTION.
                     resonance: resonance,
                     imgUrl: `./assets/${newId.toLowerCase()}_${timestamp}_${cleanFileName}`,
                     description: description,
-                    aspectRatio: "aspect-square",
-                    colSpan: "col-span-4 md:col-start-3 md:col-span-3",
-                    speed: "0.06"
+                    aspectRatio: preset.aspectRatio,
+                    colSpan: preset.colSpan,
+                    speed: preset.speed
                 };
 
                 // Add to start of list so it defaults as the latest/first artwork
