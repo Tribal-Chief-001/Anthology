@@ -1,5 +1,26 @@
 [
   {
+    "id": "ARCHIVE_07",
+    "objId": "6CD3-P",
+    "title": "wolf",
+    "classification": "SKETCH",
+    "sector": "07",
+    "originDate": "2026.06.05",
+    "coordinates": {
+      "x": "42.6",
+      "y": "47.0"
+    },
+    "status": "STABLE",
+    "material": "PENCIL",
+    "mass": "HUMAN ANATOMY",
+    "resonance": "A4 PAPER",
+    "imgUrl": "./assets/archive_07_1780694423618_screenshot_from_2026_06_05_17_36_32.png",
+    "description": "No narrative details recorded.",
+    "aspectRatio": "aspect-square",
+    "colSpan": "col-span-4 md:col-start-4 md:col-span-3 md:-mt-[40px]",
+    "speed": "0.06"
+  },
+  {
     "id": "ARCHIVE_08",
     "objId": "CCBB-Y",
     "title": "snake",
