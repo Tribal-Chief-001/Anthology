@@ -1024,9 +1024,43 @@
                                     </div>
 
                                     <div class="flex flex-col gap-base">
-                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-description">DESCRIPTION</label>
-                                        <textarea id="ctrl-description" rows="3" class="w-full bg-surface border border-primary p-xs font-label-technical text-label-technical text-primary focus:outline-none resize-none" placeholder="Enter detailed specimen narrative..."></textarea>
-                                    </div>
+                                         <label class="font-label-technical text-[10px] text-secondary" for="ctrl-description">DESCRIPTION</label>
+                                         <textarea id="ctrl-description" rows="3" class="w-full bg-surface border border-primary p-xs font-label-technical text-label-technical text-primary focus:outline-none resize-none" placeholder="Enter detailed specimen narrative..."></textarea>
+                                     </div>
+
+                                     <div class="border-t border-primary/20 pt-sm mt-xs space-y-sm">
+                                         <div class="flex flex-col gap-base">
+                                             <label class="font-label-technical text-[10px] text-secondary" for="ctrl-layout-preset">GRID GEOMETRY PRESET</label>
+                                             <select id="ctrl-layout-preset" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                 <option value="0">[01] PORTRAIT STAGGER (Col 2-4, Speed 0.04)</option>
+                                                 <option value="1">[02] LANDSCAPE OFFSET (Col 8-11, Speed 0.08)</option>
+                                                 <option value="2">[03] CENTERED SQUARE (Col 4-6, Speed 0.06)</option>
+                                                 <option value="3">[04] RIGHT SIDE TALL (Col 9-11, Speed 0.11)</option>
+                                                 <option value="4">[05] WIDE PANORAMA (Col 1-5, Speed 0.05)</option>
+                                                 <option value="custom">[CUSTOM] MANUAL OVERRIDE</option>
+                                             </select>
+                                         </div>
+                                         <div class="grid grid-cols-3 gap-sm">
+                                             <div class="flex flex-col gap-base">
+                                                 <label class="font-label-technical text-[10px] text-secondary" for="ctrl-aspect-ratio">ASPECT RATIO</label>
+                                                 <select id="ctrl-aspect-ratio" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                     <option value="aspect-[4/5]">aspect-[4/5]</option>
+                                                     <option value="aspect-[3/4]">aspect-[3/4]</option>
+                                                     <option value="aspect-square">aspect-square</option>
+                                                     <option value="aspect-[16/9]">aspect-[16/9]</option>
+                                                     <option value="aspect-[21/9]">aspect-[21/9]</option>
+                                                 </select>
+                                             </div>
+                                             <div class="col-span-2 flex flex-col gap-base">
+                                                 <label class="font-label-technical text-[10px] text-secondary" for="ctrl-colspan">GRID COLUMNS & CLASSES</label>
+                                                 <input type="text" id="ctrl-colspan" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" value="col-span-4 md:col-start-2 md:col-span-3" />
+                                             </div>
+                                         </div>
+                                         <div class="flex flex-col gap-base">
+                                             <label class="font-label-technical text-[10px] text-secondary" for="ctrl-speed">PARALLAX MOVEMENT SPEED (e.g. 0.04 - 0.15)</label>
+                                             <input type="text" id="ctrl-speed" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" value="0.04" />
+                                         </div>
+                                     </div>
                                 </div>
                             </div>
                         </div>
@@ -1088,6 +1122,40 @@
                                         <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-description">DESCRIPTION</label>
                                         <textarea id="ctrl-manage-description" rows="3" class="w-full bg-surface border border-primary p-xs font-label-technical text-label-technical text-primary focus:outline-none resize-none" placeholder="Enter detailed specimen narrative..."></textarea>
                                     </div>
+
+                                    <div class="border-t border-primary/20 pt-sm mt-xs space-y-sm">
+                                         <div class="flex flex-col gap-base">
+                                             <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-layout-preset">GRID GEOMETRY PRESET</label>
+                                             <select id="ctrl-manage-layout-preset" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                 <option value="0">[01] PORTRAIT STAGGER (Col 2-4, Speed 0.04)</option>
+                                                 <option value="1">[02] LANDSCAPE OFFSET (Col 8-11, Speed 0.08)</option>
+                                                 <option value="2">[03] CENTERED SQUARE (Col 4-6, Speed 0.06)</option>
+                                                 <option value="3">[04] RIGHT SIDE TALL (Col 9-11, Speed 0.11)</option>
+                                                 <option value="4">[05] WIDE PANORAMA (Col 1-5, Speed 0.05)</option>
+                                                 <option value="custom">[CUSTOM] MANUAL OVERRIDE</option>
+                                             </select>
+                                         </div>
+                                         <div class="grid grid-cols-3 gap-sm">
+                                             <div class="flex flex-col gap-base">
+                                                 <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-aspect-ratio">ASPECT RATIO</label>
+                                                 <select id="ctrl-manage-aspect-ratio" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                     <option value="aspect-[4/5]">aspect-[4/5]</option>
+                                                     <option value="aspect-[3/4]">aspect-[3/4]</option>
+                                                     <option value="aspect-square">aspect-square</option>
+                                                     <option value="aspect-[16/9]">aspect-[16/9]</option>
+                                                     <option value="aspect-[21/9]">aspect-[21/9]</option>
+                                                 </select>
+                                             </div>
+                                             <div class="col-span-2 flex flex-col gap-base">
+                                                 <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-colspan">GRID COLUMNS & CLASSES</label>
+                                                 <input type="text" id="ctrl-manage-colspan" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" value="col-span-4 md:col-start-2 md:col-span-3" />
+                                             </div>
+                                         </div>
+                                         <div class="flex flex-col gap-base">
+                                             <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-speed">PARALLAX MOVEMENT SPEED (e.g. 0.04 - 0.15)</label>
+                                             <input type="text" id="ctrl-manage-speed" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" value="0.04" />
+                                         </div>
+                                     </div>
                                 </div>
                             </div>
                         </div>
@@ -2224,6 +2292,9 @@ CLOSING RELAY CONNECTION.
                     { aspectRatio: "aspect-[21/9]", colSpan: "col-span-4 md:col-start-1 md:col-span-5 md:mt-[40px]", speed: "0.05" }
                 ];
                 const preset = layoutPresets[nextIdx % layoutPresets.length];
+                const aspectRatioVal = document.getElementById('ctrl-aspect-ratio').value;
+                const colSpanVal = document.getElementById('ctrl-colspan').value.trim() || preset.colSpan;
+                const speedVal = document.getElementById('ctrl-speed').value.trim() || preset.speed;
 
                 const newSpecimen = {
                     id: newId,
@@ -2239,9 +2310,9 @@ CLOSING RELAY CONNECTION.
                     resonance: resonance,
                     imgUrl: `./assets/${newId.toLowerCase()}_${timestamp}_${cleanFileName}`,
                     description: description,
-                    aspectRatio: preset.aspectRatio,
-                    colSpan: preset.colSpan,
-                    speed: preset.speed
+                    aspectRatio: aspectRatioVal,
+                    colSpan: colSpanVal,
+                    speed: speedVal
                 };
 
                 // Add to start of list so it defaults as the latest/first artwork
@@ -2371,6 +2442,34 @@ CLOSING RELAY CONNECTION.
         tabInject.addEventListener('click', () => switchConsoleTab('inject'));
         tabManage.addEventListener('click', () => switchConsoleTab('manage'));
 
+        const injectPresets = [
+            { aspectRatio: "aspect-[4/5]", colSpan: "col-span-4 md:col-start-2 md:col-span-3", speed: "0.04" },
+            { aspectRatio: "aspect-[16/9]", colSpan: "col-span-4 md:col-start-8 md:col-span-4 md:mt-[60px]", speed: "0.08" },
+            { aspectRatio: "aspect-square", colSpan: "col-span-4 md:col-start-4 md:col-span-3 md:-mt-[40px]", speed: "0.06" },
+            { aspectRatio: "aspect-[3/4]", colSpan: "col-span-4 md:col-start-9 md:col-span-3", speed: "0.11" },
+            { aspectRatio: "aspect-[21/9]", colSpan: "col-span-4 md:col-start-1 md:col-span-5 md:mt-[40px]", speed: "0.05" }
+        ];
+
+        document.getElementById('ctrl-layout-preset').addEventListener('change', (e) => {
+            const val = e.target.value;
+            if (val !== 'custom') {
+                const preset = injectPresets[parseInt(val)];
+                document.getElementById('ctrl-aspect-ratio').value = preset.aspectRatio;
+                document.getElementById('ctrl-colspan').value = preset.colSpan;
+                document.getElementById('ctrl-speed').value = preset.speed;
+            }
+        });
+
+        document.getElementById('ctrl-manage-layout-preset').addEventListener('change', (e) => {
+            const val = e.target.value;
+            if (val !== 'custom') {
+                const preset = injectPresets[parseInt(val)];
+                document.getElementById('ctrl-manage-aspect-ratio').value = preset.aspectRatio;
+                document.getElementById('ctrl-manage-colspan').value = preset.colSpan;
+                document.getElementById('ctrl-manage-speed').value = preset.speed;
+            }
+        });
+
         // Populate specimens list in the dropdown
         function populateManageDropdown() {
             const dropdown = document.getElementById('ctrl-manage-select');
@@ -2411,6 +2510,11 @@ CLOSING RELAY CONNECTION.
                 document.getElementById('ctrl-manage-coord-y').value = '';
                 document.getElementById('ctrl-manage-description').value = '';
                 
+                document.getElementById('ctrl-manage-layout-preset').value = '0';
+                document.getElementById('ctrl-manage-aspect-ratio').value = 'aspect-[4/5]';
+                document.getElementById('ctrl-manage-colspan').value = 'col-span-4 md:col-start-2 md:col-span-3';
+                document.getElementById('ctrl-manage-speed').value = '0.04';
+                
                 if (previewImg) previewImg.classList.add('hidden');
                 if (previewPlaceholder) previewPlaceholder.classList.remove('hidden');
                 document.getElementById('ctrl-manage-file-name').textContent = '-';
@@ -2432,6 +2536,25 @@ CLOSING RELAY CONNECTION.
             document.getElementById('ctrl-manage-coord-x').value = (spec.coordinates && spec.coordinates.x !== undefined) ? spec.coordinates.x : '';
             document.getElementById('ctrl-manage-coord-y').value = (spec.coordinates && spec.coordinates.y !== undefined) ? spec.coordinates.y : '';
             document.getElementById('ctrl-manage-description').value = spec.description || '';
+            
+            document.getElementById('ctrl-manage-aspect-ratio').value = spec.aspectRatio || 'aspect-square';
+            document.getElementById('ctrl-manage-colspan').value = spec.colSpan || 'col-span-4 md:col-start-3 md:col-span-3';
+            document.getElementById('ctrl-manage-speed').value = spec.speed || '0.06';
+
+            // Find matching preset index if any
+            const matchingIdx = [
+                { aspectRatio: "aspect-[4/5]", colSpan: "col-span-4 md:col-start-2 md:col-span-3", speed: "0.04" },
+                { aspectRatio: "aspect-[16/9]", colSpan: "col-span-4 md:col-start-8 md:col-span-4 md:mt-[60px]", speed: "0.08" },
+                { aspectRatio: "aspect-square", colSpan: "col-span-4 md:col-start-4 md:col-span-3 md:-mt-[40px]", speed: "0.06" },
+                { aspectRatio: "aspect-[3/4]", colSpan: "col-span-4 md:col-start-9 md:col-span-3", speed: "0.11" },
+                { aspectRatio: "aspect-[21/9]", colSpan: "col-span-4 md:col-start-1 md:col-span-5 md:mt-[40px]", speed: "0.05" }
+            ].findIndex(p => p.aspectRatio === spec.aspectRatio && p.colSpan === spec.colSpan && p.speed === spec.speed);
+            
+            if (matchingIdx !== -1) {
+                document.getElementById('ctrl-manage-layout-preset').value = String(matchingIdx);
+            } else {
+                document.getElementById('ctrl-manage-layout-preset').value = 'custom';
+            }
 
             // Render current image
             if (previewImg) {
@@ -2579,6 +2702,10 @@ CLOSING RELAY CONNECTION.
 
                 logCtrl(`MASTER INDEX DOWNLOADED. SHA: ${jsonSha.substring(0, 8)}... [OK]`);
 
+                const aspectRatioVal = document.getElementById('ctrl-manage-aspect-ratio').value;
+                const colSpanVal = document.getElementById('ctrl-manage-colspan').value.trim();
+                const speedVal = document.getElementById('ctrl-manage-speed').value.trim();
+
                 // 3. Find target entry and modify it in-place
                 const serverIndex = currentList.findIndex(s => s.id === id);
                 if (serverIndex === -1) {
@@ -2593,6 +2720,9 @@ CLOSING RELAY CONNECTION.
                 currentList[serverIndex].coordinates = { x: coordX, y: coordY };
                 currentList[serverIndex].description = description;
                 currentList[serverIndex].imgUrl = finalImgUrl;
+                currentList[serverIndex].aspectRatio = aspectRatioVal;
+                currentList[serverIndex].colSpan = colSpanVal;
+                currentList[serverIndex].speed = speedVal;
 
                 logCtrl(`COMMITTING UPDATES ON ID: ${id} FOR MASTER INDEX...`);
 
