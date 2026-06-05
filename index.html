@@ -2070,12 +2070,20 @@ CLOSING RELAY CONNECTION.
                 logCtrl("========================================");
                 logCtrl("TRANSMISSION COMPLETED SUCCESSFULLY.");
                 logCtrl("REBUILD DEPLOY TRIGGERED ON MAIN BRANCH.");
+                logCtrl("NOTE: DEPLOYMENT TAKES ~60 SECONDS TO REFLECT ON THE SERVER.");
 
                 // Play glitch success tone
                 playTickSound('glitch');
 
-                // Reload local specimens array dynamically
-                specimens = currentList;
+                // Keep local base64 Data URL for immediate in-memory rendering so the image shows up instantly
+                const tempLocalImgUrl = previewImg ? previewImg.src : null;
+                
+                // Deep copy list and inject the temporary data URL for local state
+                specimens = JSON.parse(JSON.stringify(currentList));
+                if (specimens[0] && tempLocalImgUrl) {
+                    specimens[0].imgUrl = tempLocalImgUrl;
+                }
+                
                 renderIndexGrid();
 
                 // Clear input form
@@ -2099,7 +2107,7 @@ CLOSING RELAY CONNECTION.
                 // Redirect to main index page after short delay so they see the result!
                 setTimeout(() => {
                     window.location.hash = '#/index';
-                }, 2000);
+                }, 3000);
 
             } catch (err) {
                 console.error(err);
