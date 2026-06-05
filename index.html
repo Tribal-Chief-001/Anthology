@@ -2318,7 +2318,10 @@ CLOSING RELAY CONNECTION.
                 // Add to start of list so it defaults as the latest/first artwork
                 currentList.unshift(newSpecimen);
 
-                logCtrl(`INJECTING NEW SPECIMEN ID: ${newId} // OBJ_ID: ${newObjId}`);
+                // Re-index all elements to maintain sequential, gapless numbering
+                reassignSpecimenIds(currentList);
+
+                logCtrl(`INJECTING NEW SPECIMEN ID: ${newSpecimen.id} // OBJ_ID: ${newObjId}`);
 
                 // 4. Push updated specimens.json back to GitHub
                 logCtrl("PUSHING UPDATED MASTER INDEX TO GITHUB...");
@@ -2469,6 +2472,18 @@ CLOSING RELAY CONNECTION.
                 document.getElementById('ctrl-manage-speed').value = preset.speed;
             }
         });
+
+        // Reassign IDs to be gapless and sequential from oldest (bottom) to newest (top)
+        function reassignSpecimenIds(list) {
+            const len = list.length;
+            for (let i = 0; i < len; i++) {
+                const idx = len - i; // oldest gets ARCHIVE_01, newest gets ARCHIVE_len
+                const spec = list[i];
+                spec.id = `ARCHIVE_${String(idx).padStart(2, '0')}`;
+                spec.sector = String(idx).padStart(2, '0');
+            }
+            return list;
+        }
 
         // Populate specimens list in the dropdown
         function populateManageDropdown() {
@@ -2724,6 +2739,9 @@ CLOSING RELAY CONNECTION.
                 currentList[serverIndex].colSpan = colSpanVal;
                 currentList[serverIndex].speed = speedVal;
 
+                // Re-index all elements to maintain sequential, gapless numbering and resolve duplicates
+                reassignSpecimenIds(currentList);
+
                 logCtrl(`COMMITTING UPDATES ON ID: ${id} FOR MASTER INDEX...`);
 
                 // 4. Push updated specimens.json back to GitHub
@@ -2837,6 +2855,9 @@ CLOSING RELAY CONNECTION.
                 if (updatedList.length === currentList.length) {
                     throw new Error("Selected Specimen does not exist on Master index server.");
                 }
+
+                // Re-index all elements to maintain sequential, gapless numbering
+                reassignSpecimenIds(updatedList);
 
                 logCtrl(`REMOVING ENTRY ID: ${id}...`);
 
