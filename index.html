@@ -1971,7 +1971,8 @@ CLOSING RELAY CONNECTION.
             const newObjId = `${randomHex}-${randomChar}`;
             
             const cleanFileName = selectedFile.name.replace(/[^a-zA-Z0-9.]/g, '_').toLowerCase();
-            const imagePath = `assets/${newId.toLowerCase()}_${cleanFileName}`;
+            const timestamp = Date.now();
+            const imagePath = `assets/${newId.toLowerCase()}_${timestamp}_${cleanFileName}`;
 
             try {
                 // 1. Upload the image file to GitHub
@@ -2031,7 +2032,7 @@ CLOSING RELAY CONNECTION.
                     material: material,
                     mass: mass,
                     resonance: resonance,
-                    imgUrl: `./assets/${newId.toLowerCase()}_${cleanFileName}`,
+                    imgUrl: `./assets/${newId.toLowerCase()}_${timestamp}_${cleanFileName}`,
                     description: description,
                     aspectRatio: "aspect-square",
                     colSpan: "col-span-4 md:col-start-3 md:col-span-3",
