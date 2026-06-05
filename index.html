@@ -3,6 +3,11 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    
+    <!-- Cache-Control Meta Tags -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <title>ANTHOLOGY - Speculative Geometries & Archival Traces</title>
     
     <!-- Fonts -->
@@ -1503,7 +1508,7 @@
 
         window.addEventListener('DOMContentLoaded', async () => {
             try {
-                const res = await fetch('specimens.json');
+                const res = await fetch('specimens.json?t=' + Date.now());
                 specimens = await res.json();
             } catch (err) {
                 console.error("Failed to load specimens:", err);
