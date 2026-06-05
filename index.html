@@ -455,11 +455,21 @@
                 </a>
             </li>
         </ul>
-        <div class="px-xs mt-auto">
+        <div class="px-xs mt-auto flex flex-col gap-sm">
             <div class="font-label-technical text-[9px] text-secondary">
                 LAT: <span id="sidebar-lat">34.0522 N</span><br/>
                 LON: <span id="sidebar-lon">118.2437 W</span><br/>
-                UTC: <span id="sidebar-time">00:00:00</span>
+                <span id="sidebar-timezone-label">UTC</span>: <span id="sidebar-time">00:00:00</span>
+            </div>
+            <div class="font-label-technical text-[9px] text-secondary border-t border-primary/20 pt-xs flex flex-col gap-1">
+                <a class="hover:text-primary transition-colors flex items-center gap-1" href="https://x.com/Twistyo1512" target="_blank">
+                    <span class="material-symbols-outlined text-[10px]">alternate_email</span>
+                    @TWISTYO1512
+                </a>
+                <a class="hover:text-primary transition-colors flex items-center gap-1" href="mailto:raghvendra12101976@gmail.com">
+                    <span class="material-symbols-outlined text-[10px]">mail</span>
+                    CONTACT
+                </a>
             </div>
         </div>
     </aside>
@@ -606,7 +616,7 @@
                 <span class="font-label-technical text-label-technical font-bold text-primary uppercase">©2026 ANTHOLOGY.CORE</span>
                 <nav class="flex gap-sm">
                     <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="#/greeting">LEGAL</a>
-                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="https://github.com" target="_blank">SOURCE</a>
+                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="https://github.com/Tribal-Chief-001/Anthology" target="_blank">SOURCE</a>
                     <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="#/">LOGOUT</a>
                 </nav>
             </footer>
@@ -641,7 +651,7 @@
                 <span class="font-label-technical text-label-technical font-bold text-primary uppercase">©2026 ANTHOLOGY.CORE</span>
                 <nav class="flex gap-sm">
                     <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="#/greeting">LEGAL</a>
-                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="https://github.com" target="_blank">SOURCE</a>
+                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="https://github.com/Tribal-Chief-001/Anthology" target="_blank">SOURCE</a>
                     <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="#/">LOGOUT</a>
                 </nav>
             </footer>
@@ -760,6 +770,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Share Artwork Section -->
+                            <div class="mt-6 mb-4 border-t border-primary pt-4 flex flex-col gap-2 relative z-10">
+                                <span class="font-label-technical text-secondary text-[10px] uppercase block">SHARE TRANSMISSION</span>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <button onclick="shareArtwork('x')" class="border border-primary bg-surface hover:bg-primary hover:text-on-primary py-2 font-label-technical text-[10px] uppercase transition-colors text-center">X (TWT)</button>
+                                    <button onclick="shareArtwork('whatsapp')" class="border border-primary bg-surface hover:bg-primary hover:text-on-primary py-2 font-label-technical text-[10px] uppercase transition-colors text-center">WA</button>
+                                    <button onclick="shareArtwork('instagram')" class="border border-primary bg-surface hover:bg-primary hover:text-on-primary py-2 font-label-technical text-[10px] uppercase transition-colors text-center">INSTA</button>
+                                </div>
+                            </div>
+
                             <div class="mt-8 lg:mt-0 relative overflow-hidden">
                                 <button id="acquire-btn" class="w-full border border-primary bg-surface text-primary hover:bg-primary hover:text-on-primary py-3 font-label-technical text-label-technical uppercase transition-colors flex justify-center items-center gap-2 relative z-10">
                                     <span class="material-symbols-outlined text-[16px]">download</span>
@@ -868,7 +888,7 @@
                 <span class="font-label-technical text-label-technical font-bold text-primary uppercase">©2026 ANTHOLOGY.CORE</span>
                 <nav class="flex gap-sm">
                     <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="#/greeting">LEGAL</a>
-                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="https://github.com" target="_blank">SOURCE</a>
+                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="https://github.com/Tribal-Chief-001/Anthology" target="_blank">SOURCE</a>
                     <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="#/">LOGOUT</a>
                 </nav>
             </footer>
@@ -1033,7 +1053,7 @@
                 <span class="font-label-technical text-label-technical font-bold text-primary uppercase">©2026 ANTHOLOGY.CORE</span>
                 <nav class="flex gap-sm">
                     <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="#/greeting">LEGAL</a>
-                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="https://github.com" target="_blank">SOURCE</a>
+                    <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="https://github.com/Tribal-Chief-001/Anthology" target="_blank">SOURCE</a>
                     <a class="font-label-technical text-label-technical text-secondary hover:text-primary underline transition-colors" href="#/">LOGOUT</a>
                 </nav>
             </footer>
@@ -1453,6 +1473,32 @@
             document.getElementById('console-log').innerHTML = `<span class="data-stream-inline">SYSTEM.LOG // ARTIFACT LOADED SUCCESSFUL [${selectedSpecimen.id}]</span>`;
         }
 
+        function shareArtwork(platform) {
+            if (!selectedSpecimen) return;
+            const title = selectedSpecimen.title;
+            const shareUrl = window.location.href;
+            const text = `Check out "${title}" on Anthology Archive!`;
+            
+            playTickSound('click');
+            
+            if (platform === 'x') {
+                const xUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`;
+                window.open(xUrl, '_blank');
+                document.getElementById('console-log').innerHTML = `<span class="data-stream-inline">SYSTEM.LOG // ROUTING TO X (TWITTER) OUTWARD LINK</span>`;
+            } else if (platform === 'whatsapp') {
+                const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text + ' ' + shareUrl)}`;
+                window.open(waUrl, '_blank');
+                document.getElementById('console-log').innerHTML = `<span class="data-stream-inline">SYSTEM.LOG // ROUTING TO WHATSAPP RELAY</span>`;
+            } else if (platform === 'instagram') {
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    document.getElementById('console-log').innerHTML = `<span class="data-stream-inline text-primary">SYSTEM.LOG // LINK COPIED! UPLOAD IMAGE TO INSTAGRAM</span>`;
+                    playTickSound('glitch');
+                }).catch(err => {
+                    document.getElementById('console-log').innerHTML = `<span class="data-stream-inline">SYSTEM.LOG // FAIL TO COPY LINK</span>`;
+                });
+            }
+        }
+
         // Interactive "ACQUIRE DATA" log console download sequence simulation
         const acquireBtn = document.getElementById('acquire-btn');
         let downloading = false;
@@ -1624,10 +1670,11 @@ CLOSING RELAY CONNECTION.
         // Global ticking clocks
         function updateClock() {
             const now = new Date();
+            // Show the visitor's actual local time
             const timeString = 
-                String(now.getUTCHours()).padStart(2, '0') + ':' + 
-                String(now.getUTCMinutes()).padStart(2, '0') + ':' + 
-                String(now.getUTCSeconds()).padStart(2, '0');
+                String(now.getHours()).padStart(2, '0') + ':' + 
+                String(now.getMinutes()).padStart(2, '0') + ':' + 
+                String(now.getSeconds()).padStart(2, '0');
             
             const milliseconds = String(Math.floor(now.getMilliseconds() / 10)).padStart(2, '0');
 
@@ -1639,6 +1686,47 @@ CLOSING RELAY CONNECTION.
             const sidebarTime = document.getElementById('sidebar-time');
             if (sidebarTime) {
                 sidebarTime.textContent = timeString;
+            }
+
+            // Update timezone label dynamically based on local timezone offset
+            const tzLabel = document.getElementById('sidebar-timezone-label');
+            if (tzLabel && !tzLabel.hasAttribute('data-set')) {
+                const offsetMin = -now.getTimezoneOffset();
+                const sign = offsetMin >= 0 ? '+' : '-';
+                const absMin = Math.abs(offsetMin);
+                const offsetHours = Math.floor(absMin / 60);
+                const offsetMins = absMin % 60;
+                const tzString = `GMT${sign}${offsetHours}:${String(offsetMins).padStart(2, '0')}`;
+                
+                tzLabel.textContent = tzString;
+                tzLabel.setAttribute('data-set', 'true');
+            }
+
+            // Estimate LAT/LON based on resolved timezone
+            const sidebarLat = document.getElementById('sidebar-lat');
+            const sidebarLon = document.getElementById('sidebar-lon');
+            if (sidebarLat && sidebarLon && !sidebarLat.hasAttribute('data-set')) {
+                let lat = "34.0522 N";
+                let lon = "118.2437 W";
+                try {
+                    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+                    if (tz.includes("Kolkata") || tz.includes("Calcutta") || tz.includes("India")) {
+                        lat = "20.5937 N";
+                        lon = "78.9629 E";
+                    } else if (tz.includes("London") || tz.includes("Europe/Paris") || tz.includes("Berlin") || tz.includes("Rome")) {
+                        lat = "51.5074 N";
+                        lon = "0.1278 W";
+                    } else if (tz.includes("Tokyo") || tz.includes("Seoul") || tz.includes("Asia")) {
+                        lat = "35.6762 N";
+                        lon = "139.6503 E";
+                    } else if (tz.includes("New_York") || tz.includes("Chicago") || tz.includes("America")) {
+                        lat = "40.7128 N";
+                        lon = "74.0060 W";
+                    }
+                } catch(e) {}
+                sidebarLat.textContent = lat;
+                sidebarLon.textContent = lon;
+                sidebarLat.setAttribute('data-set', 'true');
             }
 
             requestAnimationFrame(updateClock);
