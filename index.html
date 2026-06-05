@@ -2758,6 +2758,13 @@ CLOSING RELAY CONNECTION.
         window.addEventListener('DOMContentLoaded', () => {
             loadCtrlCredentials();
             initCtrlDefaults();
+
+            // Register Service Worker for Cache v4 Network First Strategy
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker Registered [OK]:', reg.scope))
+                    .catch(err => console.warn('Service Worker Registration Failed:', err));
+            }
         });
 
     </script>
