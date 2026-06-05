@@ -1,5 +1,26 @@
 [
   {
+    "id": "ARCHIVE_08",
+    "objId": "CCBB-Y",
+    "title": "snake",
+    "classification": "SKETCH",
+    "sector": "08",
+    "originDate": "2026.06.05",
+    "coordinates": {
+      "x": "32.0",
+      "y": "67.0"
+    },
+    "status": "STABLE",
+    "material": "PENCIL",
+    "mass": "HUMAN ANATOMY",
+    "resonance": "A4 PAPER",
+    "imgUrl": "./assets/archive_08_1780693648320_screenshot_from_2026_06_05_16_58_41.png",
+    "description": "No narrative details recorded.",
+    "aspectRatio": "aspect-square",
+    "colSpan": "col-span-4 md:col-start-3 md:col-span-3",
+    "speed": "0.06"
+  },
+  {
     "id": "ARCHIVE_07",
     "objId": "F3CF-I",
     "title": "dragon",
