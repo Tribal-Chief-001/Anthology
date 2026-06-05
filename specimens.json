@@ -1,12 +1,36 @@
 [
   {
+    "id": "ARCHIVE_06",
+    "objId": "76AB-A",
+    "title": "luv>>>>",
+    "classification": "SKETCH",
+    "sector": "06",
+    "originDate": "2026.06.05",
+    "coordinates": {
+      "x": "14.5",
+      "y": "47.9"
+    },
+    "status": "STABLE",
+    "material": "PENCIL",
+    "mass": "HUMAN ANATOMY",
+    "resonance": "A4 PAPER",
+    "imgUrl": "./assets/archive_06_screenshot_from_2026_06_05_20_41_55.png",
+    "description": "No narrative details recorded.",
+    "aspectRatio": "aspect-square",
+    "colSpan": "col-span-4 md:col-start-3 md:col-span-3",
+    "speed": "0.06"
+  },
+  {
     "id": "ARCHIVE_01",
     "objId": "8F92-A",
     "title": "Eldritch Wanderer",
     "classification": "MANGA INK",
     "sector": "01",
     "originDate": "2026.06.01",
-    "coordinates": { "x": "45.9", "y": "12.1" },
+    "coordinates": {
+      "x": "45.9",
+      "y": "12.1"
+    },
     "status": "STABLE",
     "material": "INK HATCHING",
     "mass": "HUMAN STUDY",
@@ -24,7 +48,10 @@
     "classification": "PENCIL SKETCH",
     "sector": "02",
     "originDate": "2026.06.02",
-    "coordinates": { "x": "88.2", "y": "09.5" },
+    "coordinates": {
+      "x": "88.2",
+      "y": "09.5"
+    },
     "status": "STABLE",
     "material": "CHIAROSCURO",
     "mass": "SCENERY",
@@ -42,7 +69,10 @@
     "classification": "CHARCOAL",
     "sector": "03",
     "originDate": "2026.06.03",
-    "coordinates": { "x": "55.4", "y": "32.8" },
+    "coordinates": {
+      "x": "55.4",
+      "y": "32.8"
+    },
     "status": "STABLE",
     "material": "GESTURE DRAWING",
     "mass": "ANIMAL ANATOMY",
@@ -60,7 +90,10 @@
     "classification": "DIGITAL LINEART",
     "sector": "04",
     "originDate": "2026.06.04",
-    "coordinates": { "x": "12.4", "y": "77.1" },
+    "coordinates": {
+      "x": "12.4",
+      "y": "77.1"
+    },
     "status": "STABLE",
     "material": "CELL SHADING",
     "mass": "HUMAN PORTRAIT",
@@ -78,7 +111,10 @@
     "classification": "INKS & WASH",
     "sector": "05",
     "originDate": "2026.06.05",
-    "coordinates": { "x": "00.0", "y": "00.0" },
+    "coordinates": {
+      "x": "00.0",
+      "y": "00.0"
+    },
     "status": "STABLE",
     "material": "SUMI-E GRADIENTS",
     "mass": "SCENERY",
