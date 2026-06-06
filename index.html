@@ -5336,13 +5336,11 @@ CLOSING RELAY CONNECTION.
             const ch = cropBox.h;
             
             ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
-            ctx.fillRect(0, 0, wsW, wsH);
-            
-            ctx.save();
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(cx, cy, cw, ch);
-            ctx.restore();
+            // Draw four surrounding dark overlays around the crop box
+            ctx.fillRect(0, 0, wsW, cy); // Top
+            ctx.fillRect(0, cy + ch, wsW, wsH - (cy + ch)); // Bottom
+            ctx.fillRect(0, cy, cx, ch); // Left
+            ctx.fillRect(cx + cw, cy, wsW - (cx + cw), ch); // Right
             
             ctx.strokeStyle = '#000000';
             ctx.lineWidth = 2;
