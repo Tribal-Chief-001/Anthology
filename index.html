@@ -1979,7 +1979,6 @@
                 { label: "SOURCE", value: "HAND-DRAWN SPECIMENS (100% INK)" }
             ],
             socials: [
-                { platform: "INSTAGRAM", url: "https://instagram.com/tribal_chief_001", icon: "link" },
                 { platform: "BEHANCE", url: "https://behance.net", icon: "link" },
                 { platform: "EMAIL", url: "mailto:twisty.easel1512@gmail.com", icon: "mail" }
             ],
@@ -2226,6 +2225,10 @@
                 renderManifesto();
             }
 
+            if (pageId === 'page-index') {
+                renderIndexGrid();
+            }
+
             // Sync navigation active indicator styling
             syncNavStates(hash);
 
@@ -2454,6 +2457,10 @@
 
         function renderIndexGrid() {
             const container = document.getElementById('archives-grid');
+            if (!container) return;
+            const page = document.getElementById('page-index');
+            if (page && page.classList.contains('hidden')) return;
+
             container.innerHTML = '';
 
             const sortedList = getSortedSpecimens();
@@ -2585,6 +2592,8 @@
 
         function renderManifesto() {
             if (!manifestoData) return;
+            const page = document.getElementById('page-greeting');
+            if (page && page.classList.contains('hidden')) return;
 
             // Render subtitle & title
             const subtitleEl = document.getElementById('manifesto-render-subtitle');
@@ -2742,7 +2751,9 @@
                         const textHeight = textContainer.offsetHeight || 600;
                         if (textHeight > maxBottom) maxBottom = textHeight;
                     }
-                    gridContainer.style.height = `${maxBottom}px`;
+                    // Since gridContainer has py-xl padding (128px top & 128px bottom),
+                    // the total height must include this padding (256px) to prevent overlap
+                    gridContainer.style.height = `${maxBottom + 256}px`;
                 }
             }
 
