@@ -2488,7 +2488,7 @@
                     const rawX = parseFloat(s.coordinates?.x || '0');
                     const leftPct = rawX * (1 - widthPct / 100);
                     const cardHeight = estimateCardHeight(s.aspectRatio);
-                    const manualTop = parseFloat(s.coordinates?.y || '0') * 30;
+                    const manualTop = (parseFloat(s.coordinates?.y || '0') * 30) + parsed.desktopOffset;
 
                     // Find max bottom among already-placed cards that overlap horizontally
                     let maxBelow = 0;
@@ -2696,7 +2696,7 @@
                         const rawX = parseFloat(img.coordinates?.x || 0);
                         const leftPct = rawX * (1 - widthPct / 100);
                         const cardHeight = estimateCardHeight(img.aspectRatio);
-                        const manualTop = parseFloat(img.coordinates?.y || 0) * 30;
+                        const manualTop = (parseFloat(img.coordinates?.y || 0) * 30) + parsed.desktopOffset;
 
                         let maxBelow = 0;
                         const GAP = 60;
