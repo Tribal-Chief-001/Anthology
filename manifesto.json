@@ -26,15 +26,32 @@
   ],
   "socials": [
     {
+      "platform": "INSTAGRAM",
+      "url": "https://instagram.com/tribal_chief_001",
+      "icon": "link"
+    },
+    {
       "platform": "BEHANCE",
       "url": "https://behance.net",
       "icon": "link"
     },
     {
       "platform": "EMAIL",
-      "url": "mailto:twisty.easel1512@gmail.com",
+      "url": "mailto:lucifer@example.com",
       "icon": "mail"
     }
   ],
-  "images": []
+  "images": [
+    {
+      "id": "MANIFESTO_IMG_1780773219562",
+      "imgUrl": "./assets/manifesto_manifesto_img_1780773217743_1780773217743_img_20260607_wa0001.jpg",
+      "aspectRatio": "aspect-[4/5]",
+      "colSpan": "col-span-4 md:col-start-7 md:col-span-4",
+      "speed": "0.05",
+      "coordinates": {
+        "x": "17.1",
+        "y": "77.0"
+      }
+    }
+  ]
 }
