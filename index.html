@@ -2312,9 +2312,7 @@
                     specimens.forEach(spec => {
                         const localSpec = parsedLocal.find(s => s.id === spec.id);
                         if (localSpec) {
-                            if (localSpec.ratings) spec.ratings = localSpec.ratings;
-                            if (localSpec.rating !== undefined) spec.rating = localSpec.rating;
-                            if (localSpec.uploadDate) spec.uploadDate = localSpec.uploadDate;
+                            Object.assign(spec, localSpec);
                         }
                     });
                 }
@@ -2536,6 +2534,7 @@
                     `;
 
                     article.style.position = 'absolute';
+                    article.style.gridColumn = '1 / -1';
                     article.style.left = `${leftPct}%`;
                     article.style.top = `${computedTop}px`;
                     article.style.width = `calc(${widthPct}% - 24px)`;
@@ -2714,6 +2713,7 @@
                         );
 
                         card.style.position = 'absolute';
+                        card.style.gridColumn = '1 / -1';
                         card.style.left = `${leftPct}%`;
                         card.style.top = `${computedTop}px`;
                         card.style.width = `calc(${widthPct}% - 24px)`;
@@ -4542,15 +4542,6 @@ CLOSING RELAY CONNECTION.
                 return;
             }
 
-            const token = localStorage.getItem('ctrl-github-token') || '';
-            const owner = localStorage.getItem('ctrl-github-owner') || '';
-            const repo = localStorage.getItem('ctrl-github-repo') || '';
-
-            if (!token || !owner || !repo) {
-                logCtrl("ERROR: AUTHENTICATE NODE CREDENTIALS BEFORE TRANSMITTING.");
-                return;
-            }
-
             const title = document.getElementById('ctrl-manage-title').value.trim() || "Untitled Sketch";
             const classification = document.getElementById('ctrl-manage-classification').value.trim() || "SKETCH";
             const material = document.getElementById('ctrl-manage-material').value.trim() || "PENCIL";
@@ -4561,6 +4552,50 @@ CLOSING RELAY CONNECTION.
             const description = document.getElementById('ctrl-manage-description').value.trim() || "No narrative details recorded.";
             const indexCaption = document.getElementById('ctrl-manage-index-caption').value.trim() || "";
             const originDate = document.getElementById('ctrl-manage-origin-date').value.trim() || new Date().toISOString().split('T')[0].replace(/-/g, '.');
+            const aspectRatioVal = document.getElementById('ctrl-manage-aspect-ratio').value;
+            const colSpanVal = document.getElementById('ctrl-manage-colspan').value.trim();
+            const speedVal = document.getElementById('ctrl-manage-speed').value.trim();
+
+            const token = localStorage.getItem('ctrl-github-token') || '';
+            const owner = localStorage.getItem('ctrl-github-owner') || '';
+            const repo = localStorage.getItem('ctrl-github-repo') || '';
+
+            if (!token || !owner || !repo) {
+                logCtrl("SYSTEM // GITHUB AUTH NOT SET. INITIATING LOCAL CACHE SAVE...");
+                const localIdx = specimens.findIndex(s => s.id === id);
+                if (localIdx === -1) {
+                    logCtrl("ERROR: SPECIMEN NOT FOUND.");
+                    return;
+                }
+                
+                const tempLocalImgUrl = (manageSelectedFile && manageSelectedFileBase64) ? document.getElementById('ctrl-manage-preview-img').src : specimens[localIdx].imgUrl;
+                
+                specimens[localIdx].title = title;
+                specimens[localIdx].classification = classification;
+                specimens[localIdx].material = material;
+                specimens[localIdx].mass = mass;
+                specimens[localIdx].resonance = resonance;
+                specimens[localIdx].coordinates = { x: coordX, y: coordY };
+                specimens[localIdx].originDate = originDate;
+                specimens[localIdx].description = description;
+                specimens[localIdx].imgUrl = tempLocalImgUrl;
+                specimens[localIdx].aspectRatio = aspectRatioVal;
+                specimens[localIdx].colSpan = colSpanVal;
+                specimens[localIdx].speed = speedVal;
+                specimens[localIdx].indexCaption = indexCaption;
+
+                reassignSpecimenIds(specimens);
+                localStorage.setItem('specimens-local', JSON.stringify(specimens));
+                renderIndexGrid();
+                
+                // Clear/reset dropdown and form
+                document.getElementById('ctrl-manage-select').value = '';
+                document.getElementById('ctrl-manage-select').dispatchEvent(new Event('change'));
+                
+                logCtrl("LOCAL SPECIMEN CACHE MODIFIED SUCCESSFULLY [OK]");
+                playTickSound('glitch');
+                return;
+            }
 
             logCtrl("========================================");
             logCtrl(`INITIATING METADATA MODIFICATION FOR ID: ${id}...`);
