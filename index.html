@@ -652,6 +652,19 @@
                     </p>
                 </header>
 
+                <!-- Index Controls -->
+                <div class="mb-12 flex flex-wrap items-center gap-4 border border-primary p-3 bg-surface-container-lowest max-w-xl relative z-20">
+                    <span class="font-label-technical text-label-technical text-secondary uppercase font-bold">SORT INDEX PARAMETER:</span>
+                    <select id="ctrl-index-sort" class="bg-surface border border-primary px-3 py-1.5 font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest cursor-none uppercase">
+                        <option value="upload-desc">UPLOAD DATE [NEWEST FIRST]</option>
+                        <option value="upload-asc">UPLOAD DATE [OLDEST FIRST]</option>
+                        <option value="origin-desc">ORIGIN DATE [NEWEST FIRST]</option>
+                        <option value="origin-asc">ORIGIN DATE [OLDEST FIRST]</option>
+                        <option value="rating-desc">COMMUNAL RATING [HIGHEST FIRST]</option>
+                    </select>
+                </div>
+
+
                 <!-- Portfolio Grid -->
                 <div id="archives-grid" class="grid grid-cols-4 md:grid-cols-12 gap-x-gutter gap-y-xl md:gap-y-[180px]">
                     <!-- Items populated dynamically by JavaScript -->
@@ -816,6 +829,24 @@
                                     <div class="inline-flex items-center gap-2 border border-primary px-2 py-1 bg-surface-container-lowest">
                                         <div class="w-2 h-2 bg-primary rounded-full animate-pulse shadow-[0_0_4px_rgba(0,0,0,0.4)]"></div>
                                         <span id="artifact-status">STABLE</span>
+                                    </div>
+                                </div>
+                                <div class="border-t border-primary/20 pt-4 mt-2">
+                                    <span class="block text-secondary mb-1">SPECIMEN RATING</span>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="flex text-primary text-md tracking-tighter" id="artifact-rating-stars">
+                                            <!-- Stars populated dynamically -->
+                                        </div>
+                                        <span class="font-bold text-xs" id="artifact-rating-value">0.0</span>
+                                        <span class="text-secondary text-[9px]" id="artifact-rating-count">(0 VOTES)</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <span class="text-secondary text-[9px] uppercase mr-1">RATE:</span>
+                                        <button class="rating-star-btn border border-primary px-1.5 py-0.5 bg-surface hover:bg-primary hover:text-on-primary font-label-technical text-[9px] transition-colors cursor-none" data-rating="1">1★</button>
+                                        <button class="rating-star-btn border border-primary px-1.5 py-0.5 bg-surface hover:bg-primary hover:text-on-primary font-label-technical text-[9px] transition-colors cursor-none" data-rating="2">2★</button>
+                                        <button class="rating-star-btn border border-primary px-1.5 py-0.5 bg-surface hover:bg-primary hover:text-on-primary font-label-technical text-[9px] transition-colors cursor-none" data-rating="3">3★</button>
+                                        <button class="rating-star-btn border border-primary px-1.5 py-0.5 bg-surface hover:bg-primary hover:text-on-primary font-label-technical text-[9px] transition-colors cursor-none" data-rating="4">4★</button>
+                                        <button class="rating-star-btn border border-primary px-1.5 py-0.5 bg-surface hover:bg-primary hover:text-on-primary font-label-technical text-[9px] transition-colors cursor-none" data-rating="5">5★</button>
                                     </div>
                                 </div>
                             </div>
@@ -1070,6 +1101,24 @@
                                          <textarea id="ctrl-description" rows="3" class="w-full bg-surface border border-primary p-xs font-label-technical text-label-technical text-primary focus:outline-none resize-none" placeholder="Enter detailed specimen narrative..."></textarea>
                                      </div>
 
+                                     <div class="flex flex-col gap-base">
+                                         <label class="font-label-technical text-[10px] text-secondary" for="ctrl-index-caption">INDEX CAPTION <span class="text-primary/50">(20–40 WORDS, INDEX VIEW ONLY)</span></label>
+                                         <div class="flex gap-2 items-start">
+                                             <select id="ctrl-caption-preset" class="bg-surface border border-primary px-xs py-base font-label-technical text-[10px] text-primary focus:outline-none focus:bg-surface-container-lowest min-w-[160px]">
+                                                 <option value="">— CAPTION PRESET —</option>
+                                                 <option value="A meticulous study of form and shadow, rendered in traditional medium with disciplined anatomical precision.">ANATOMICAL STUDY</option>
+                                                 <option value="An expressive exploration of line and gesture, capturing fluid motion through controlled mark-making.">GESTURAL EXPRESSION</option>
+                                                 <option value="A detailed observational rendering documenting natural form, texture, and structural composition.">OBSERVATIONAL STUDY</option>
+                                                 <option value="A conceptual piece blending abstract geometry with organic elements, challenging perceptual boundaries.">CONCEPTUAL ABSTRACT</option>
+                                                 <option value="A portrait study emphasizing emotional depth and tonal contrast through layered rendering technique.">PORTRAIT STUDY</option>
+                                                 <option value="An environmental composition capturing atmospheric perspective, light, and spatial depth.">ENVIRONMENTAL SCENE</option>
+                                                 <option value="A textile and pattern exploration examining repetition, symmetry, and cultural motif integration.">PATTERN / TEXTILE</option>
+                                                 <option value="custom">CUSTOM (TYPE BELOW)</option>
+                                             </select>
+                                             <textarea id="ctrl-index-caption" rows="2" maxlength="280" class="flex-1 bg-surface border border-primary p-xs font-label-technical text-[11px] text-primary focus:outline-none resize-none leading-relaxed" placeholder="Short caption visible only on the index grid (20-40 words)..."></textarea>
+                                         </div>
+                                     </div>
+
                                      <div class="border-t border-primary/20 pt-sm mt-xs space-y-sm">
                                          <div class="flex flex-col gap-base">
                                              <label class="font-label-technical text-[10px] text-secondary" for="ctrl-layout-preset">GRID GEOMETRY PRESET</label>
@@ -1214,6 +1263,24 @@
                                     <div class="flex flex-col gap-base">
                                         <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-description">DESCRIPTION</label>
                                         <textarea id="ctrl-manage-description" rows="3" class="w-full bg-surface border border-primary p-xs font-label-technical text-label-technical text-primary focus:outline-none resize-none" placeholder="Enter detailed specimen narrative..."></textarea>
+                                    </div>
+
+                                    <div class="flex flex-col gap-base">
+                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-index-caption">INDEX CAPTION <span class="text-primary/50">(20–40 WORDS, INDEX VIEW ONLY)</span></label>
+                                        <div class="flex gap-2 items-start">
+                                            <select id="ctrl-manage-caption-preset" class="bg-surface border border-primary px-xs py-base font-label-technical text-[10px] text-primary focus:outline-none focus:bg-surface-container-lowest min-w-[160px]">
+                                                <option value="">— CAPTION PRESET —</option>
+                                                <option value="A meticulous study of form and shadow, rendered in traditional medium with disciplined anatomical precision.">ANATOMICAL STUDY</option>
+                                                <option value="An expressive exploration of line and gesture, capturing fluid motion through controlled mark-making.">GESTURAL EXPRESSION</option>
+                                                <option value="A detailed observational rendering documenting natural form, texture, and structural composition.">OBSERVATIONAL STUDY</option>
+                                                <option value="A conceptual piece blending abstract geometry with organic elements, challenging perceptual boundaries.">CONCEPTUAL ABSTRACT</option>
+                                                <option value="A portrait study emphasizing emotional depth and tonal contrast through layered rendering technique.">PORTRAIT STUDY</option>
+                                                <option value="An environmental composition capturing atmospheric perspective, light, and spatial depth.">ENVIRONMENTAL SCENE</option>
+                                                <option value="A textile and pattern exploration examining repetition, symmetry, and cultural motif integration.">PATTERN / TEXTILE</option>
+                                                <option value="custom">CUSTOM (TYPE BELOW)</option>
+                                            </select>
+                                            <textarea id="ctrl-manage-index-caption" rows="2" maxlength="280" class="flex-1 bg-surface border border-primary p-xs font-label-technical text-[11px] text-primary focus:outline-none resize-none leading-relaxed" placeholder="Short caption visible only on the index grid (20-40 words)..."></textarea>
+                                        </div>
                                     </div>
 
                                     <div class="border-t border-primary/20 pt-sm mt-xs space-y-sm">
@@ -1797,9 +1864,33 @@
             try {
                 const res = await fetch('specimens.json?t=' + Date.now());
                 specimens = await res.json();
+
+                // Merge rating/uploadDate from local cache if present
+                const localData = localStorage.getItem('specimens-local');
+                if (localData) {
+                    const parsedLocal = JSON.parse(localData);
+                    specimens.forEach(spec => {
+                        const localSpec = parsedLocal.find(s => s.id === spec.id);
+                        if (localSpec) {
+                            if (localSpec.ratings) spec.ratings = localSpec.ratings;
+                            if (localSpec.rating !== undefined) spec.rating = localSpec.rating;
+                            if (localSpec.uploadDate) spec.uploadDate = localSpec.uploadDate;
+                        }
+                    });
+                }
             } catch (err) {
                 console.error("Failed to load specimens:", err);
             }
+
+            // Hook up sorting select listener
+            const sortSelect = document.getElementById('ctrl-index-sort');
+            if (sortSelect) {
+                sortSelect.addEventListener('change', () => {
+                    playTickSound('click');
+                    renderIndexGrid();
+                });
+            }
+
             renderIndexGrid();
             // Always boot at initialization sequence on page reload/load
             window.location.hash = '#/';
@@ -1811,15 +1902,84 @@
         // ==========================================
         // 4. THE INDEX CARD GRID RENDERING
         // ==========================================
+        // Dynamic helper to extract upload date (from field, filename timestamp, or originDate fallback)
+        function getUploadDate(spec) {
+            if (spec.uploadDate) return spec.uploadDate;
+            // Extract epoch timestamp if present in imgUrl, e.g. "archive_12_1780704224835_img.jpg"
+            const matches = spec.imgUrl.match(/_(\d{13})_/);
+            if (matches && matches[1]) {
+                const ts = parseInt(matches[1]);
+                if (!isNaN(ts)) {
+                    return new Date(ts).toISOString().split('T')[0].replace(/-/g, '.');
+                }
+            }
+            return spec.originDate || '2026.06.05';
+        }
+
+        // Returns active sorted list of specimens based on sorting select element
+        function getSortedSpecimens() {
+            const sortSelect = document.getElementById('ctrl-index-sort');
+            const sortBy = sortSelect ? sortSelect.value : 'upload-desc';
+            
+            const list = [...specimens];
+            
+            list.sort((a, b) => {
+                if (sortBy === 'upload-desc') {
+                    const dateA = getUploadDate(a);
+                    const dateB = getUploadDate(b);
+                    if (dateA !== dateB) return dateB.localeCompare(dateA);
+                    return b.id.localeCompare(a.id); // fallback
+                }
+                if (sortBy === 'upload-asc') {
+                    const dateA = getUploadDate(a);
+                    const dateB = getUploadDate(b);
+                    if (dateA !== dateB) return dateA.localeCompare(dateB);
+                    return a.id.localeCompare(b.id); // fallback
+                }
+                if (sortBy === 'origin-desc') {
+                    const dateA = a.originDate || '1970.01.01';
+                    const dateB = b.originDate || '1970.01.01';
+                    if (dateA !== dateB) return dateB.localeCompare(dateA);
+                    return b.id.localeCompare(a.id);
+                }
+                if (sortBy === 'origin-asc') {
+                    const dateA = a.originDate || '9999.12.31';
+                    const dateB = b.originDate || '9999.12.31';
+                    if (dateA !== dateB) return dateA.localeCompare(dateB);
+                    return a.id.localeCompare(b.id);
+                }
+                if (sortBy === 'rating-desc') {
+                    const ratingA = a.rating || 0;
+                    const ratingB = b.rating || 0;
+                    if (ratingA !== ratingB) return ratingB - ratingA;
+                    // Secondary fallback: newest uploads first
+                    return b.id.localeCompare(a.id);
+                }
+                return 0;
+            });
+            
+            return list;
+        }
+
+        function getActiveSpecimensList() {
+            return getSortedSpecimens();
+        }
+
         function renderIndexGrid() {
             const container = document.getElementById('archives-grid');
             container.innerHTML = '';
 
-            specimens.forEach(s => {
+            const sortedList = getSortedSpecimens();
+
+            sortedList.forEach(s => {
                 const article = document.createElement('article');
                 article.className = `${s.colSpan} flex flex-col group parallax-item interactive-card`;
                 article.setAttribute('data-speed', s.speed);
                 article.style.cursor = 'none';
+                
+                const avgRating = s.rating || 0;
+                const voteCount = s.ratings ? s.ratings.length : 0;
+                const uploadDate = getUploadDate(s);
                 
                 article.innerHTML = `
                     <a href="#/artifact/${s.id}" class="block w-full">
@@ -1832,7 +1992,14 @@
                             <img alt="${s.title}" class="w-full ${s.aspectRatio} object-cover grayscale-contrast block" src="${s.imgUrl}" loading="lazy"/>
                         </div>
                         <div class="mt-sm border-t border-primary pt-xs flex justify-between items-start">
-                            <h3 class="font-headline-md text-headline-md uppercase leading-none">${s.title}</h3>
+                            <div>
+                                <h3 class="font-headline-md text-headline-md uppercase leading-none mb-xs">${s.title}</h3>
+                                ${s.indexCaption ? `<p class="font-label-technical text-[11px] text-primary/70 leading-relaxed mb-1 max-w-[280px]" style="text-transform: none; letter-spacing: 0.01em;">${s.indexCaption}</p>` : ''}
+                                <div class="font-label-technical text-[9px] text-secondary uppercase tracking-wider">
+                                    RATING: ${avgRating > 0 ? avgRating.toFixed(1) : '0.0'} (${voteCount} ${voteCount === 1 ? 'VOTE' : 'VOTES'}) <br/>
+                                    ORIGIN: ${s.originDate || 'N/A'} | ADDED: ${uploadDate}
+                                </div>
+                            </div>
                             <span class="font-label-technical text-label-technical text-right coord-label text-flicker">COORD_X: ${s.coordinates.x}<br/>COORD_Y: ${s.coordinates.y}</span>
                         </div>
                     </a>
@@ -1890,6 +2057,25 @@
             document.getElementById('artifact-date').textContent = selectedSpecimen.originDate;
             document.getElementById('artifact-status').textContent = selectedSpecimen.status;
             
+            // Calculate rating details
+            const ratings = selectedSpecimen.ratings || [];
+            const avgRating = selectedSpecimen.rating || 0;
+            const voteCount = ratings.length;
+
+            document.getElementById('artifact-rating-value').textContent = avgRating > 0 ? avgRating.toFixed(1) : '0.0';
+            document.getElementById('artifact-rating-count').textContent = `(${voteCount} ${voteCount === 1 ? 'VOTE' : 'VOTES'})`;
+
+            const starsContainer = document.getElementById('artifact-rating-stars');
+            if (starsContainer) {
+                starsContainer.innerHTML = '';
+                const rounded = Math.round(avgRating);
+                for (let i = 1; i <= 5; i++) {
+                    const starSpan = document.createElement('span');
+                    starSpan.textContent = i <= rounded ? '★' : '☆';
+                    starsContainer.appendChild(starSpan);
+                }
+            }
+
             // Random hash generator
             document.getElementById('artifact-hash').textContent = '0x' + Array.from({length: 64}, () => Math.floor(Math.random()*16).toString(16)).join('');
 
@@ -1954,6 +2140,135 @@
                 });
             }
         }
+
+        async function submitRating(value) {
+            if (!selectedSpecimen) return;
+            playTickSound('click');
+            
+            const consoleLog = document.getElementById('console-log');
+            if (consoleLog) {
+                consoleLog.innerHTML = `<span class="data-stream-inline">SYSTEM.LOG // REGISTERING SPECIMEN RATING [${value}★]...</span>`;
+            }
+            
+            const ratings = selectedSpecimen.ratings || [];
+            ratings.push(value);
+            
+            // Calculate new average
+            const sum = ratings.reduce((a, b) => a + b, 0);
+            const avg = sum / ratings.length;
+            
+            selectedSpecimen.ratings = ratings;
+            selectedSpecimen.rating = avg;
+            
+            // Update local memory list
+            const specIndex = specimens.findIndex(s => s.id === selectedSpecimen.id);
+            if (specIndex !== -1) {
+                specimens[specIndex].ratings = ratings;
+                specimens[specIndex].rating = avg;
+            }
+            
+            // Render updated details instantly
+            renderArtifactDetails();
+            
+            // Save to localStorage as immediate persistent cache
+            localStorage.setItem('specimens-local', JSON.stringify(specimens));
+            
+            // Try to sync with GitHub if credentials are set
+            const token = localStorage.getItem('ctrl-github-token') || '';
+            const owner = localStorage.getItem('ctrl-github-owner') || '';
+            const repo = localStorage.getItem('ctrl-github-repo') || '';
+            
+            if (!token || !owner || !repo) {
+                if (consoleLog) {
+                    consoleLog.innerHTML = `<span class="data-stream-inline">SYSTEM.LOG // RATING SECURED LOCALLY. RECONCILIATION TO MASTER REQUIRES NODE AUTH.</span>`;
+                }
+                return;
+            }
+            
+            try {
+                if (consoleLog) {
+                    consoleLog.innerHTML = `<span class="data-stream-inline">SYSTEM.LOG // TRANSMITTING RATING UPDATE TO REMOTE MASTER INDEX...</span>`;
+                }
+                
+                const jsonFileUrl = `https://api.github.com/repos/${owner}/${repo}/contents/specimens.json`;
+                const jsonFileRes = await fetch(jsonFileUrl, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+                
+                if (!jsonFileRes.ok) {
+                    throw new Error("Failed to fetch specimens.json from GitHub.");
+                }
+                
+                const jsonFileData = await jsonFileRes.json();
+                const jsonSha = jsonFileData.sha;
+                let decodedText;
+                if (jsonFileData.content) {
+                    decodedText = atob(jsonFileData.content.replace(/\s/g, ''));
+                } else {
+                    const blobRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/blobs/${jsonSha}`, {
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    });
+                    if (!blobRes.ok) {
+                        throw new Error("Failed to fetch specimen blob data from GitHub.");
+                    }
+                    const blobData = await blobRes.json();
+                    decodedText = atob(blobData.content.replace(/\s/g, ''));
+                }
+                const currentList = JSON.parse(decodedText);
+                
+                // Find and update
+                const serverIndex = currentList.findIndex(s => s.id === selectedSpecimen.id);
+                if (serverIndex !== -1) {
+                    currentList[serverIndex].ratings = ratings;
+                    currentList[serverIndex].rating = avg;
+                    
+                    const updatedContentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(currentList, null, 2))));
+                    const updateIndexRes = await fetch(jsonFileUrl, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: `Add rating for specimen: ${selectedSpecimen.id} (${value} stars)`,
+                            content: updatedContentBase64,
+                            sha: jsonSha
+                        })
+                    });
+                    
+                    if (updateIndexRes.ok) {
+                        if (consoleLog) {
+                            consoleLog.innerHTML = `<span class="data-stream-inline">SYSTEM.LOG // RATING SYNCHRONIZED TO REMOTE SERVER [${avg.toFixed(1)} ★]</span>`;
+                        }
+                    } else {
+                        throw new Error("Failed to update index on remote server.");
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to sync rating to GitHub:", err);
+                if (consoleLog) {
+                    consoleLog.innerHTML = `<span class="data-stream-inline text-primary">SYSTEM.LOG // WARNING: REMOTE SYNC TIMEOUT. COMMITTED IN LOCAL STORAGE CACHE.</span>`;
+                }
+            }
+        }
+
+        // Set up event listeners for rating buttons
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.rating-star-btn');
+            if (btn) {
+                const ratingVal = parseInt(btn.getAttribute('data-rating'));
+                if (!isNaN(ratingVal)) {
+                    submitRating(ratingVal);
+                }
+            }
+        });
 
         // Interactive "ACQUIRE DATA" log console download sequence simulation
         const acquireBtn = document.getElementById('acquire-btn');
@@ -2313,17 +2628,18 @@ CLOSING RELAY CONNECTION.
 
         function navigateArtifact(direction) {
             if (!selectedSpecimen) return;
-            const currentIndex = specimens.findIndex(s => s.id === selectedSpecimen.id);
+            const activeList = getActiveSpecimensList();
+            const currentIndex = activeList.findIndex(s => s.id === selectedSpecimen.id);
             if (currentIndex === -1) return;
 
             let newIndex;
             if (direction === 'next') {
-                newIndex = (currentIndex + 1) % specimens.length;
+                newIndex = (currentIndex + 1) % activeList.length;
             } else {
-                newIndex = (currentIndex - 1 + specimens.length) % specimens.length;
+                newIndex = (currentIndex - 1 + activeList.length) % activeList.length;
             }
 
-            window.location.hash = `#/artifact/${specimens[newIndex].id}`;
+            window.location.hash = `#/artifact/${activeList[newIndex].id}`;
         }
 
         if (prevBtn) prevBtn.addEventListener('click', () => { stopSlideshow(); navigateArtifact('prev'); });
@@ -2534,23 +2850,24 @@ CLOSING RELAY CONNECTION.
 
         function navigateArtifactFullscreen(direction) {
             if (!selectedSpecimen) return;
-            const currentIndex = specimens.findIndex(s => s.id === selectedSpecimen.id);
+            const activeList = getActiveSpecimensList();
+            const currentIndex = activeList.findIndex(s => s.id === selectedSpecimen.id);
             if (currentIndex === -1) return;
 
             if (direction === 'next') {
-                if (currentIndex === specimens.length - 1) {
+                if (currentIndex === activeList.length - 1) {
                     showEndReelNotification();
                     return;
                 }
                 stopSlideshow();
-                window.location.hash = `#/artifact/${specimens[currentIndex + 1].id}`;
+                window.location.hash = `#/artifact/${activeList[currentIndex + 1].id}`;
             } else {
                 if (currentIndex === 0) {
                     showEndReelNotification();
                     return;
                 }
                 stopSlideshow();
-                window.location.hash = `#/artifact/${specimens[currentIndex - 1].id}`;
+                window.location.hash = `#/artifact/${activeList[currentIndex - 1].id}`;
             }
         }
 
@@ -2827,6 +3144,7 @@ CLOSING RELAY CONNECTION.
             const coordY = document.getElementById('ctrl-coord-y').value.trim() || document.getElementById('ctrl-coord-y').placeholder;
             
             const description = document.getElementById('ctrl-description').value.trim() || "No narrative details recorded.";
+            const indexCaption = document.getElementById('ctrl-index-caption').value.trim() || "";
 
             if (!selectedFile || !selectedFileBase64) {
                 logCtrl("ERROR: DATA PAYLOAD (IMAGE) IS EMPTY. CHOOSE A FILE.");
@@ -2938,7 +3256,11 @@ CLOSING RELAY CONNECTION.
                     description: description,
                     aspectRatio: aspectRatioVal,
                     colSpan: colSpanVal,
-                    speed: speedVal
+                    speed: speedVal,
+                    ratings: [],
+                    rating: 0,
+                    uploadDate: new Date().toISOString().split('T')[0].replace(/-/g, '.'),
+                    indexCaption: indexCaption
                 };
 
                 // Add to start of list so it defaults as the latest/first artwork
@@ -2999,6 +3321,8 @@ CLOSING RELAY CONNECTION.
                 document.getElementById('ctrl-mass').value = '';
                 document.getElementById('ctrl-resonance').value = '';
                 document.getElementById('ctrl-description').value = '';
+                document.getElementById('ctrl-index-caption').value = '';
+                document.getElementById('ctrl-caption-preset').value = '';
                 if (previewImg) previewImg.classList.add('hidden');
                 if (previewPlaceholder) previewPlaceholder.classList.remove('hidden');
                 selectedFile = null;
@@ -3010,10 +3334,7 @@ CLOSING RELAY CONNECTION.
                 // Re-initialize random coords
                 initCtrlDefaults();
 
-                // Redirect to main index page after short delay so they see the result!
-                setTimeout(() => {
-                    window.location.hash = '#/index';
-                }, 3000);
+                // Stay on console page — user will navigate manually
 
             } catch (err) {
                 console.error(err);
@@ -3264,6 +3585,8 @@ CLOSING RELAY CONNECTION.
                 document.getElementById('ctrl-manage-coord-y').value = '';
                 document.getElementById('ctrl-manage-origin-date').value = '';
                 document.getElementById('ctrl-manage-description').value = '';
+                document.getElementById('ctrl-manage-index-caption').value = '';
+                document.getElementById('ctrl-manage-caption-preset').value = '';
                 
                 document.getElementById('ctrl-manage-layout-preset').value = '0';
                 document.getElementById('ctrl-manage-aspect-ratio').value = 'aspect-[4/5]';
@@ -3296,6 +3619,8 @@ CLOSING RELAY CONNECTION.
             document.getElementById('ctrl-manage-coord-y').value = (spec.coordinates && spec.coordinates.y !== undefined) ? spec.coordinates.y : '';
             document.getElementById('ctrl-manage-origin-date').value = spec.originDate || '';
             document.getElementById('ctrl-manage-description').value = spec.description || '';
+            document.getElementById('ctrl-manage-index-caption').value = spec.indexCaption || '';
+            document.getElementById('ctrl-manage-caption-preset').value = '';
             
             document.getElementById('ctrl-manage-aspect-ratio').value = spec.aspectRatio || 'aspect-square';
             document.getElementById('ctrl-manage-colspan').value = spec.colSpan || 'col-span-4 md:col-start-3 md:col-span-3';
@@ -3402,6 +3727,7 @@ CLOSING RELAY CONNECTION.
             const coordX = document.getElementById('ctrl-manage-coord-x').value.trim() || "0.0";
             const coordY = document.getElementById('ctrl-manage-coord-y').value.trim() || "0.0";
             const description = document.getElementById('ctrl-manage-description').value.trim() || "No narrative details recorded.";
+            const indexCaption = document.getElementById('ctrl-manage-index-caption').value.trim() || "";
             const originDate = document.getElementById('ctrl-manage-origin-date').value.trim() || new Date().toISOString().split('T')[0].replace(/-/g, '.');
 
             logCtrl("========================================");
@@ -3505,6 +3831,7 @@ CLOSING RELAY CONNECTION.
                 currentList[serverIndex].aspectRatio = aspectRatioVal;
                 currentList[serverIndex].colSpan = colSpanVal;
                 currentList[serverIndex].speed = speedVal;
+                currentList[serverIndex].indexCaption = indexCaption;
 
                 // Re-index all elements to maintain sequential, gapless numbering and resolve duplicates
                 reassignSpecimenIds(currentList);
@@ -3557,10 +3884,7 @@ CLOSING RELAY CONNECTION.
                 document.getElementById('ctrl-manage-select').value = '';
                 document.getElementById('ctrl-manage-select').dispatchEvent(new Event('change'));
 
-                // Redirect to main index page after short delay so they see the result!
-                setTimeout(() => {
-                    window.location.hash = '#/index';
-                }, 3000);
+                // Stay on console page — user will navigate manually
 
             } catch (err) {
                 console.error(err);
@@ -3680,10 +4004,7 @@ CLOSING RELAY CONNECTION.
                 document.getElementById('ctrl-manage-select').value = '';
                 document.getElementById('ctrl-manage-select').dispatchEvent(new Event('change'));
 
-                // Redirect to main index page after short delay so they see the result!
-                setTimeout(() => {
-                    window.location.hash = '#/index';
-                }, 3000);
+                // Stay on console page — user will navigate manually
 
             } catch (err) {
                 console.error(err);
@@ -3695,6 +4016,26 @@ CLOSING RELAY CONNECTION.
         window.addEventListener('DOMContentLoaded', () => {
             loadCtrlCredentials();
             initCtrlDefaults();
+
+            // Caption preset listeners — auto-fill textarea when a preset is chosen
+            function setupCaptionPreset(presetId, textareaId) {
+                const preset = document.getElementById(presetId);
+                const textarea = document.getElementById(textareaId);
+                if (preset && textarea) {
+                    preset.addEventListener('change', () => {
+                        const val = preset.value;
+                        if (val && val !== 'custom') {
+                            textarea.value = val;
+                        } else if (val === 'custom') {
+                            textarea.value = '';
+                            textarea.focus();
+                        }
+                        playTickSound('click');
+                    });
+                }
+            }
+            setupCaptionPreset('ctrl-caption-preset', 'ctrl-index-caption');
+            setupCaptionPreset('ctrl-manage-caption-preset', 'ctrl-manage-index-caption');
 
             // Register Service Worker for Cache v4 Network First Strategy
             if ('serviceWorker' in navigator) {
