@@ -2303,6 +2303,7 @@
             try {
                 const res = await fetch('specimens.json?t=' + Date.now());
                 specimens = await res.json();
+                reassignSpecimenIds(specimens);
 
                 // Merge rating/uploadDate from local cache if present
                 const localData = localStorage.getItem('specimens-local');
@@ -2372,6 +2373,24 @@
         // ==========================================
         // 4. THE INDEX CARD GRID RENDERING
         // ==========================================
+        // Normalize date strings like "2026.05.7" → "2026.05.07" for correct string comparison
+        function normalizeDate(dateStr) {
+            if (!dateStr) return '9999.12.31';
+            const parts = dateStr.trim().split(/[.\-\/]/);
+            if (parts.length === 3) {
+                return `${parts[0].padStart(4, '0')}.${parts[1].padStart(2, '0')}.${parts[2].padStart(2, '0')}`;
+            }
+            return dateStr;
+        }
+
+        // Estimate card height from aspect ratio class for collision detection
+        function estimateCardHeight(aspectRatio) {
+            if (aspectRatio === 'aspect-video' || aspectRatio === 'aspect-[16/9]') return 350;
+            if (aspectRatio === 'aspect-[4/5]' || aspectRatio === 'aspect-[3/4]') return 550;
+            if (aspectRatio === 'aspect-[21/9]') return 280;
+            return 450; // aspect-square and default
+        }
+
         // Dynamic helper to extract upload date (from field, filename timestamp, or originDate fallback)
         function getUploadDate(spec) {
             if (spec.uploadDate) return spec.uploadDate;
@@ -2407,14 +2426,14 @@
                     return a.id.localeCompare(b.id); // fallback
                 }
                 if (sortBy === 'origin-desc') {
-                    const dateA = a.originDate || '1970.01.01';
-                    const dateB = b.originDate || '1970.01.01';
+                    const dateA = normalizeDate(a.originDate || '1970.01.01');
+                    const dateB = normalizeDate(b.originDate || '1970.01.01');
                     if (dateA !== dateB) return dateB.localeCompare(dateA);
                     return b.id.localeCompare(a.id);
                 }
                 if (sortBy === 'origin-asc') {
-                    const dateA = a.originDate || '9999.12.31';
-                    const dateB = b.originDate || '9999.12.31';
+                    const dateA = normalizeDate(a.originDate || '9999.12.31');
+                    const dateB = normalizeDate(b.originDate || '9999.12.31');
                     if (dateA !== dateB) return dateA.localeCompare(dateB);
                     return a.id.localeCompare(b.id);
                 }
@@ -2450,10 +2469,72 @@
                 container.style.height = '';
             }
 
-            sortedList.forEach(s => {
+            // === SLOT-MAPPING + GRAVITY LAYOUT (desktop) ===
+            // 1. Extract layout slots from all specimens
+            // 2. Sort slots by Y (then X) to establish top-to-bottom visual order
+            // 3. Resolve vertical collisions via gravity algorithm
+            // 4. Map sorted specimens to adjusted slots
+            let adjustedSlots = [];
+            if (isDesktop) {
+                const rawSlots = specimens.map(s => ({
+                    coordinates: { x: parseFloat(s.coordinates?.x || 0), y: parseFloat(s.coordinates?.y || 0) },
+                    colSpan: s.colSpan,
+                    aspectRatio: s.aspectRatio,
+                    speed: s.speed
+                }));
+
+                // Sort slots top-to-bottom (by Y, then left-to-right by X)
+                rawSlots.sort((a, b) => {
+                    if (a.coordinates.y !== b.coordinates.y) return a.coordinates.y - b.coordinates.y;
+                    return a.coordinates.x - b.coordinates.x;
+                });
+
+                // Gravity collision resolution
+                const GAP = 60; // vertical gap between cards in px
+                rawSlots.forEach(slot => {
+                    const parsed = parseGridClasses(slot.colSpan);
+                    const widthPct = (parsed.desktopSpan / 12) * 100;
+                    const leftPct = slot.coordinates.x * (1 - widthPct / 100); // proportional scaling
+                    const cardHeight = estimateCardHeight(slot.aspectRatio);
+                    const manualTop = slot.coordinates.y * 30;
+
+                    // Find max bottom among already-placed slots that overlap horizontally
+                    let maxBelow = 0;
+                    adjustedSlots.forEach(other => {
+                        const horizontalOverlap = (leftPct < other.right) && (leftPct + widthPct > other.left);
+                        if (horizontalOverlap && other.bottom > maxBelow) {
+                            maxBelow = other.bottom;
+                        }
+                    });
+
+                    const computedTop = Math.max(
+                        adjustedSlots.length > 0 ? maxBelow + GAP : 0,
+                        manualTop
+                    );
+
+                    adjustedSlots.push({
+                        left: leftPct,
+                        right: leftPct + widthPct,
+                        width: widthPct,
+                        top: computedTop,
+                        bottom: computedTop + cardHeight,
+                        colSpan: slot.colSpan,
+                        aspectRatio: slot.aspectRatio,
+                        speed: slot.speed
+                    });
+                });
+            }
+
+            sortedList.forEach((s, idx) => {
+                // On desktop, use the adjusted slot for this index; on mobile, use specimen's own props
+                const slot = isDesktop && adjustedSlots[idx] ? adjustedSlots[idx] : null;
+                const displayColSpan = slot ? slot.colSpan : s.colSpan;
+                const displayAspectRatio = slot ? slot.aspectRatio : s.aspectRatio;
+                const displaySpeed = slot ? slot.speed : s.speed;
+
                 const article = document.createElement('article');
-                article.className = `${s.colSpan} flex flex-col group parallax-item interactive-card`;
-                article.setAttribute('data-speed', s.speed);
+                article.className = `${displayColSpan} flex flex-col group parallax-item interactive-card`;
+                article.setAttribute('data-speed', displaySpeed);
                 article.style.cursor = 'none';
                 
                 const avgRating = s.rating || 0;
@@ -2468,7 +2549,7 @@
                         </div>
                         <div class="border border-primary p-xs bg-surface relative overflow-hidden">
                             <div class="bounding-box"></div>
-                            <img alt="${s.title}" class="w-full ${s.aspectRatio} object-cover grayscale-contrast block" src="${s.imgUrl}" loading="lazy"/>
+                            <img alt="${s.title}" class="w-full ${displayAspectRatio} object-cover grayscale-contrast block" src="${s.imgUrl}" loading="lazy"/>
                         </div>
                         <div class="mt-sm border-t border-primary pt-xs flex justify-between items-start">
                             <div>
@@ -2483,24 +2564,13 @@
                     </a>
                 `;
 
-                if (isDesktop) {
+                if (isDesktop && slot) {
                     article.style.position = 'absolute';
-                    article.style.left = `${s.coordinates?.x || '0'}%`;
-                    const top = parseFloat(s.coordinates?.y || '0') * 30;
-                    article.style.top = `${top}px`;
-                    
-                    const parsed = parseGridClasses(s.colSpan);
-                    const widthPct = (parsed.desktopSpan / 12) * 100;
-                    article.style.width = `calc(${widthPct}% - 24px)`;
+                    article.style.left = `${slot.left}%`;
+                    article.style.top = `${slot.top}px`;
+                    article.style.width = `calc(${slot.width}% - 24px)`;
 
-                    let cardHeight = 450;
-                    if (s.aspectRatio === 'aspect-video' || s.aspectRatio === 'aspect-[16/9]') cardHeight = 350;
-                    else if (s.aspectRatio === 'aspect-square') cardHeight = 450;
-                    else if (s.aspectRatio === 'aspect-[4/5]' || s.aspectRatio === 'aspect-[3/4]') cardHeight = 550;
-                    else if (s.aspectRatio === 'aspect-[21/9]') cardHeight = 280;
-
-                    const bottom = top + cardHeight;
-                    if (bottom > maxBottom) maxBottom = bottom;
+                    if (slot.bottom > maxBottom) maxBottom = slot.bottom;
                 }
 
                 container.appendChild(article);
@@ -2595,11 +2665,52 @@
                     gridContainer.style.height = '';
                 }
 
-                (manifestoData.images || []).forEach(img => {
+                // Gravity collision resolution for manifesto images
+                const manifestoImages = manifestoData.images || [];
+                let manifestoSlots = [];
+                if (isDesktop) {
+                    const GAP = 60;
+                    manifestoImages.forEach(img => {
+                        const colSpan = img.colSpan || 'col-span-4 md:col-start-7 md:col-span-5';
+                        const parsed = parseGridClasses(colSpan);
+                        const widthPct = (parsed.desktopSpan / 12) * 100;
+                        const rawX = parseFloat(img.coordinates?.x || 0);
+                        const leftPct = rawX * (1 - widthPct / 100);
+                        const cardHeight = estimateCardHeight(img.aspectRatio);
+                        const manualTop = parseFloat(img.coordinates?.y || 0) * 30;
+
+                        let maxBelow = 0;
+                        manifestoSlots.forEach(other => {
+                            const horizontalOverlap = (leftPct < other.right) && (leftPct + widthPct > other.left);
+                            if (horizontalOverlap && other.bottom > maxBelow) {
+                                maxBelow = other.bottom;
+                            }
+                        });
+
+                        const computedTop = Math.max(
+                            manifestoSlots.length > 0 ? maxBelow + GAP : 0,
+                            manualTop
+                        );
+
+                        manifestoSlots.push({
+                            left: leftPct,
+                            right: leftPct + widthPct,
+                            width: widthPct,
+                            top: computedTop,
+                            bottom: computedTop + cardHeight,
+                            colSpan: colSpan,
+                            aspectRatio: img.aspectRatio,
+                            speed: img.speed
+                        });
+                    });
+                }
+
+                manifestoImages.forEach((img, idx) => {
+                    const slot = isDesktop && manifestoSlots[idx] ? manifestoSlots[idx] : null;
+                    const colSpan = slot ? slot.colSpan : (img.colSpan || 'col-span-4 md:col-start-7 md:col-span-5');
                     const card = document.createElement('div');
-                    const colSpan = img.colSpan || 'col-span-4 md:col-start-7 md:col-span-5';
                     card.className = `${colSpan} flex flex-col group parallax-item interactive-card relative z-10`;
-                    card.setAttribute('data-speed', img.speed || '0.05');
+                    card.setAttribute('data-speed', slot ? slot.speed || '0.05' : img.speed || '0.05');
                     card.style.cursor = 'none';
 
                     card.innerHTML = `
@@ -2607,7 +2718,7 @@
                         <div class="border border-primary bg-surface transition-all duration-300 relative group-hover:shadow-[4px_4px_0px_#000] dark:group-hover:shadow-[4px_4px_0px_#fff]">
                             
                             <!-- Specimen Image Container Box -->
-                            <div class="relative w-full ${img.aspectRatio || 'aspect-square'} overflow-hidden bg-black flex items-center justify-center">
+                            <div class="relative w-full ${slot ? slot.aspectRatio || 'aspect-square' : img.aspectRatio || 'aspect-square'} overflow-hidden bg-black flex items-center justify-center">
                                 <img src="${img.imgUrl}" class="w-full h-full object-cover grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" loading="lazy" />
                                 <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                                 <div class="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.1)_50%)] bg-[size:100%_4px] pointer-events-none"></div>
@@ -2616,24 +2727,13 @@
                         </div>
                     `;
 
-                    if (isDesktop) {
+                    if (isDesktop && slot) {
                         card.style.position = 'absolute';
-                        card.style.left = `${img.coordinates?.x || '0'}%`;
-                        const top = parseFloat(img.coordinates?.y || '0') * 30;
-                        card.style.top = `${top}px`;
+                        card.style.left = `${slot.left}%`;
+                        card.style.top = `${slot.top}px`;
+                        card.style.width = `calc(${slot.width}% - 24px)`;
 
-                        const parsed = parseGridClasses(colSpan);
-                        const widthPct = (parsed.desktopSpan / 12) * 100;
-                        card.style.width = `calc(${widthPct}% - 24px)`;
-
-                        let cardHeight = 450;
-                        if (img.aspectRatio === 'aspect-video' || img.aspectRatio === 'aspect-[16/9]') cardHeight = 350;
-                        else if (img.aspectRatio === 'aspect-square') cardHeight = 450;
-                        else if (img.aspectRatio === 'aspect-[4/5]' || img.aspectRatio === 'aspect-[3/4]') cardHeight = 550;
-                        else if (img.aspectRatio === 'aspect-[21/9]') cardHeight = 280;
-
-                        const bottom = top + cardHeight;
-                        if (bottom > maxBottom) maxBottom = bottom;
+                        if (slot.bottom > maxBottom) maxBottom = slot.bottom;
                     }
 
                     gridContainer.appendChild(card);
@@ -4259,8 +4359,8 @@ CLOSING RELAY CONNECTION.
         // Reassign IDs to be gapless and sequential from oldest (bottom) to newest (top)
         function reassignSpecimenIds(list) {
             const sortedByOrigin = [...list].sort((a, b) => {
-                const dateA = a.originDate || '9999.12.31';
-                const dateB = b.originDate || '9999.12.31';
+                const dateA = normalizeDate(a.originDate);
+                const dateB = normalizeDate(b.originDate);
                 if (dateA !== dateB) {
                     return dateA.localeCompare(dateB);
                 }
