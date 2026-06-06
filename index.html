@@ -2505,9 +2505,9 @@
                         manualTop
                     );
 
-                    // Format coordinates for display — show raw values matching manage panel input
+                    // Format coordinates for display — Y shows actual resolved height slot in grid
                     const dispX = parseFloat(s.coordinates?.x || 0).toFixed(1);
-                    const dispY = parseFloat(s.coordinates?.y || 0).toFixed(1);
+                    const dispY = (computedTop / 30).toFixed(1);
 
                     article.innerHTML = `
                         <a href="#/artifact/${s.id}" class="block w-full">
@@ -2539,7 +2539,10 @@
                     article.style.top = `${computedTop}px`;
                     article.style.width = `calc(${widthPct}% - 24px)`;
 
-                    const bottom = computedTop + cardHeight;
+                    container.appendChild(article);
+
+                    const actualHeight = article.offsetHeight || cardHeight;
+                    const bottom = computedTop + actualHeight;
                     if (bottom > maxBottom) maxBottom = bottom;
 
                     placedCards.push({
@@ -2571,9 +2574,8 @@
                             </div>
                         </a>
                     `;
+                    container.appendChild(article);
                 }
-
-                container.appendChild(article);
             });
 
             if (isDesktop) {
@@ -2718,7 +2720,10 @@
                         card.style.top = `${computedTop}px`;
                         card.style.width = `calc(${widthPct}% - 24px)`;
 
-                        const bottom = computedTop + cardHeight;
+                        gridContainer.appendChild(card);
+
+                        const actualHeight = card.offsetHeight || cardHeight;
+                        const bottom = computedTop + actualHeight;
                         if (bottom > maxBottom) maxBottom = bottom;
 
                         manifestoPlaced.push({
@@ -2727,9 +2732,9 @@
                             top: computedTop,
                             bottom: bottom
                         });
+                    } else {
+                        gridContainer.appendChild(card);
                     }
-
-                    gridContainer.appendChild(card);
                 });
 
                 if (isDesktop) {
@@ -3162,7 +3167,29 @@ CLOSING RELAY CONNECTION.
             // Throttle string mutations to 20 updates per second, avoiding heavy reflow overhead
             if (timestamp - lastCoordsUpdate > 50) {
                 if (coordsDisplay) {
-                    coordsDisplay.textContent = `X:${String(Math.round(mouseX)).padStart(4, '0')} Y:${String(Math.round(mouseY)).padStart(4, '0')}`;
+                    let gridText = '';
+                    const idxGrid = document.getElementById('archives-grid');
+                    const manGrid = document.getElementById('manifesto-grid-container');
+                    let targetGrid = null;
+                    if (idxGrid && idxGrid.getBoundingClientRect) {
+                        const r = idxGrid.getBoundingClientRect();
+                        if (mouseX >= r.left && mouseX <= r.right && mouseY >= r.top && mouseY <= r.bottom) {
+                            targetGrid = { rect: r, type: 'idx' };
+                        }
+                    }
+                    if (!targetGrid && manGrid && manGrid.getBoundingClientRect) {
+                        const r = manGrid.getBoundingClientRect();
+                        if (mouseX >= r.left && mouseX <= r.right && mouseY >= r.top && mouseY <= r.bottom) {
+                            targetGrid = { rect: r, type: 'man' };
+                        }
+                    }
+
+                    if (targetGrid) {
+                        const gX = Math.max(0, Math.min(100, ((mouseX - targetGrid.rect.left) / targetGrid.rect.width) * 100));
+                        const gY = Math.max(0, (mouseY - targetGrid.rect.top) / 30);
+                        gridText = ` [GRID X:${gX.toFixed(1)} Y:${gY.toFixed(1)}]`;
+                    }
+                    coordsDisplay.textContent = `X:${String(Math.round(mouseX)).padStart(4, '0')} Y:${String(Math.round(mouseY)).padStart(4, '0')}${gridText}`;
                 }
                 if (detailCoords) {
                     const xVal = (mouseX / window.innerWidth).toFixed(3).substring(1);
