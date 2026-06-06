@@ -1060,8 +1060,8 @@
                                             <input type="text" id="ctrl-coord-y" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="77.1" />
                                         </div>
                                         <div class="flex flex-col gap-base">
-                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-origin-date">DATE OF ORIGIN (YYYY.MM.DD)</label>
-                                            <input type="text" id="ctrl-origin-date" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="2024.11.04" />
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-origin-date">DATE OF ORIGIN</label>
+                                            <input type="text" id="ctrl-origin-date" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="YYYY.MM.DD" />
                                         </div>
                                     </div>
 
@@ -1082,7 +1082,7 @@
                                                  <option value="custom">[CUSTOM] MANUAL OVERRIDE</option>
                                              </select>
                                          </div>
-                                         <div class="grid grid-cols-3 gap-sm">
+                                         <div class="grid grid-cols-2 md:grid-cols-5 gap-sm">
                                              <div class="flex flex-col gap-base">
                                                  <label class="font-label-technical text-[10px] text-secondary" for="ctrl-aspect-ratio">ASPECT RATIO</label>
                                                  <select id="ctrl-aspect-ratio" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
@@ -1093,55 +1093,52 @@
                                                      <option value="aspect-[21/9]">aspect-[21/9]</option>
                                                  </select>
                                              </div>
-                                             <!-- Grid Geometry Customizer -->
-                                             <div class="col-span-2 grid grid-cols-2 md:grid-cols-4 gap-xs border border-primary/20 p-xs bg-surface-container-lowest">
-                                                 <div class="flex flex-col gap-base">
-                                                     <label class="font-label-technical text-[9px] text-secondary" for="ctrl-desktop-span">SCALE (COLS)</label>
-                                                     <select id="ctrl-desktop-span" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest">
-                                                         <option value="1">1 Col</option>
-                                                         <option value="2">2 Cols</option>
-                                                         <option value="3" selected>3 Cols</option>
-                                                         <option value="4">4 Cols</option>
-                                                         <option value="5">5 Cols</option>
-                                                         <option value="6">6 Cols</option>
-                                                         <option value="7">7 Cols</option>
-                                                         <option value="8">8 Cols</option>
-                                                         <option value="9">9 Cols</option>
-                                                         <option value="10">10 Cols</option>
-                                                         <option value="11">11 Cols</option>
-                                                         <option value="12">12 Cols</option>
-                                                     </select>
-                                                 </div>
-                                                 <div class="flex flex-col gap-base">
-                                                     <label class="font-label-technical text-[9px] text-secondary" for="ctrl-desktop-start">ALIGN (COL)</label>
-                                                     <select id="ctrl-desktop-start" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest">
-                                                         <option value="1">Col 1</option>
-                                                         <option value="2" selected>Col 2</option>
-                                                         <option value="3">Col 3</option>
-                                                         <option value="4">Col 4</option>
-                                                         <option value="5">Col 5</option>
-                                                         <option value="6">Col 6</option>
-                                                         <option value="7">Col 7</option>
-                                                         <option value="8">Col 8</option>
-                                                         <option value="9">Col 9</option>
-                                                         <option value="10">Col 10</option>
-                                                         <option value="11">Col 11</option>
-                                                         <option value="12">Col 12</option>
-                                                     </select>
-                                                 </div>
-                                                 <div class="flex flex-col gap-base">
-                                                     <label class="font-label-technical text-[9px] text-secondary" for="ctrl-vertical-offset">NUDGE (PX)</label>
-                                                     <input type="number" id="ctrl-vertical-offset" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none" value="0" step="10" />
-                                                 </div>
-                                                 <div class="flex flex-col gap-base">
-                                                     <label class="font-label-technical text-[9px] text-secondary" for="ctrl-mobile-span">MOBILE SIZE</label>
-                                                     <select id="ctrl-mobile-span" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest">
-                                                         <option value="1">1 Col</option>
-                                                         <option value="2">2 Cols</option>
-                                                         <option value="3">3 Cols</option>
-                                                         <option value="4" selected>4 Cols</option>
-                                                     </select>
-                                                 </div>
+                                             <div class="flex flex-col gap-base">
+                                                 <label class="font-label-technical text-[10px] text-secondary" for="ctrl-desktop-span">SCALE (COLS)</label>
+                                                 <select id="ctrl-desktop-span" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                     <option value="1">1 Col</option>
+                                                     <option value="2">2 Cols</option>
+                                                     <option value="3" selected>3 Cols</option>
+                                                     <option value="4">4 Cols</option>
+                                                     <option value="5">5 Cols</option>
+                                                     <option value="6">6 Cols</option>
+                                                     <option value="7">7 Cols</option>
+                                                     <option value="8">8 Cols</option>
+                                                     <option value="9">9 Cols</option>
+                                                     <option value="10">10 Cols</option>
+                                                     <option value="11">11 Cols</option>
+                                                     <option value="12">12 Cols</option>
+                                                 </select>
+                                             </div>
+                                             <div class="flex flex-col gap-base">
+                                                 <label class="font-label-technical text-[10px] text-secondary" for="ctrl-desktop-start">ALIGN (COL)</label>
+                                                 <select id="ctrl-desktop-start" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                     <option value="1">Col 1</option>
+                                                     <option value="2" selected>Col 2</option>
+                                                     <option value="3">Col 3</option>
+                                                     <option value="4">Col 4</option>
+                                                     <option value="5">Col 5</option>
+                                                     <option value="6">Col 6</option>
+                                                     <option value="7">Col 7</option>
+                                                     <option value="8">Col 8</option>
+                                                     <option value="9">Col 9</option>
+                                                     <option value="10">Col 10</option>
+                                                     <option value="11">Col 11</option>
+                                                     <option value="12">Col 12</option>
+                                                 </select>
+                                             </div>
+                                             <div class="flex flex-col gap-base">
+                                                 <label class="font-label-technical text-[10px] text-secondary" for="ctrl-vertical-offset">NUDGE (PX)</label>
+                                                 <input type="number" id="ctrl-vertical-offset" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" value="0" step="10" />
+                                             </div>
+                                             <div class="flex flex-col gap-base">
+                                                 <label class="font-label-technical text-[10px] text-secondary" for="ctrl-mobile-span">MOBILE SIZE</label>
+                                                 <select id="ctrl-mobile-span" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                     <option value="1">1 Col</option>
+                                                     <option value="2">2 Cols</option>
+                                                     <option value="3">3 Cols</option>
+                                                     <option value="4" selected>4 Cols</option>
+                                                 </select>
                                              </div>
                                          </div>
                                          <div class="flex flex-col gap-base">
@@ -1231,7 +1228,7 @@
                                                  <option value="custom">[CUSTOM] MANUAL OVERRIDE</option>
                                              </select>
                                          </div>
-                                         <div class="grid grid-cols-3 gap-sm">
+                                         <div class="grid grid-cols-2 md:grid-cols-5 gap-sm">
                                               <div class="flex flex-col gap-base">
                                                   <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-aspect-ratio">ASPECT RATIO</label>
                                                   <select id="ctrl-manage-aspect-ratio" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
@@ -1242,55 +1239,52 @@
                                                       <option value="aspect-[21/9]">aspect-[21/9]</option>
                                                   </select>
                                               </div>
-                                              <!-- Grid Geometry Customizer -->
-                                              <div class="col-span-2 grid grid-cols-2 md:grid-cols-4 gap-xs border border-primary/20 p-xs bg-surface-container-lowest">
-                                                  <div class="flex flex-col gap-base">
-                                                      <label class="font-label-technical text-[9px] text-secondary" for="ctrl-manage-desktop-span">SCALE (COLS)</label>
-                                                      <select id="ctrl-manage-desktop-span" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest">
-                                                          <option value="1">1 Col</option>
-                                                          <option value="2">2 Cols</option>
-                                                          <option value="3" selected>3 Cols</option>
-                                                          <option value="4">4 Cols</option>
-                                                          <option value="5">5 Cols</option>
-                                                          <option value="6">6 Cols</option>
-                                                          <option value="7">7 Cols</option>
-                                                          <option value="8">8 Cols</option>
-                                                          <option value="9">9 Cols</option>
-                                                          <option value="10">10 Cols</option>
-                                                          <option value="11">11 Cols</option>
-                                                          <option value="12">12 Cols</option>
-                                                      </select>
-                                                  </div>
-                                                  <div class="flex flex-col gap-base">
-                                                      <label class="font-label-technical text-[9px] text-secondary" for="ctrl-manage-desktop-start">ALIGN (COL)</label>
-                                                      <select id="ctrl-manage-desktop-start" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest">
-                                                          <option value="1">Col 1</option>
-                                                          <option value="2" selected>Col 2</option>
-                                                          <option value="3">Col 3</option>
-                                                          <option value="4">Col 4</option>
-                                                          <option value="5">Col 5</option>
-                                                          <option value="6">Col 6</option>
-                                                          <option value="7">Col 7</option>
-                                                          <option value="8">Col 8</option>
-                                                          <option value="9">Col 9</option>
-                                                          <option value="10">Col 10</option>
-                                                          <option value="11">Col 11</option>
-                                                          <option value="12">Col 12</option>
-                                                      </select>
-                                                  </div>
-                                                  <div class="flex flex-col gap-base">
-                                                      <label class="font-label-technical text-[9px] text-secondary" for="ctrl-manage-vertical-offset">NUDGE (PX)</label>
-                                                      <input type="number" id="ctrl-manage-vertical-offset" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none" value="0" step="10" />
-                                                  </div>
-                                                  <div class="flex flex-col gap-base">
-                                                      <label class="font-label-technical text-[9px] text-secondary" for="ctrl-manage-mobile-span">MOBILE SIZE</label>
-                                                      <select id="ctrl-manage-mobile-span" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest">
-                                                          <option value="1">1 Col</option>
-                                                          <option value="2">2 Cols</option>
-                                                          <option value="3">3 Cols</option>
-                                                          <option value="4" selected>4 Cols</option>
-                                                      </select>
-                                                  </div>
+                                              <div class="flex flex-col gap-base">
+                                                  <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-desktop-span">SCALE (COLS)</label>
+                                                  <select id="ctrl-manage-desktop-span" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                      <option value="1">1 Col</option>
+                                                      <option value="2">2 Cols</option>
+                                                      <option value="3" selected>3 Cols</option>
+                                                      <option value="4">4 Cols</option>
+                                                      <option value="5">5 Cols</option>
+                                                      <option value="6">6 Cols</option>
+                                                      <option value="7">7 Cols</option>
+                                                      <option value="8">8 Cols</option>
+                                                      <option value="9">9 Cols</option>
+                                                      <option value="10">10 Cols</option>
+                                                      <option value="11">11 Cols</option>
+                                                      <option value="12">12 Cols</option>
+                                                  </select>
+                                              </div>
+                                              <div class="flex flex-col gap-base">
+                                                  <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-desktop-start">ALIGN (COL)</label>
+                                                  <select id="ctrl-manage-desktop-start" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                      <option value="1">Col 1</option>
+                                                      <option value="2" selected>Col 2</option>
+                                                      <option value="3">Col 3</option>
+                                                      <option value="4">Col 4</option>
+                                                      <option value="5">Col 5</option>
+                                                      <option value="6">Col 6</option>
+                                                      <option value="7">Col 7</option>
+                                                      <option value="8">Col 8</option>
+                                                      <option value="9">Col 9</option>
+                                                      <option value="10">Col 10</option>
+                                                      <option value="11">Col 11</option>
+                                                      <option value="12">Col 12</option>
+                                                  </select>
+                                              </div>
+                                              <div class="flex flex-col gap-base">
+                                                  <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-vertical-offset">NUDGE (PX)</label>
+                                                  <input type="number" id="ctrl-manage-vertical-offset" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" value="0" step="10" />
+                                              </div>
+                                              <div class="flex flex-col gap-base">
+                                                  <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manage-mobile-span">MOBILE SIZE</label>
+                                                  <select id="ctrl-manage-mobile-span" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                      <option value="1">1 Col</option>
+                                                      <option value="2">2 Cols</option>
+                                                      <option value="3">3 Cols</option>
+                                                      <option value="4" selected>4 Cols</option>
+                                                  </select>
                                               </div>
                                           </div>
                                           <div class="flex flex-col gap-base">
