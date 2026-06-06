@@ -1531,6 +1531,9 @@
                                     <div>FILE_SIZE: <span id="ctrl-file-size" class="text-primary">-</span></div>
                                     <div>RESOLUTION: <span id="ctrl-file-res" class="text-primary">-</span></div>
                                 </div>
+                                <button id="btn-edit-image" class="mt-xs hidden border border-primary px-xs py-base font-label-technical text-[9px] uppercase tracking-wider hover:bg-primary hover:text-on-primary transition-colors cursor-none w-full text-center">
+                                    [EDIT_IMAGE_UTILITY]
+                                </button>
                             </div>
                         </div>
 
@@ -1562,6 +1565,9 @@
                                      <div>FILE_SIZE: <span id="ctrl-manage-file-size" class="text-primary">-</span></div>
                                      <div>RESOLUTION: <span id="ctrl-manage-file-res" class="text-primary">-</span></div>
                                  </div>
+                                 <button id="btn-manage-edit-image" class="mt-xs hidden border border-primary px-xs py-base font-label-technical text-[9px] uppercase tracking-wider hover:bg-primary hover:text-on-primary transition-colors cursor-none w-full text-center">
+                                     [EDIT_IMAGE_UTILITY]
+                                 </button>
                              </div>
                          </div>
 
@@ -1601,6 +1607,9 @@
                                          <div>FILE_SIZE: <span id="ctrl-manifesto-file-size" class="text-primary">-</span></div>
                                          <div>RESOLUTION: <span id="ctrl-manifesto-file-res" class="text-primary">-</span></div>
                                      </div>
+                                     <button id="btn-manifesto-edit-image" class="mt-xs hidden border border-primary px-xs py-base font-label-technical text-[9px] uppercase tracking-wider hover:bg-primary hover:text-on-primary transition-colors cursor-none w-full text-center">
+                                         [EDIT_IMAGE_UTILITY]
+                                     </button>
 
                                      <!-- Grid Geometry Controls -->
                                      <div class="border-t border-primary/20 pt-sm mt-xs space-y-sm">
@@ -1823,6 +1832,126 @@
             <div>RESOLUTION DISPLAY MODE: UNSCALED MATRIX</div>
             <div id="fs-hud-coords">DRAG_X: 0px | DRAG_Y: 0px</div>
         </footer>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- IMAGE EDITING CONSOLE UTILITY (MODAL)      -->
+    <!-- ========================================== -->
+    <div id="image-editor-modal" class="fixed inset-0 bg-black/90 hidden items-center justify-center p-4 md:p-8 z-[100] font-label-technical">
+        <div class="bg-surface border-2 border-primary w-full max-w-4xl max-h-[95vh] flex flex-col relative">
+            <!-- Modal HUD Header -->
+            <div class="border-b border-primary p-3 flex justify-between items-center bg-surface-container-low select-none">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 bg-primary animate-pulse"></span>
+                    <span class="font-bold text-[11px] tracking-wider uppercase">IMAGE UTILITY CONSOLE // EDIT_SEQUENCE</span>
+                </div>
+                <button id="image-editor-close-btn" class="border border-primary px-2 py-0.5 text-[10px] uppercase hover:bg-primary hover:text-on-primary transition-colors cursor-none">
+                    [CLOSE]
+                </button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="flex-grow overflow-y-auto grid grid-cols-1 md:grid-cols-12 min-h-0">
+                <!-- Left Workspace Canvas Area (8 cols) -->
+                <div class="col-span-1 md:col-span-8 border-b md:border-b-0 md:border-r border-primary bg-black flex items-center justify-center relative min-h-[300px] md:min-h-[500px] p-4 select-none overflow-hidden">
+                    <!-- The Interactive Canvas -->
+                    <canvas id="image-editor-canvas" class="max-w-full max-h-full object-contain"></canvas>
+                </div>
+
+                <!-- Right Workspace Sidebar Controls (4 cols) -->
+                <div class="col-span-1 md:col-span-4 p-4 flex flex-col justify-between space-y-md bg-surface-container-lowest overflow-y-auto">
+                    
+                    <!-- Control Groups -->
+                    <div class="space-y-md">
+                        <!-- ASPECT RATIO PRESETS -->
+                        <div class="space-y-xs">
+                            <span class="text-[10px] text-secondary uppercase font-bold block">01_CROP_BOUNDS (LOCK_RATIO)</span>
+                            <div class="grid grid-cols-2 gap-xs">
+                                <button id="editor-ratio-free" class="border border-primary bg-primary text-on-primary px-2 py-1.5 text-[9px] uppercase tracking-wider transition-colors cursor-none text-center">
+                                    FREEFORM
+                                </button>
+                                <button id="editor-ratio-1-1" class="border border-primary px-2 py-1.5 text-[9px] uppercase tracking-wider hover:bg-primary hover:text-on-primary transition-colors cursor-none text-center">
+                                    1:1 SQUARE
+                                </button>
+                                <button id="editor-ratio-4-5" class="border border-primary px-2 py-1.5 text-[9px] uppercase tracking-wider hover:bg-primary hover:text-on-primary transition-colors cursor-none text-center">
+                                    4:5 VERTICAL
+                                </button>
+                                <button id="editor-ratio-16-9" class="border border-primary px-2 py-1.5 text-[9px] uppercase tracking-wider hover:bg-primary hover:text-on-primary transition-colors cursor-none text-center">
+                                    16:9 LANDSCAPE
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- TRANSFORMATIONS -->
+                        <div class="space-y-xs pt-xs border-t border-primary/20">
+                            <span class="text-[10px] text-secondary uppercase font-bold block">02_GEOMETRY_TRANSFORM</span>
+                            <div class="grid grid-cols-3 gap-xs">
+                                <button id="editor-action-rotate" class="border border-primary px-2 py-1.5 text-[9px] uppercase tracking-wider hover:bg-primary hover:text-on-primary transition-colors cursor-none text-center flex items-center justify-center gap-1">
+                                    <span class="material-symbols-outlined text-[12px]">rotate_right</span>
+                                    90°
+                                </button>
+                                <button id="editor-action-fliph" class="border border-primary px-2 py-1.5 text-[9px] uppercase tracking-wider hover:bg-primary hover:text-on-primary transition-colors cursor-none text-center flex items-center justify-center gap-1">
+                                    <span class="material-symbols-outlined text-[12px]">flip</span>
+                                    FLIP_H
+                                </button>
+                                <button id="editor-action-flipv" class="border border-primary px-2 py-1.5 text-[9px] uppercase tracking-wider hover:bg-primary hover:text-on-primary transition-colors cursor-none text-center flex items-center justify-center gap-1">
+                                    <span class="material-symbols-outlined text-[12px]">flip</span>
+                                    FLIP_V
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- COLOR/TUNING ADJUSTMENTS -->
+                        <div class="space-y-sm pt-xs border-t border-primary/20">
+                            <span class="text-[10px] text-secondary uppercase font-bold block">03_BRUTALIST_TUNING</span>
+                            
+                            <!-- Brightness Slider -->
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-[9px] text-secondary">
+                                    <span>BRIGHTNESS</span>
+                                    <span id="editor-val-brightness">100%</span>
+                                </div>
+                                <input type="range" id="editor-slider-brightness" min="50" max="250" value="100" class="w-full h-1 bg-surface border border-primary appearance-none cursor-none accent-primary" />
+                            </div>
+
+                            <!-- Contrast Slider -->
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-[9px] text-secondary">
+                                    <span>CONTRAST</span>
+                                    <span id="editor-val-contrast">100%</span>
+                                </div>
+                                <input type="range" id="editor-slider-contrast" min="50" max="300" value="100" class="w-full h-1 bg-surface border border-primary appearance-none cursor-none accent-primary" />
+                            </div>
+                            
+                            <button id="editor-action-reset" class="w-full mt-xs border border-dashed border-primary hover:border-solid px-2 py-1 text-[9px] uppercase hover:bg-primary hover:text-on-primary transition-colors cursor-none text-center">
+                                RESET ALL ADJUSTMENTS
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- TELEMETRY / STATS -->
+                    <div class="border-t border-primary/40 pt-sm mt-auto space-y-base text-[9px] text-secondary">
+                        <div class="font-bold text-primary">HUD_TELEMETRY:</div>
+                        <div>ORIGINAL_RES: <span id="editor-info-orig-res" class="text-primary">-</span></div>
+                        <div>COMPUTED_RES: <span id="editor-info-new-res" class="text-primary">-</span></div>
+                        <div class="text-[8px] opacity-60 leading-normal">
+                            DRAG INSIDE CANVAS BOX TO MOVE CROP BOX. DRAG CORNERS TO RESIZE CROP BOUNDARY.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Modal Action Footer -->
+            <div class="border-t border-primary p-3 flex justify-end gap-sm bg-surface-container-low">
+                <button id="image-editor-cancel-btn" class="border border-primary px-4 py-2 text-[10px] uppercase hover:bg-primary hover:text-on-primary transition-colors cursor-none">
+                    [CANCEL]
+                </button>
+                <button id="image-editor-apply-btn" class="bg-primary text-on-primary border border-primary px-4 py-2 text-[10px] uppercase hover:bg-surface hover:text-primary transition-colors cursor-none font-bold">
+                    [APPLY_CHANGES]
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- ---------------------------------------------------- -->
@@ -3561,6 +3690,7 @@ CLOSING RELAY CONNECTION.
                     if (previewPlaceholder) {
                         previewPlaceholder.classList.add('hidden');
                     }
+                    document.getElementById('btn-edit-image').classList.remove('hidden');
 
                     // Extract image dimensions
                     const img = new Image();
@@ -4118,6 +4248,7 @@ CLOSING RELAY CONNECTION.
                 document.getElementById('ctrl-manage-file-name').textContent = '-';
                 document.getElementById('ctrl-manage-file-size').textContent = '-';
                 document.getElementById('ctrl-manage-file-res').textContent = '-';
+                document.getElementById('btn-manage-edit-image').classList.add('hidden');
                 manageSelectedFile = null;
                 manageSelectedFileBase64 = null;
                 return;
@@ -4167,6 +4298,7 @@ CLOSING RELAY CONNECTION.
                 previewImg.classList.remove('hidden');
             }
             if (previewPlaceholder) previewPlaceholder.classList.add('hidden');
+            document.getElementById('btn-manage-edit-image').classList.remove('hidden');
 
             document.getElementById('ctrl-manage-file-name').textContent = `[CURRENT] ${spec.imgUrl.split('/').pop()}`;
             document.getElementById('ctrl-manage-file-size').textContent = '-';
@@ -4203,6 +4335,7 @@ CLOSING RELAY CONNECTION.
                     if (previewPlaceholder) {
                         previewPlaceholder.classList.add('hidden');
                     }
+                    document.getElementById('btn-manage-edit-image').classList.remove('hidden');
 
                     // Extract image dimensions
                     const img = new Image();
@@ -4590,6 +4723,7 @@ CLOSING RELAY CONNECTION.
             if (previewPlaceholder) {
                 previewPlaceholder.classList.remove('hidden');
             }
+            document.getElementById('btn-manifesto-edit-image').classList.add('hidden');
 
             document.getElementById('ctrl-manifesto-file-name').textContent = '-';
             document.getElementById('ctrl-manifesto-file-size').textContent = '-';
@@ -4631,6 +4765,7 @@ CLOSING RELAY CONNECTION.
                 if (previewPlaceholder) {
                     previewPlaceholder.classList.add('hidden');
                 }
+                document.getElementById('btn-manifesto-edit-image').classList.remove('hidden');
 
                 document.getElementById('ctrl-manifesto-file-name').textContent = imgObj.imgUrl.substring(imgObj.imgUrl.lastIndexOf('/') + 1) || 'manifesto_image.jpg';
                 document.getElementById('ctrl-manifesto-file-size').textContent = 'REMOTE SPECIMEN';
@@ -4676,6 +4811,7 @@ CLOSING RELAY CONNECTION.
                     if (previewPlaceholderManifesto) {
                         previewPlaceholderManifesto.classList.add('hidden');
                     }
+                    document.getElementById('btn-manifesto-edit-image').classList.remove('hidden');
 
                     const img = new Image();
                     img.onload = function() {
@@ -4961,6 +5097,546 @@ CLOSING RELAY CONNECTION.
             } catch (err) {
                 console.error(err);
                 logCtrl(`ERROR: ${err.message}`);
+            }
+        });
+
+        // ====================================================
+        // IMAGE EDITOR MODULE FOR CROP, ROTATE, AND FINE TUNING
+        // ====================================================
+        let editorActiveContext = 'inject';
+        let originalImg = null;
+        let editState = {
+            rotation: 0,
+            flipH: false,
+            flipV: false,
+            brightness: 1.0,
+            contrast: 1.0,
+            aspectRatioLock: 'free'
+        };
+        let cropBox = { x: 0, y: 0, w: 0, h: 0 };
+        let workspaceScale = 1.0;
+        let dragStart = null;
+        let activeHandle = null;
+
+        const editorCanvas = document.getElementById('image-editor-canvas');
+
+        function getMousePos(canvas, evt) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+            const clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        const HANDLE_SIZE = 12;
+        function getHandleAt(pos) {
+            const { x, y } = pos;
+            const { x: cx, y: cy, w: cw, h: ch } = cropBox;
+            
+            if (Math.abs(x - cx) <= HANDLE_SIZE && Math.abs(y - cy) <= HANDLE_SIZE) return 'top-left';
+            if (Math.abs(x - (cx + cw)) <= HANDLE_SIZE && Math.abs(y - cy) <= HANDLE_SIZE) return 'top-right';
+            if (Math.abs(x - cx) <= HANDLE_SIZE && Math.abs(y - (cy + ch)) <= HANDLE_SIZE) return 'bottom-left';
+            if (Math.abs(x - (cx + cw)) <= HANDLE_SIZE && Math.abs(y - (cy + ch)) <= HANDLE_SIZE) return 'bottom-right';
+            
+            if (x >= cx && x <= cx + cw && y >= cy && y <= cy + ch) return 'move';
+            
+            return null;
+        }
+
+        function onPointerStart(e) {
+            if (!originalImg) return;
+            const pos = getMousePos(editorCanvas, e);
+            activeHandle = getHandleAt(pos);
+            if (activeHandle) {
+                e.preventDefault();
+                dragStart = pos;
+            }
+        }
+
+        function onPointerMove(e) {
+            if (!activeHandle) return;
+            const pos = getMousePos(editorCanvas, e);
+            const dx = pos.x - dragStart.x;
+            const dy = pos.y - dragStart.y;
+            dragStart = pos;
+            
+            const { x: cx, y: cy, w: cw, h: ch } = cropBox;
+            const wsW = editorCanvas.width;
+            const wsH = editorCanvas.height;
+            
+            if (activeHandle === 'move') {
+                cropBox.x = Math.max(0, Math.min(wsW - cw, cx + dx));
+                cropBox.y = Math.max(0, Math.min(wsH - ch, cy + dy));
+            } else {
+                let nx = cx;
+                let ny = cy;
+                let nw = cw;
+                let nh = ch;
+                
+                if (activeHandle === 'top-left') {
+                    nx = Math.max(0, Math.min(cx + cw - 20, cx + dx));
+                    ny = Math.max(0, Math.min(cy + ch - 20, cy + dy));
+                    nw = cw + (cx - nx);
+                    nh = ch + (cy - ny);
+                } else if (activeHandle === 'top-right') {
+                    ny = Math.max(0, Math.min(cy + ch - 20, cy + dy));
+                    nw = Math.max(20, Math.min(wsW - cx, cw + dx));
+                    nh = ch + (cy - ny);
+                } else if (activeHandle === 'bottom-left') {
+                    nx = Math.max(0, Math.min(cx + cw - 20, cx + dx));
+                    nw = cw + (cx - nx);
+                    nh = Math.max(20, Math.min(wsH - cy, ch + dy));
+                } else if (activeHandle === 'bottom-right') {
+                    nw = Math.max(20, Math.min(wsW - cx, cw + dx));
+                    nh = Math.max(20, Math.min(wsH - cy, ch + dy));
+                }
+                
+                if (editState.aspectRatioLock !== 'free') {
+                    let ratio = 1;
+                    if (editState.aspectRatioLock === '4:5') ratio = 0.8;
+                    else if (editState.aspectRatioLock === '16:9') ratio = 16 / 9;
+                    
+                    if (activeHandle === 'top-left' || activeHandle === 'top-right') {
+                        nh = nw / ratio;
+                        if (activeHandle === 'top-left') {
+                            ny = cy + (ch - nh);
+                        }
+                    } else {
+                        nh = nw / ratio;
+                    }
+                    
+                    if (nx + nw > wsW) nw = wsW - nx;
+                    if (ny + nh > wsH) {
+                        nh = wsH - ny;
+                        nw = nh * ratio;
+                    }
+                }
+                
+                cropBox = { x: nx, y: ny, w: nw, h: nh };
+            }
+            
+            drawEditorWorkspace();
+        }
+
+        function onPointerEnd() {
+            activeHandle = null;
+            if (originalImg) {
+                const rx = cropBox.w / workspaceScale;
+                const ry = cropBox.h / workspaceScale;
+                document.getElementById('editor-info-new-res').textContent = `${Math.round(rx)} x ${Math.round(ry)} px`;
+            }
+        }
+
+        if (editorCanvas) {
+            editorCanvas.addEventListener('mousedown', onPointerStart);
+            editorCanvas.addEventListener('mousemove', onPointerMove);
+            window.addEventListener('mouseup', onPointerEnd);
+            
+            editorCanvas.addEventListener('touchstart', onPointerStart);
+            editorCanvas.addEventListener('touchmove', onPointerMove);
+            window.addEventListener('touchend', onPointerEnd);
+
+            editorCanvas.addEventListener('mousemove', (e) => {
+                if (!originalImg) return;
+                const pos = getMousePos(editorCanvas, e);
+                const handle = getHandleAt(pos);
+                if (handle === 'move') {
+                    editorCanvas.style.cursor = 'move';
+                } else if (handle === 'top-left' || handle === 'bottom-right') {
+                    editorCanvas.style.cursor = 'nwse-resize';
+                } else if (handle === 'top-right' || handle === 'bottom-left') {
+                    editorCanvas.style.cursor = 'nesw-resize';
+                } else {
+                    editorCanvas.style.cursor = 'default';
+                }
+            });
+        }
+
+        function initCropBox() {
+            if (!originalImg) return;
+            
+            let origW = originalImg.width;
+            let origH = originalImg.height;
+            if (editState.rotation === 90 || editState.rotation === 270) {
+                origW = originalImg.height;
+                origH = originalImg.width;
+            }
+            
+            const maxW = 600;
+            const maxH = 400;
+            let scale = maxW / origW;
+            if (origH * scale > maxH) {
+                scale = maxH / origH;
+            }
+            workspaceScale = scale;
+            
+            const wsW = origW * scale;
+            const wsH = origH * scale;
+            
+            let cw = wsW * 0.9;
+            let ch = wsH * 0.9;
+            
+            if (editState.aspectRatioLock === '1:1') {
+                const size = Math.min(cw, ch);
+                cw = size;
+                ch = size;
+            } else if (editState.aspectRatioLock === '4:5') {
+                if (ch > cw * 1.25) ch = cw * 1.25;
+                else cw = ch / 1.25;
+            } else if (editState.aspectRatioLock === '16:9') {
+                if (ch > cw * 9 / 16) ch = cw * 9 / 16;
+                else cw = ch * 16 / 9;
+            }
+            
+            cropBox = {
+                x: (wsW - cw) / 2,
+                y: (wsH - ch) / 2,
+                w: cw,
+                h: ch
+            };
+        }
+
+        function drawEditorWorkspace() {
+            if (!originalImg) return;
+            
+            const ctx = editorCanvas.getContext('2d');
+            
+            let origW = originalImg.width;
+            let origH = originalImg.height;
+            if (editState.rotation === 90 || editState.rotation === 270) {
+                origW = originalImg.height;
+                origH = originalImg.width;
+            }
+            
+            const wsW = origW * workspaceScale;
+            const wsH = origH * workspaceScale;
+            
+            editorCanvas.width = wsW;
+            editorCanvas.height = wsH;
+            
+            ctx.clearRect(0, 0, wsW, wsH);
+            
+            ctx.save();
+            ctx.translate(wsW / 2, wsH / 2);
+            ctx.rotate(editState.rotation * Math.PI / 180);
+            ctx.scale(editState.flipH ? -1 : 1, editState.flipV ? -1 : 1);
+            
+            ctx.filter = `brightness(${editState.brightness * 100}%) contrast(${editState.contrast * 100}%)`;
+            
+            const w = originalImg.width * workspaceScale;
+            const h = originalImg.height * workspaceScale;
+            ctx.drawImage(originalImg, -w / 2, -h / 2, w, h);
+            ctx.restore();
+            
+            const cx = cropBox.x;
+            const cy = cropBox.y;
+            const cw = cropBox.w;
+            const ch = cropBox.h;
+            
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+            ctx.fillRect(0, 0, wsW, wsH);
+            
+            ctx.save();
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(cx, cy, cw, ch);
+            ctx.restore();
+            
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(cx, cy, cw, ch);
+            
+            ctx.strokeStyle = 'var(--color-primary, #ffffff)';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([4, 4]);
+            ctx.strokeRect(cx, cy, cw, ch);
+            ctx.setLineDash([]);
+            
+            ctx.fillStyle = 'var(--color-primary, #ffffff)';
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 1;
+            
+            const handles = [
+                { x: cx, y: cy },
+                { x: cx + cw, y: cy },
+                { x: cx, y: cy + ch },
+                { x: cx + cw, y: cy + ch }
+            ];
+            
+            handles.forEach(h => {
+                ctx.fillRect(h.x - 4, h.y - 4, 8, 8);
+                ctx.strokeRect(h.x - 4, h.y - 4, 8, 8);
+            });
+        }
+
+        function updateRatioButtons(activeLock) {
+            const ratios = ['free', '1-1', '4-5', '16-9'];
+            ratios.forEach(r => {
+                const btn = document.getElementById(`editor-ratio-${r}`);
+                if (!btn) return;
+                if (r === activeLock) {
+                    btn.classList.add('bg-primary', 'text-on-primary');
+                    btn.classList.remove('hover:bg-primary', 'hover:text-on-primary');
+                } else {
+                    btn.classList.remove('bg-primary', 'text-on-primary');
+                    btn.classList.add('hover:bg-primary', 'hover:text-on-primary');
+                }
+            });
+        }
+
+        document.getElementById('editor-ratio-free')?.addEventListener('click', () => {
+            editState.aspectRatioLock = 'free';
+            playTickSound('click');
+            updateRatioButtons('free');
+            initCropBox();
+            drawEditorWorkspace();
+        });
+        document.getElementById('editor-ratio-1-1')?.addEventListener('click', () => {
+            editState.aspectRatioLock = '1:1';
+            playTickSound('click');
+            updateRatioButtons('1-1');
+            initCropBox();
+            drawEditorWorkspace();
+        });
+        document.getElementById('editor-ratio-4-5')?.addEventListener('click', () => {
+            editState.aspectRatioLock = '4:5';
+            playTickSound('click');
+            updateRatioButtons('4-5');
+            initCropBox();
+            drawEditorWorkspace();
+        });
+        document.getElementById('editor-ratio-16-9')?.addEventListener('click', () => {
+            editState.aspectRatioLock = '16:9';
+            playTickSound('click');
+            updateRatioButtons('16-9');
+            initCropBox();
+            drawEditorWorkspace();
+        });
+
+        document.getElementById('editor-action-rotate')?.addEventListener('click', () => {
+            editState.rotation = (editState.rotation + 90) % 360;
+            playTickSound('click');
+            initCropBox();
+            drawEditorWorkspace();
+        });
+        document.getElementById('editor-action-fliph')?.addEventListener('click', () => {
+            editState.flipH = !editState.flipH;
+            playTickSound('click');
+            drawEditorWorkspace();
+        });
+        document.getElementById('editor-action-flipv')?.addEventListener('click', () => {
+            editState.flipV = !editState.flipV;
+            playTickSound('click');
+            drawEditorWorkspace();
+        });
+        document.getElementById('editor-action-reset')?.addEventListener('click', () => {
+            playTickSound('click');
+            editState.brightness = 1.0;
+            editState.contrast = 1.0;
+            const brightSlider = document.getElementById('editor-slider-brightness');
+            const contSlider = document.getElementById('editor-slider-contrast');
+            if (brightSlider) brightSlider.value = 100;
+            if (contSlider) contSlider.value = 100;
+            document.getElementById('editor-val-brightness').textContent = "100%";
+            document.getElementById('editor-val-contrast').textContent = "100%";
+            drawEditorWorkspace();
+        });
+
+        document.getElementById('editor-slider-brightness')?.addEventListener('input', (e) => {
+            editState.brightness = e.target.value / 100;
+            document.getElementById('editor-val-brightness').textContent = `${e.target.value}%`;
+            drawEditorWorkspace();
+        });
+        document.getElementById('editor-slider-contrast')?.addEventListener('input', (e) => {
+            editState.contrast = e.target.value / 100;
+            document.getElementById('editor-val-contrast').textContent = `${e.target.value}%`;
+            drawEditorWorkspace();
+        });
+
+        function closeEditorModal() {
+            const modal = document.getElementById('image-editor-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+            originalImg = null;
+        }
+
+        document.getElementById('image-editor-close-btn')?.addEventListener('click', () => {
+            playTickSound('click');
+            closeEditorModal();
+        });
+        document.getElementById('image-editor-cancel-btn')?.addEventListener('click', () => {
+            playTickSound('click');
+            closeEditorModal();
+        });
+
+        function loadEditorImage(src) {
+            logCtrl(`LOADING IMAGE INTO UTILITY CONSOLE...`);
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.onload = function() {
+                originalImg = img;
+                editState = {
+                    rotation: 0,
+                    flipH: false,
+                    flipV: false,
+                    brightness: 1.0,
+                    contrast: 1.0,
+                    aspectRatioLock: 'free'
+                };
+                
+                const brightSlider = document.getElementById('editor-slider-brightness');
+                const contSlider = document.getElementById('editor-slider-contrast');
+                if (brightSlider) brightSlider.value = 100;
+                if (contSlider) contSlider.value = 100;
+                
+                document.getElementById('editor-val-brightness').textContent = "100%";
+                document.getElementById('editor-val-contrast').textContent = "100%";
+                
+                updateRatioButtons('free');
+                document.getElementById('editor-info-orig-res').textContent = `${img.width} x ${img.height} px`;
+                
+                initCropBox();
+                drawEditorWorkspace();
+                
+                const modal = document.getElementById('image-editor-modal');
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                }
+                
+                logCtrl(`IMAGE LOADED SUCCESSFULLY [OK]`);
+                if (originalImg) {
+                    const rx = cropBox.w / workspaceScale;
+                    const ry = cropBox.h / workspaceScale;
+                    document.getElementById('editor-info-new-res').textContent = `${Math.round(rx)} x ${Math.round(ry)} px`;
+                }
+            };
+            img.onerror = function() {
+                logCtrl(`DIRECT LOAD FAILED. INITIATING BLOB FETCH FALLBACK...`);
+                const token = localStorage.getItem('ctrl-github-token') || '';
+                const headers = {};
+                if (token) headers['Authorization'] = `token ${token}`;
+                
+                fetch(src, { headers })
+                    .then(res => {
+                        if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
+                        return res.blob();
+                    })
+                    .then(blob => {
+                        const blobUrl = URL.createObjectURL(blob);
+                        img.crossOrigin = undefined;
+                        img.src = blobUrl;
+                    })
+                    .catch(err => {
+                        logCtrl(`ERROR: FAILED TO LOAD IMAGE. ${err.message}`);
+                    });
+            };
+            img.src = src;
+        }
+
+        document.getElementById('image-editor-apply-btn')?.addEventListener('click', () => {
+            if (!originalImg) return;
+            
+            playTickSound('click');
+            logCtrl(`PROCESSING FINAL IMAGE PAYLOAD...`);
+            
+            const rx = cropBox.x / workspaceScale;
+            const ry = cropBox.y / workspaceScale;
+            const rw = cropBox.w / workspaceScale;
+            const rh = cropBox.h / workspaceScale;
+            
+            const offscreen = document.createElement('canvas');
+            offscreen.width = Math.round(rw);
+            offscreen.height = Math.round(rh);
+            const octx = offscreen.getContext('2d');
+            
+            octx.filter = `brightness(${editState.brightness * 100}%) contrast(${editState.contrast * 100}%)`;
+            
+            octx.save();
+            octx.translate(-rx, -ry);
+            
+            const origW = originalImg.width;
+            const origH = originalImg.height;
+            let rotW = origW;
+            let rotH = origH;
+            if (editState.rotation === 90 || editState.rotation === 270) {
+                rotW = origH;
+                rotH = origW;
+            }
+            
+            octx.translate(rotW / 2, rotH / 2);
+            octx.rotate(editState.rotation * Math.PI / 180);
+            octx.scale(editState.flipH ? -1 : 1, editState.flipV ? -1 : 1);
+            
+            octx.drawImage(originalImg, -origW / 2, -origH / 2, origW, origH);
+            octx.restore();
+            
+            const finalDataURL = offscreen.toDataURL('image/jpeg', 0.9);
+            const finalBase64 = finalDataURL.split(',')[1];
+            
+            if (editorActiveContext === 'inject') {
+                selectedFileBase64 = finalBase64;
+                const previewImg = document.getElementById('ctrl-preview-img');
+                if (previewImg) previewImg.src = finalDataURL;
+                
+                document.getElementById('ctrl-file-size').textContent = `${(finalBase64.length * 0.75 / 1024).toFixed(1)} KB (EDITED)`;
+                document.getElementById('ctrl-file-res').textContent = `${offscreen.width} x ${offscreen.height} px`;
+                logCtrl(`INJECT PAYLOAD UPDATED SUCCESSFULLY.`);
+            } else if (editorActiveContext === 'manage') {
+                manageSelectedFileBase64 = finalBase64;
+                const previewImg = document.getElementById('ctrl-manage-preview-img');
+                if (previewImg) previewImg.src = finalDataURL;
+                
+                manageSelectedFile = { name: `edited_${Date.now()}.jpg` };
+                
+                document.getElementById('ctrl-manage-file-name').textContent = `[EDITED] ${manageSelectedFile.name}`;
+                document.getElementById('ctrl-manage-file-size').textContent = `${(finalBase64.length * 0.75 / 1024).toFixed(1)} KB`;
+                document.getElementById('ctrl-manage-file-res').textContent = `${offscreen.width} x ${offscreen.height} px`;
+                logCtrl(`MANAGE PAYLOAD UPDATED SUCCESSFULLY.`);
+            } else if (editorActiveContext === 'manifesto') {
+                selectedManifestoFileBase64 = finalBase64;
+                const previewImg = document.getElementById('ctrl-manifesto-preview-img');
+                if (previewImg) previewImg.src = finalDataURL;
+                
+                selectedManifestoFile = { name: `edited_manifesto_${Date.now()}.jpg` };
+                
+                document.getElementById('ctrl-manifesto-file-name').textContent = `[EDITED] ${selectedManifestoFile.name}`;
+                document.getElementById('ctrl-manifesto-file-size').textContent = `${(finalBase64.length * 0.75 / 1024).toFixed(1)} KB`;
+                document.getElementById('ctrl-manifesto-file-res').textContent = `${offscreen.width} x ${offscreen.height} px`;
+                logCtrl(`MANIFESTO PAYLOAD UPDATED SUCCESSFULLY.`);
+            }
+            
+            closeEditorModal();
+        });
+
+        document.getElementById('btn-edit-image')?.addEventListener('click', () => {
+            playTickSound('click');
+            const previewImg = document.getElementById('ctrl-preview-img');
+            if (previewImg && previewImg.src) {
+                editorActiveContext = 'inject';
+                loadEditorImage(previewImg.src);
+            }
+        });
+        
+        document.getElementById('btn-manage-edit-image')?.addEventListener('click', () => {
+            playTickSound('click');
+            const previewImg = document.getElementById('ctrl-manage-preview-img');
+            if (previewImg && previewImg.src) {
+                editorActiveContext = 'manage';
+                loadEditorImage(previewImg.src);
+            }
+        });
+        
+        document.getElementById('btn-manifesto-edit-image')?.addEventListener('click', () => {
+            playTickSound('click');
+            const previewImg = document.getElementById('ctrl-manifesto-preview-img');
+            if (previewImg && previewImg.src) {
+                editorActiveContext = 'manifesto';
+                loadEditorImage(previewImg.src);
             }
         });
 
