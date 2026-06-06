@@ -719,7 +719,7 @@
                         <div class="w-full lg:w-64 shrink-0 p-sm flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-primary bg-surface-container-lowest relative">
                             <div class="flex flex-col gap-8">
                                 <div>
-                                    <h2 class="font-headline-md text-headline-md mb-xs" id="artifact-name">NULL VECTOR</h2>
+                                    <h2 class="font-headline-md text-headline-md leading-normal pb-2 mb-xs" id="artifact-name">NULL VECTOR</h2>
                                     <p class="font-label-technical text-label-technical text-secondary leading-relaxed" id="artifact-description">
                                         A study in absolute presence through absence. Structural integrity maintained by tension points along the z-axis.
                                     </p>
@@ -2476,6 +2476,11 @@ CLOSING RELAY CONNECTION.
 
         // Bind Arrow Key Navigation
         document.addEventListener('keydown', (e) => {
+            // Do not hijack arrow keys when user is typing in inputs or textareas
+            if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
+                return;
+            }
+
             if (fsHud && !fsHud.classList.contains('hidden')) {
                 if (e.key === 'ArrowRight') {
                     e.preventDefault();
@@ -2483,6 +2488,16 @@ CLOSING RELAY CONNECTION.
                 } else if (e.key === 'ArrowLeft') {
                     e.preventDefault();
                     navigateArtifactFullscreen('prev');
+                }
+            } else if (window.location.hash.startsWith('#/artifact/')) {
+                if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    stopSlideshow();
+                    navigateArtifact('next');
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    stopSlideshow();
+                    navigateArtifact('prev');
                 }
             }
         });
