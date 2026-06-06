@@ -572,53 +572,35 @@
             <div class="fixed top-16 left-0 md:left-64 w-full md:w-[calc(100%-16rem)] h-[1px] bg-primary opacity-20 pointer-events-none z-0"></div>
             <div class="fixed top-0 left-0 md:left-64 h-full w-[1px] bg-primary opacity-20 pointer-events-none z-0 md:ml-margin-desktop"></div>
 
-            <div class="relative z-10 px-margin-mobile md:px-margin-desktop py-xl flex-grow flex flex-col justify-between max-w-4xl">
-                <div>
-                    <header class="mb-lg border-b border-primary pb-sm">
-                        <span class="font-label-technical text-label-technical uppercase text-secondary">01 / MANIFESTO</span>
-                        <h2 class="font-display-lg text-headline-lg-mobile md:text-display-lg uppercase text-primary mt-base tracking-tighter">THE MANIFESTO</h2>
-                    </header>
-                    <div class="space-y-sm font-body-lg text-body-lg text-primary max-w-2xl leading-relaxed">
-                        <p class="font-bold">
-                            I draw because the physical line is absolute. Unlike digital renders, a black ink drawing cannot lie about its structure.
-                        </p>
-                        <p class="text-secondary font-light">
-                            Anthology is a digital vault housing my structural, architectural, and brutalist ink specimens. These lines represent hours of physical tension, architectural drafts, and spatial exploration mapping out physical concepts into high-contrast voids.
-                        </p>
-                        <p class="text-secondary font-light">
-                            This website serves as an archival register, logging vector data coordinates, material attributes, and volumetric densities. Treat each specimen not as a flat drawing, but as a monument in a speculative grid.
-                        </p>
+            <div class="relative z-10 px-margin-mobile md:px-margin-desktop py-xl flex-grow grid grid-cols-4 md:grid-cols-12 gap-x-md gap-y-xl items-start w-full" id="manifesto-grid-container">
+                <!-- Left text content container -->
+                <div class="col-span-4 md:col-span-6 flex flex-col justify-between" id="manifesto-text-container">
+                    <div>
+                        <header class="mb-lg border-b border-primary pb-sm">
+                            <span class="font-label-technical text-label-technical uppercase text-secondary" id="manifesto-render-subtitle">01 / MANIFESTO</span>
+                            <h2 class="font-display-lg text-headline-lg-mobile md:text-display-lg uppercase text-primary mt-base tracking-tighter" id="manifesto-render-title">THE MANIFESTO</h2>
+                        </header>
+                        <div class="space-y-sm font-body-lg text-body-lg text-primary max-w-2xl leading-relaxed" id="manifesto-render-paragraphs">
+                            <!-- Populated dynamically -->
+                        </div>
                     </div>
-                </div>
 
-                <div class="mt-xl border-t border-primary pt-md grid grid-cols-1 md:grid-cols-2 gap-md">
-                    <div>
-                        <h3 class="font-label-technical text-label-technical text-primary uppercase font-bold mb-sm">ARCHIVAL PARAMETERS</h3>
-                        <ul class="space-y-xs font-label-technical text-label-small text-secondary">
-                            <li><span class="text-primary font-bold">GRID:</span> 12-COLUMN SUBDIVISIONS</li>
-                            <li><span class="text-primary font-bold">CONTRAST:</span> BINARY ABSOLUTE (0/1)</li>
-                            <li><span class="text-primary font-bold">TYPOGRAPHY:</span> GEIST + SYNE + SPACE MONO</li>
-                            <li><span class="text-primary font-bold">SOURCE:</span> HAND-DRAWN SPECIMENS (100% INK)</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="font-label-technical text-label-technical text-primary uppercase font-bold mb-sm">DIGITAL RELAYS (SOCIALS)</h3>
-                        <ul class="space-y-xs font-label-technical text-label-technical">
-                            <li class="flex items-center gap-xs">
-                                <span class="material-symbols-outlined text-[16px] text-secondary">link</span>
-                                <a href="https://instagram.com" target="_blank" class="hover:underline hover:text-secondary">INSTAGRAM</a>
-                            </li>
-                            <li class="flex items-center gap-xs">
-                                <span class="material-symbols-outlined text-[16px] text-secondary">link</span>
-                                <a href="https://behance.net" target="_blank" class="hover:underline hover:text-secondary">BEHANCE</a>
-                            </li>
-                            <li class="flex items-center gap-xs">
-                                <span class="material-symbols-outlined text-[16px] text-secondary">mail</span>
-                                <a href="mailto:artist@anthology.core" class="hover:underline hover:text-secondary">ARTIST@ANTHOLOGY.CORE</a>
-                            </li>
-                        </ul>
+                    <div class="mt-xl border-t border-primary pt-md grid grid-cols-1 md:grid-cols-2 gap-md" id="manifesto-render-meta-container">
+                        <div>
+                            <h3 class="font-label-technical text-label-technical text-primary uppercase font-bold mb-sm">ARCHIVAL PARAMETERS</h3>
+                            <ul class="space-y-xs font-label-technical text-label-small text-secondary" id="manifesto-render-params">
+                                <!-- Populated dynamically -->
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-label-technical text-label-technical text-primary uppercase font-bold mb-sm">DIGITAL RELAYS (SOCIALS)</h3>
+                            <ul class="space-y-xs font-label-technical text-label-technical" id="manifesto-render-socials">
+                                <!-- Populated dynamically -->
+                            </ul>
+                        </div>
                     </div>
                 </div>
+                <!-- Dynamic showcase images will be appended here -->
             </div>
             
 
@@ -1012,6 +994,9 @@
                     <button id="console-tab-manage" class="border-r border-primary px-sm py-xs font-label-technical text-label-technical uppercase text-secondary hover:text-primary focus:outline-none transition-colors" type="button">
                         [02_MANAGE_EXISTING_ARCHIVE]
                     </button>
+                    <button id="console-tab-manifesto" class="border-r border-primary px-sm py-xs font-label-technical text-label-technical uppercase text-secondary hover:text-primary focus:outline-none transition-colors" type="button">
+                        [03_EDIT_MANIFESTO_PAGE]
+                    </button>
                 </div>
 
                 <div class="p-md flex flex-col md:grid md:grid-cols-12 md:gap-md">
@@ -1367,6 +1352,152 @@
                             </div>
                         </div>
 
+                        <!-- Panel toggled container for Manifesto -->
+                        <div id="panel-manifesto-left" class="hidden space-y-md">
+                            <!-- 2. MANIFESTO TEXT CONTENT -->
+                            <div class="border border-primary p-sm bg-surface-container-lowest">
+                                <h3 class="font-label-technical text-label-technical text-primary font-bold border-b border-primary pb-base mb-xs flex items-center gap-xs">
+                                    <span class="material-symbols-outlined text-[14px]">edit_note</span>
+                                    02_MANIFESTO_TEXT_CONTENT
+                                </h3>
+                                <div class="space-y-sm mt-sm">
+                                    <div class="grid grid-cols-2 gap-sm">
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manifesto-subtitle">SUBTITLE</label>
+                                            <input type="text" id="ctrl-manifesto-subtitle" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="e.g. 01 / MANIFESTO" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manifesto-title">MAIN TITLE</label>
+                                            <input type="text" id="ctrl-manifesto-title" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="e.g. THE MANIFESTO" />
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-base">
+                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manifesto-p1">PARAGRAPH 1 (BOLD/LEAD)</label>
+                                        <textarea id="ctrl-manifesto-p1" rows="2" class="w-full bg-surface border border-primary p-xs font-label-technical text-label-technical text-primary focus:outline-none resize-none focus:bg-surface-container-lowest" placeholder="Lead paragraph text..."></textarea>
+                                    </div>
+                                    <div class="flex flex-col gap-base">
+                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manifesto-p2">PARAGRAPH 2</label>
+                                        <textarea id="ctrl-manifesto-p2" rows="3" class="w-full bg-surface border border-primary p-xs font-label-technical text-label-technical text-primary focus:outline-none resize-none focus:bg-surface-container-lowest" placeholder="Second paragraph text..."></textarea>
+                                    </div>
+                                    <div class="flex flex-col gap-base">
+                                        <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manifesto-p3">PARAGRAPH 3</label>
+                                        <textarea id="ctrl-manifesto-p3" rows="3" class="w-full bg-surface border border-primary p-xs font-label-technical text-label-technical text-primary focus:outline-none resize-none focus:bg-surface-container-lowest" placeholder="Third paragraph text..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3. ARCHIVAL PARAMETERS -->
+                            <div class="border border-primary p-sm bg-surface-container-lowest">
+                                <h3 class="font-label-technical text-label-technical text-primary font-bold border-b border-primary pb-base mb-xs flex items-center gap-xs">
+                                    <span class="material-symbols-outlined text-[14px]">settings_ethernet</span>
+                                    03_ARCHIVAL_PARAMETERS
+                                </h3>
+                                <div class="space-y-sm mt-sm">
+                                    <div class="grid grid-cols-2 gap-sm">
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">PARAM 1 LABEL</label>
+                                            <input type="text" id="ctrl-manifesto-param-l1" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="GRID" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">PARAM 1 VALUE</label>
+                                            <input type="text" id="ctrl-manifesto-param-v1" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="12-COLUMN SUBDIVISIONS" />
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-sm">
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">PARAM 2 LABEL</label>
+                                            <input type="text" id="ctrl-manifesto-param-l2" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="CONTRAST" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">PARAM 2 VALUE</label>
+                                            <input type="text" id="ctrl-manifesto-param-v2" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="BINARY ABSOLUTE (0/1)" />
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-sm">
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">PARAM 3 LABEL</label>
+                                            <input type="text" id="ctrl-manifesto-param-l3" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="TYPOGRAPHY" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">PARAM 3 VALUE</label>
+                                            <input type="text" id="ctrl-manifesto-param-v3" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="GEIST + SYNE" />
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-sm">
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">PARAM 4 LABEL</label>
+                                            <input type="text" id="ctrl-manifesto-param-l4" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="SOURCE" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">PARAM 4 VALUE</label>
+                                            <input type="text" id="ctrl-manifesto-param-v4" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="100% INK" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 4. SOCIAL RELAYS -->
+                            <div class="border border-primary p-sm bg-surface-container-lowest">
+                                <h3 class="font-label-technical text-label-technical text-primary font-bold border-b border-primary pb-base mb-xs flex items-center gap-xs">
+                                    <span class="material-symbols-outlined text-[14px]">share</span>
+                                    04_DIGITAL_RELAYS_SOCIALS
+                                </h3>
+                                <div class="space-y-sm mt-sm">
+                                    <div class="grid grid-cols-3 gap-xs">
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">PLATFORM 1</label>
+                                            <input type="text" id="ctrl-manifesto-social-p1" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="INSTAGRAM" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">PLATFORM 1 URL</label>
+                                            <input type="text" id="ctrl-manifesto-social-u1" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="https://..." />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">ICON 1</label>
+                                            <select id="ctrl-manifesto-social-i1" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                <option value="link">LINK</option>
+                                                <option value="mail">MAIL</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-xs">
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">PLATFORM 2</label>
+                                            <input type="text" id="ctrl-manifesto-social-p2" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="BEHANCE" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">PLATFORM 2 URL</label>
+                                            <input type="text" id="ctrl-manifesto-social-u2" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="https://..." />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">ICON 2</label>
+                                            <select id="ctrl-manifesto-social-i2" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                <option value="link">LINK</option>
+                                                <option value="mail">MAIL</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-xs">
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">PLATFORM 3</label>
+                                            <input type="text" id="ctrl-manifesto-social-p3" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="EMAIL" />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">PLATFORM 3 URL</label>
+                                            <input type="text" id="ctrl-manifesto-social-u3" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest" placeholder="mailto:..." />
+                                        </div>
+                                        <div class="flex flex-col gap-base">
+                                            <label class="font-label-technical text-[9px] text-secondary">ICON 3</label>
+                                            <select id="ctrl-manifesto-social-i3" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-[11px] text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                <option value="mail" selected>MAIL</option>
+                                                <option value="link">LINK</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- RIGHT COLUMN: IMAGE PAYLOAD & TELEMETRY -->
@@ -1425,16 +1556,149 @@
                                     <input type="file" id="ctrl-manage-file-input" class="absolute inset-0 opacity-0 cursor-pointer z-20" accept="image/*" />
                                 </div>
 
-                                <!-- Image File Data Details -->
-                                <div class="mt-sm space-y-base font-label-technical text-[10px] text-secondary border-t border-primary pt-xs">
-                                    <div>FILE_NAME: <span id="ctrl-manage-file-name" class="text-primary">-</span></div>
-                                    <div>FILE_SIZE: <span id="ctrl-manage-file-size" class="text-primary">-</span></div>
-                                    <div>RESOLUTION: <span id="ctrl-manage-file-res" class="text-primary">-</span></div>
-                                </div>
-                            </div>
-                        </div>
+                                 <!-- Image File Data Details -->
+                                 <div class="mt-sm space-y-base font-label-technical text-[10px] text-secondary border-t border-primary pt-xs">
+                                     <div>FILE_NAME: <span id="ctrl-manage-file-name" class="text-primary">-</span></div>
+                                     <div>FILE_SIZE: <span id="ctrl-manage-file-size" class="text-primary">-</span></div>
+                                     <div>RESOLUTION: <span id="ctrl-manage-file-res" class="text-primary">-</span></div>
+                                 </div>
+                             </div>
+                         </div>
 
-                    </div>
+                         <!-- Panel toggled container for Manifesto -->
+                         <div id="panel-manifesto-right" class="hidden flex flex-col flex-grow">
+                             <!-- 5. MANIFESTO IMAGES -->
+                             <div class="border border-primary p-sm bg-surface-container-lowest flex flex-col flex-grow">
+                                 <h3 class="font-label-technical text-label-technical text-primary font-bold border-b border-primary pb-base mb-xs flex items-center gap-xs">
+                                     <span class="material-symbols-outlined text-[14px]">image</span>
+                                     05_SHOWCASE_IMAGES
+                                 </h3>
+
+                                 <div class="space-y-sm mt-sm flex-grow flex flex-col">
+                                     <div class="flex flex-col gap-base">
+                                         <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manifesto-select-image">SELECT SHOWCASE IMAGE TO MANAGE / EDIT</label>
+                                         <select id="ctrl-manifesto-select-image" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                             <option value="">-- [ADD NEW IMAGE] --</option>
+                                         </select>
+                                     </div>
+
+                                     <!-- Blueprint Style Preview Box -->
+                                     <div class="relative w-full aspect-square border border-dashed border-primary bg-surface overflow-hidden flex flex-col items-center justify-center p-sm mt-sm" id="ctrl-manifesto-preview-container">
+                                         <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(93,95,95,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(93,95,95,0.05)_1px,transparent_1px)] bg-[size:10px_10px] pointer-events-none"></div>
+                                         
+                                         <img id="ctrl-manifesto-preview-img" src="" class="hidden w-full h-full object-contain z-10" />
+                                         
+                                         <div id="ctrl-manifesto-preview-placeholder" class="text-center flex flex-col items-center gap-xs select-none">
+                                             <span class="material-symbols-outlined text-[48px] text-outline text-flicker">add_photo_alternate</span>
+                                             <span class="font-label-technical text-[10px] text-secondary uppercase">DRAG_DROP // SELECT IMAGE</span>
+                                         </div>
+                                         <input type="file" id="ctrl-manifesto-file-input" class="absolute inset-0 opacity-0 cursor-pointer z-20" accept="image/*" />
+                                     </div>
+
+                                     <!-- Image File Data Details -->
+                                     <div class="mt-sm space-y-base font-label-technical text-[10px] text-secondary border-t border-primary pt-xs">
+                                         <div>FILE_NAME: <span id="ctrl-manifesto-file-name" class="text-primary">-</span></div>
+                                         <div>FILE_SIZE: <span id="ctrl-manifesto-file-size" class="text-primary">-</span></div>
+                                         <div>RESOLUTION: <span id="ctrl-manifesto-file-res" class="text-primary">-</span></div>
+                                     </div>
+
+                                     <!-- Grid Geometry Controls -->
+                                     <div class="border-t border-primary/20 pt-sm mt-xs space-y-sm">
+                                         <div class="flex flex-col gap-base">
+                                             <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manifesto-layout-preset">IMAGE GEOMETRY PRESET</label>
+                                             <select id="ctrl-manifesto-layout-preset" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                 <option value="0">[01] RIGHT COLUMN LONG (Col 7-11, Speed 0.05)</option>
+                                                 <option value="1">[02] RIGHT COLUMN WIDE (Col 7-12, Speed 0.08)</option>
+                                                 <option value="2">[03] FLOATING SQUARE (Col 8-10, Speed 0.12)</option>
+                                                 <option value="3">[04] FULL WIDTH BOTTOM (Col 1-12, Speed 0.03)</option>
+                                                 <option value="custom">[CUSTOM] MANUAL OVERRIDE</option>
+                                             </select>
+                                         </div>
+                                         <div class="grid grid-cols-2 md:grid-cols-5 gap-sm">
+                                             <div class="flex flex-col gap-base">
+                                                 <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manifesto-aspect-ratio">ASPECT RATIO</label>
+                                                 <select id="ctrl-manifesto-aspect-ratio" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                     <option value="aspect-[4/5]">aspect-[4/5]</option>
+                                                     <option value="aspect-[3/4]">aspect-[3/4]</option>
+                                                     <option value="aspect-square">aspect-square</option>
+                                                     <option value="aspect-[16/9]">aspect-[16/9]</option>
+                                                     <option value="aspect-[21/9]">aspect-[21/9]</option>
+                                                 </select>
+                                             </div>
+                                             <div class="flex flex-col gap-base">
+                                                 <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manifesto-desktop-span">SCALE (COLS)</label>
+                                                 <select id="ctrl-manifesto-desktop-span" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                     <option value="1">1 Col</option>
+                                                     <option value="2">2 Cols</option>
+                                                     <option value="3">3 Cols</option>
+                                                     <option value="4">4 Cols</option>
+                                                     <option value="5" selected>5 Cols</option>
+                                                     <option value="6">6 Cols</option>
+                                                     <option value="7">7 Cols</option>
+                                                     <option value="8">8 Cols</option>
+                                                     <option value="9">9 Cols</option>
+                                                     <option value="10">10 Cols</option>
+                                                     <option value="11">11 Cols</option>
+                                                     <option value="12">12 Cols</option>
+                                                 </select>
+                                             </div>
+                                             <div class="flex flex-col gap-base">
+                                                 <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manifesto-desktop-start">ALIGN (COL)</label>
+                                                 <select id="ctrl-manifesto-desktop-start" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                     <option value="1">Col 1</option>
+                                                     <option value="2">Col 2</option>
+                                                     <option value="3">Col 3</option>
+                                                     <option value="4">Col 4</option>
+                                                     <option value="5">Col 5</option>
+                                                     <option value="6">Col 6</option>
+                                                     <option value="7" selected>Col 7</option>
+                                                     <option value="8">Col 8</option>
+                                                     <option value="9">Col 9</option>
+                                                     <option value="10">Col 10</option>
+                                                     <option value="11">Col 11</option>
+                                                     <option value="12">Col 12</option>
+                                                 </select>
+                                             </div>
+                                             <div class="flex flex-col gap-base">
+                                                 <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manifesto-vertical-offset">NUDGE (PX)</label>
+                                                 <input type="number" id="ctrl-manifesto-vertical-offset" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" value="0" step="10" />
+                                             </div>
+                                             <div class="flex flex-col gap-base">
+                                                 <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manifesto-mobile-span">MOBILE SIZE</label>
+                                                 <select id="ctrl-manifesto-mobile-span" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none focus:bg-surface-container-lowest">
+                                                     <option value="1">1 Col</option>
+                                                     <option value="2">2 Cols</option>
+                                                     <option value="3">3 Cols</option>
+                                                     <option value="4" selected>4 Cols</option>
+                                                 </select>
+                                             </div>
+                                         </div>
+                                         <div class="flex flex-col gap-base">
+                                             <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manifesto-colspan">COMPUTED GRID CLASSES</label>
+                                             <input type="text" id="ctrl-manifesto-colspan" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" value="col-span-4 md:col-start-7 md:col-span-5" />
+                                         </div>
+                                         <div class="grid grid-cols-3 gap-sm">
+                                             <div class="flex flex-col gap-base col-span-2">
+                                                 <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manifesto-speed">PARALLAX MOVEMENT SPEED (e.g. 0.04 - 0.15)</label>
+                                                 <input type="text" id="ctrl-manifesto-speed" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" value="0.05" />
+                                             </div>
+                                             <div class="grid grid-cols-2 gap-xs">
+                                                 <div class="flex flex-col gap-base">
+                                                     <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manifesto-coord-x">COORD X</label>
+                                                     <input type="text" id="ctrl-manifesto-coord-x" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="64.2" />
+                                                 </div>
+                                                 <div class="flex flex-col gap-base">
+                                                     <label class="font-label-technical text-[10px] text-secondary" for="ctrl-manifesto-coord-y">COORD Y</label>
+                                                     <input type="text" id="ctrl-manifesto-coord-y" class="w-full bg-surface border border-primary px-xs py-base font-label-technical text-label-technical text-primary focus:outline-none" placeholder="12.8" />
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+
+                     </div>
 
                 </div>
 
@@ -1463,6 +1727,16 @@
                     </button>
                     <button class="w-full bg-error text-on-error py-md font-label-technical text-[10px] md:text-[14px] font-bold uppercase hover:bg-surface hover:text-error transition-colors duration-300 border-t-2 border-primary flex items-center justify-center gap-xs group relative z-10" id="btn-delete-specimen" type="button">
                         DELETE_SPECIMEN
+                        <span class="material-symbols-outlined transform group-hover:translate-x-1 transition-transform text-[16px]">delete</span>
+                    </button>
+                </div>
+                <div id="btn-container-manifesto" class="hidden w-full grid grid-cols-2">
+                    <button class="w-full bg-primary text-on-primary py-md font-label-technical text-[10px] md:text-[14px] font-bold uppercase hover:bg-surface hover:text-primary transition-colors duration-300 border-t-2 border-primary flex items-center justify-center gap-xs group relative z-10 border-r border-primary" id="btn-commit-manifesto" type="button">
+                        COMMIT_MANIFESTO
+                        <span class="material-symbols-outlined transform group-hover:translate-x-1 transition-transform text-[16px]">send</span>
+                    </button>
+                    <button class="w-full bg-error text-on-error py-md font-label-technical text-[10px] md:text-[14px] font-bold uppercase hover:bg-surface hover:text-error transition-colors duration-300 border-t-2 border-primary flex items-center justify-center gap-xs group relative z-10" id="btn-delete-manifesto-image" type="button">
+                        DELETE_IMAGE
                         <span class="material-symbols-outlined transform group-hover:translate-x-1 transition-transform text-[16px]">delete</span>
                     </button>
                 </div>
@@ -1559,6 +1833,38 @@
         // 1. DATA REPOSITORY (THE PORTFOLIO SPECIMENS)
         // ==========================================
         let specimens = [];
+        let manifestoData = null;
+
+        const DEFAULT_MANIFESTO = {
+            subtitle: "01 / GREETING",
+            title: "ANTHOLOGY",
+            paragraphs: [
+                "I draw because the physical line is absolute. Unlike digital renders, a black ink drawing cannot lie about its structure.",
+                "Anthology is a digital vault housing my structural, architectural, and brutalist ink specimens. These lines represent hours of physical tension, architectural drafts, and spatial exploration mapping out physical concepts into high-contrast voids.",
+                "This website serves as an archival register, logging vector data coordinates, material attributes, and volumetric densities. Treat each specimen not as a flat drawing, but as a monument in a speculative grid."
+            ],
+            parameters: [
+                { label: "GRID", value: "12-COLUMN SUBDIVISIONS" },
+                { label: "CONTRAST", value: "BINARY ABSOLUTE (0/1)" },
+                { label: "TYPOGRAPHY", value: "GEIST + SYNE + SPACE MONO" },
+                { label: "SOURCE", value: "HAND-DRAWN SPECIMENS (100% INK)" }
+            ],
+            socials: [
+                { platform: "INSTAGRAM", url: "https://instagram.com/tribal_chief_001", icon: "link" },
+                { platform: "BEHANCE", url: "https://behance.net", icon: "link" },
+                { platform: "EMAIL", url: "mailto:lucifer@example.com", icon: "mail" }
+            ],
+            images: [
+                {
+                    id: "MANIFESTO_IMG_01",
+                    imgUrl: "./assets/archive_12_1780704224835_img_20250811_202012.jpg",
+                    aspectRatio: "aspect-square",
+                    colSpan: "col-span-4 md:col-start-7 md:col-span-5",
+                    speed: "0.05",
+                    coordinates: { x: "64.2", y: "12.8" }
+                }
+            ]
+        };
 
         // Currently selected specimen in detail view
         let selectedSpecimen = null;
@@ -1787,6 +2093,10 @@
                 renderArtifactDetails();
             }
 
+            if (pageId === 'page-greeting') {
+                renderManifesto();
+            }
+
             // Sync navigation active indicator styling
             syncNavStates(hash);
 
@@ -1881,6 +2191,37 @@
             } catch (err) {
                 console.error("Failed to load specimens:", err);
             }
+
+            // Load Manifesto data
+            try {
+                const resManifesto = await fetch('manifesto.json?t=' + Date.now());
+                if (resManifesto.ok) {
+                    manifestoData = await resManifesto.json();
+                } else {
+                    manifestoData = JSON.parse(JSON.stringify(DEFAULT_MANIFESTO));
+                }
+            } catch (err) {
+                console.warn("manifesto.json not found on server, using defaults:", err);
+                manifestoData = JSON.parse(JSON.stringify(DEFAULT_MANIFESTO));
+            }
+
+            // Merge local manifesto overrides if present
+            const localManifesto = localStorage.getItem('manifesto-local');
+            if (localManifesto) {
+                try {
+                    const parsedLocal = JSON.parse(localManifesto);
+                    if (parsedLocal.subtitle) manifestoData.subtitle = parsedLocal.subtitle;
+                    if (parsedLocal.title) manifestoData.title = parsedLocal.title;
+                    if (parsedLocal.paragraphs) manifestoData.paragraphs = parsedLocal.paragraphs;
+                    if (parsedLocal.parameters) manifestoData.parameters = parsedLocal.parameters;
+                    if (parsedLocal.socials) manifestoData.socials = parsedLocal.socials;
+                    if (parsedLocal.images) manifestoData.images = parsedLocal.images;
+                } catch (e) {
+                    console.error("Error parsing local manifesto cache:", e);
+                }
+            }
+
+            renderManifesto();
 
             // Hook up sorting select listener
             const sortSelect = document.getElementById('ctrl-index-sort');
@@ -2006,6 +2347,118 @@
                 `;
                 container.appendChild(article);
             });
+        }
+
+        function renderManifesto() {
+            if (!manifestoData) return;
+
+            // Render subtitle & title
+            const subtitleEl = document.getElementById('manifesto-render-subtitle');
+            const titleEl = document.getElementById('manifesto-render-title');
+            if (subtitleEl) subtitleEl.textContent = manifestoData.subtitle || '';
+            if (titleEl) titleEl.textContent = manifestoData.title || '';
+
+            // Render paragraphs
+            const paragraphsEl = document.getElementById('manifesto-render-paragraphs');
+            if (paragraphsEl) {
+                paragraphsEl.innerHTML = '';
+                (manifestoData.paragraphs || []).forEach((p, idx) => {
+                    const pEl = document.createElement('p');
+                    if (idx === 0) {
+                        pEl.className = 'font-bold';
+                    } else {
+                        pEl.className = 'text-secondary font-light';
+                    }
+                    pEl.textContent = p;
+                    paragraphsEl.appendChild(pEl);
+                });
+            }
+
+            // Render parameters
+            const paramsEl = document.getElementById('manifesto-render-params');
+            if (paramsEl) {
+                paramsEl.innerHTML = '';
+                (manifestoData.parameters || []).forEach(param => {
+                    if (param.label && param.value) {
+                        const li = document.createElement('li');
+                        li.className = 'font-label-technical text-label-small text-secondary';
+                        li.innerHTML = `<span class="text-primary font-bold">${param.label}:</span> ${param.value}`;
+                        paramsEl.appendChild(li);
+                    }
+                });
+            }
+
+            // Render socials
+            const socialsEl = document.getElementById('manifesto-render-socials');
+            if (socialsEl) {
+                socialsEl.innerHTML = '';
+                (manifestoData.socials || []).forEach(soc => {
+                    if (soc.platform && soc.url) {
+                        const li = document.createElement('li');
+                        li.className = 'flex items-center gap-xs font-label-technical text-label-technical';
+                        
+                        const iconSpan = document.createElement('span');
+                        iconSpan.className = 'material-symbols-outlined text-[16px] text-secondary';
+                        iconSpan.textContent = soc.icon || 'link';
+                        
+                        const a = document.createElement('a');
+                        a.href = soc.url;
+                        a.target = '_blank';
+                        a.className = 'hover:underline hover:text-secondary';
+                        a.textContent = soc.platform.toUpperCase();
+                        
+                        li.appendChild(iconSpan);
+                        li.appendChild(a);
+                        socialsEl.appendChild(li);
+                    }
+                });
+            }
+
+            // Render showcase images in the grid
+            const gridContainer = document.getElementById('manifesto-grid-container');
+            if (gridContainer) {
+                const textContainer = document.getElementById('manifesto-text-container');
+                gridContainer.innerHTML = '';
+                if (textContainer) {
+                    gridContainer.appendChild(textContainer);
+                }
+
+                (manifestoData.images || []).forEach(img => {
+                    const card = document.createElement('div');
+                    const colSpan = img.colSpan || 'col-span-4 md:col-start-7 md:col-span-5';
+                    card.className = `${colSpan} flex flex-col group parallax-item interactive-card relative z-10`;
+                    card.setAttribute('data-speed', img.speed || '0.05');
+                    card.style.cursor = 'none';
+
+                    card.innerHTML = `
+                        <!-- Specimen Card Outer Frame -->
+                        <div class="border border-primary bg-surface transition-all duration-300 relative group-hover:shadow-[4px_4px_0px_#000] dark:group-hover:shadow-[4px_4px_0px_#fff]">
+                            
+                            <!-- Specimen Card Header HUD -->
+                            <div class="border-b border-primary px-xs py-base flex justify-between items-center bg-surface-container-low select-none font-label-technical text-[9px] text-secondary">
+                                <div class="flex items-center gap-xs">
+                                    <span class="w-1.5 h-1.5 bg-primary animate-pulse"></span>
+                                    <span>SHOWCASE // ${img.id || 'IMAGE'}</span>
+                                </div>
+                                <div>X: ${img.coordinates?.x || '00.0'} Y: ${img.coordinates?.y || '00.0'}</div>
+                            </div>
+                            
+                            <!-- Specimen Image Container Box -->
+                            <div class="relative w-full ${img.aspectRatio || 'aspect-square'} overflow-hidden bg-black flex items-center justify-center">
+                                <img src="${img.imgUrl}" class="w-full h-full object-cover grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" loading="lazy" />
+                                <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                                <div class="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.1)_50%)] bg-[size:100%_4px] pointer-events-none"></div>
+                            </div>
+
+                        </div>
+                    `;
+                    gridContainer.appendChild(card);
+                });
+            }
+
+            if (typeof bindHoverAudio === 'function') {
+                bindHoverAudio('a, button, input, textarea, select, .interactive-card');
+            }
         }
 
         // Parallax Effect for Index Grid Items
@@ -3347,50 +3800,66 @@ CLOSING RELAY CONNECTION.
         // ==========================================
         const tabInject = document.getElementById('console-tab-inject');
         const tabManage = document.getElementById('console-tab-manage');
+        const tabManifesto = document.getElementById('console-tab-manifesto');
         const panelInjectLeft = document.getElementById('panel-inject-left');
         const panelManageLeft = document.getElementById('panel-manage-left');
+        const panelManifestoLeft = document.getElementById('panel-manifesto-left');
         const panelInjectRight = document.getElementById('panel-inject-right');
         const panelManageRight = document.getElementById('panel-manage-right');
+        const panelManifestoRight = document.getElementById('panel-manifesto-right');
         const btnContainerInject = document.getElementById('btn-container-inject');
         const btnContainerManage = document.getElementById('btn-container-manage');
+        const btnContainerManifesto = document.getElementById('btn-container-manifesto');
 
         function switchConsoleTab(mode) {
             playTickSound('click');
+            [tabInject, tabManage, tabManifesto].forEach(tab => {
+                if (tab) {
+                    tab.classList.remove('bg-primary', 'text-on-primary');
+                    tab.classList.add('text-secondary');
+                }
+            });
+            [panelInjectLeft, panelManageLeft, panelManifestoLeft,
+             panelInjectRight, panelManageRight, panelManifestoRight,
+             btnContainerInject, btnContainerManage, btnContainerManifesto].forEach(panel => {
+                if (panel) panel.classList.add('hidden');
+            });
+
             if (mode === 'inject') {
-                tabInject.classList.add('bg-primary', 'text-on-primary');
-                tabInject.classList.remove('text-secondary');
-                tabManage.classList.remove('bg-primary', 'text-on-primary');
-                tabManage.classList.add('text-secondary');
-
-                panelInjectLeft.classList.remove('hidden');
-                panelManageLeft.classList.add('hidden');
-                panelInjectRight.classList.remove('hidden');
-                panelManageRight.classList.add('hidden');
-
-                btnContainerInject.classList.remove('hidden');
-                btnContainerManage.classList.add('hidden');
+                if (tabInject) {
+                    tabInject.classList.add('bg-primary', 'text-on-primary');
+                    tabInject.classList.remove('text-secondary');
+                }
+                if (panelInjectLeft) panelInjectLeft.classList.remove('hidden');
+                if (panelInjectRight) panelInjectRight.classList.remove('hidden');
+                if (btnContainerInject) btnContainerInject.classList.remove('hidden');
                 logCtrl("SWITCHED TO INJECT PORTAL MODE.");
-            } else {
-                tabManage.classList.add('bg-primary', 'text-on-primary');
-                tabManage.classList.remove('text-secondary');
-                tabInject.classList.remove('bg-primary', 'text-on-primary');
-                tabInject.classList.add('text-secondary');
-
-                panelInjectLeft.classList.add('hidden');
-                panelManageLeft.classList.remove('hidden');
-                panelInjectRight.classList.add('hidden');
-                panelManageRight.classList.remove('hidden');
-
-                btnContainerInject.classList.add('hidden');
-                btnContainerManage.classList.remove('hidden');
-                
+            } else if (mode === 'manage') {
+                if (tabManage) {
+                    tabManage.classList.add('bg-primary', 'text-on-primary');
+                    tabManage.classList.remove('text-secondary');
+                }
+                if (panelManageLeft) panelManageLeft.classList.remove('hidden');
+                if (panelManageRight) panelManageRight.classList.remove('hidden');
+                if (btnContainerManage) btnContainerManage.classList.remove('hidden');
                 logCtrl("SWITCHED TO MANAGEMENT PORTAL MODE.");
                 populateManageDropdown();
+            } else if (mode === 'manifesto') {
+                if (tabManifesto) {
+                    tabManifesto.classList.add('bg-primary', 'text-on-primary');
+                    tabManifesto.classList.remove('text-secondary');
+                }
+                if (panelManifestoLeft) panelManifestoLeft.classList.remove('hidden');
+                if (panelManifestoRight) panelManifestoRight.classList.remove('hidden');
+                if (btnContainerManifesto) btnContainerManifesto.classList.remove('hidden');
+                logCtrl("SWITCHED TO MANIFESTO ARCHIVE EDITOR.");
+                populateManifestoForm();
             }
         }
 
-        tabInject.addEventListener('click', () => switchConsoleTab('inject'));
-        tabManage.addEventListener('click', () => switchConsoleTab('manage'));
+        if (tabInject) tabInject.addEventListener('click', () => switchConsoleTab('inject'));
+        if (tabManage) tabManage.addEventListener('click', () => switchConsoleTab('manage'));
+        if (tabManifesto) tabManifesto.addEventListener('click', () => switchConsoleTab('manifesto'));
 
         const injectPresets = [
             { aspectRatio: "aspect-[4/5]", colSpan: "col-span-4 md:col-start-2 md:col-span-3", speed: "0.04" },
@@ -3532,6 +4001,53 @@ CLOSING RELAY CONNECTION.
             parseAndPopulateGranular('manage-');
             document.getElementById('ctrl-manage-layout-preset').value = 'custom';
         });
+
+        // Manifesto Presets and Customizer
+        const manifestoPresets = [
+            { aspectRatio: "aspect-[4/5]", colSpan: "col-span-4 md:col-start-7 md:col-span-5", speed: "0.05" },
+            { aspectRatio: "aspect-[16/9]", colSpan: "col-span-4 md:col-start-7 md:col-span-6 md:mt-[40px]", speed: "0.08" },
+            { aspectRatio: "aspect-square", colSpan: "col-span-4 md:col-start-8 md:col-span-3 md:-mt-[60px]", speed: "0.12" },
+            { aspectRatio: "aspect-[21/9]", colSpan: "col-span-4 md:col-start-1 md:col-span-12 md:mt-[50px]", speed: "0.03" }
+        ];
+
+        const presetManifestoEl = document.getElementById('ctrl-manifesto-layout-preset');
+        if (presetManifestoEl) {
+            presetManifestoEl.addEventListener('change', (e) => {
+                const val = e.target.value;
+                if (val !== 'custom') {
+                    const preset = manifestoPresets[parseInt(val)];
+                    document.getElementById('ctrl-manifesto-aspect-ratio').value = preset.aspectRatio;
+                    document.getElementById('ctrl-manifesto-colspan').value = preset.colSpan;
+                    document.getElementById('ctrl-manifesto-speed').value = preset.speed;
+                    parseAndPopulateGranular('manifesto-');
+                }
+            });
+        }
+
+        const manifestoGranularIds = ['ctrl-manifesto-desktop-span', 'ctrl-manifesto-desktop-start', 'ctrl-manifesto-vertical-offset', 'ctrl-manifesto-mobile-span'];
+        manifestoGranularIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('change', () => {
+                    updateComputedColSpan('manifesto-');
+                    document.getElementById('ctrl-manifesto-layout-preset').value = 'custom';
+                });
+                if (el.tagName === 'INPUT') {
+                    el.addEventListener('input', () => {
+                        updateComputedColSpan('manifesto-');
+                        document.getElementById('ctrl-manifesto-layout-preset').value = 'custom';
+                    });
+                }
+            }
+        });
+
+        const rawColspanManifestoInput = document.getElementById('ctrl-manifesto-colspan');
+        if (rawColspanManifestoInput) {
+            rawColspanManifestoInput.addEventListener('input', () => {
+                parseAndPopulateGranular('manifesto-');
+                document.getElementById('ctrl-manifesto-layout-preset').value = 'custom';
+            });
+        }
 
         // Reassign IDs to be gapless and sequential from oldest (bottom) to newest (top)
         function reassignSpecimenIds(list) {
@@ -4005,6 +4521,442 @@ CLOSING RELAY CONNECTION.
                 document.getElementById('ctrl-manage-select').dispatchEvent(new Event('change'));
 
                 // Stay on console page — user will navigate manually
+
+            } catch (err) {
+                console.error(err);
+                logCtrl(`ERROR: ${err.message}`);
+            }
+        });
+
+        // ==========================================
+        // 12. MANIFESTO ARCHIVE EDITOR LOGIC
+        // ==========================================
+        let selectedManifestoFile = null;
+        let selectedManifestoFileBase64 = null;
+
+        function populateManifestoForm() {
+            if (!manifestoData) return;
+
+            document.getElementById('ctrl-manifesto-subtitle').value = manifestoData.subtitle || '';
+            document.getElementById('ctrl-manifesto-title').value = manifestoData.title || '';
+            document.getElementById('ctrl-manifesto-p1').value = manifestoData.paragraphs?.[0] || '';
+            document.getElementById('ctrl-manifesto-p2').value = manifestoData.paragraphs?.[1] || '';
+            document.getElementById('ctrl-manifesto-p3').value = manifestoData.paragraphs?.[2] || '';
+
+            for (let i = 1; i <= 4; i++) {
+                const param = manifestoData.parameters?.[i - 1] || { label: '', value: '' };
+                document.getElementById(`ctrl-manifesto-param-l${i}`).value = param.label || '';
+                document.getElementById(`ctrl-manifesto-param-v${i}`).value = param.value || '';
+            }
+
+            for (let i = 1; i <= 3; i++) {
+                const soc = manifestoData.socials?.[i - 1] || { platform: '', url: '', icon: 'link' };
+                document.getElementById(`ctrl-manifesto-social-p${i}`).value = soc.platform || '';
+                document.getElementById(`ctrl-manifesto-social-u${i}`).value = soc.url || '';
+                document.getElementById(`ctrl-manifesto-social-i${i}`).value = soc.icon || 'link';
+            }
+
+            populateManifestoImagesDropdown();
+        }
+
+        function populateManifestoImagesDropdown() {
+            const select = document.getElementById('ctrl-manifesto-select-image');
+            if (!select) return;
+
+            select.innerHTML = '<option value="">-- [ADD NEW IMAGE] --</option>';
+
+            if (manifestoData && manifestoData.images) {
+                manifestoData.images.forEach(img => {
+                    const opt = document.createElement('option');
+                    opt.value = img.id;
+                    opt.textContent = `IMAGE ID: ${img.id}`;
+                    select.appendChild(opt);
+                });
+            }
+
+            resetManifestoImageEditor();
+        }
+
+        function resetManifestoImageEditor() {
+            selectedManifestoFile = null;
+            selectedManifestoFileBase64 = null;
+
+            const previewImg = document.getElementById('ctrl-manifesto-preview-img');
+            const previewPlaceholder = document.getElementById('ctrl-manifesto-preview-placeholder');
+            if (previewImg) {
+                previewImg.src = '';
+                previewImg.classList.add('hidden');
+            }
+            if (previewPlaceholder) {
+                previewPlaceholder.classList.remove('hidden');
+            }
+
+            document.getElementById('ctrl-manifesto-file-name').textContent = '-';
+            document.getElementById('ctrl-manifesto-file-size').textContent = '-';
+            document.getElementById('ctrl-manifesto-file-res').textContent = '-';
+
+            document.getElementById('ctrl-manifesto-aspect-ratio').value = 'aspect-[4/5]';
+            document.getElementById('ctrl-manifesto-colspan').value = 'col-span-4 md:col-start-7 md:col-span-5';
+            document.getElementById('ctrl-manifesto-speed').value = '0.05';
+            document.getElementById('ctrl-manifesto-coord-x').value = '';
+            document.getElementById('ctrl-manifesto-coord-y').value = '';
+            document.getElementById('ctrl-manifesto-layout-preset').value = '0';
+            
+            parseAndPopulateGranular('manifesto-');
+
+            const deleteBtn = document.getElementById('btn-delete-manifesto-image');
+            if (deleteBtn) deleteBtn.classList.add('hidden');
+        }
+
+        const selectManifestoImg = document.getElementById('ctrl-manifesto-select-image');
+        if (selectManifestoImg) {
+            selectManifestoImg.addEventListener('change', (e) => {
+                const imgId = e.target.value;
+                playTickSound('click');
+
+                if (!imgId) {
+                    resetManifestoImageEditor();
+                    return;
+                }
+
+                const imgObj = manifestoData.images.find(img => img.id === imgId);
+                if (!imgObj) return;
+
+                const previewImg = document.getElementById('ctrl-manifesto-preview-img');
+                const previewPlaceholder = document.getElementById('ctrl-manifesto-preview-placeholder');
+                if (previewImg) {
+                    previewImg.src = imgObj.imgUrl;
+                    previewImg.classList.remove('hidden');
+                }
+                if (previewPlaceholder) {
+                    previewPlaceholder.classList.add('hidden');
+                }
+
+                document.getElementById('ctrl-manifesto-file-name').textContent = imgObj.imgUrl.substring(imgObj.imgUrl.lastIndexOf('/') + 1) || 'manifesto_image.jpg';
+                document.getElementById('ctrl-manifesto-file-size').textContent = 'REMOTE SPECIMEN';
+                document.getElementById('ctrl-manifesto-file-res').textContent = 'REMOTE SPECIMEN';
+
+                document.getElementById('ctrl-manifesto-aspect-ratio').value = imgObj.aspectRatio || 'aspect-[4/5]';
+                document.getElementById('ctrl-manifesto-colspan').value = imgObj.colSpan || 'col-span-4 md:col-start-7 md:col-span-5';
+                document.getElementById('ctrl-manifesto-speed').value = imgObj.speed || '0.05';
+                document.getElementById('ctrl-manifesto-coord-x').value = imgObj.coordinates?.x || '';
+                document.getElementById('ctrl-manifesto-coord-y').value = imgObj.coordinates?.y || '';
+                document.getElementById('ctrl-manifesto-layout-preset').value = 'custom';
+
+                parseAndPopulateGranular('manifesto-');
+
+                const deleteBtn = document.getElementById('btn-delete-manifesto-image');
+                if (deleteBtn) deleteBtn.classList.remove('hidden');
+            });
+        }
+
+        const fileInputManifesto = document.getElementById('ctrl-manifesto-file-input');
+        if (fileInputManifesto) {
+            fileInputManifesto.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                selectedManifestoFile = file;
+                playTickSound('click');
+
+                document.getElementById('ctrl-manifesto-file-name').textContent = file.name;
+                document.getElementById('ctrl-manifesto-file-size').textContent = `${(file.size / 1024).toFixed(1)} KB`;
+
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const dataURL = evt.target.result;
+                    selectedManifestoFileBase64 = dataURL.split(',')[1];
+                    
+                    const previewImgManifesto = document.getElementById('ctrl-manifesto-preview-img');
+                    const previewPlaceholderManifesto = document.getElementById('ctrl-manifesto-preview-placeholder');
+                    if (previewImgManifesto) {
+                        previewImgManifesto.src = dataURL;
+                        previewImgManifesto.classList.remove('hidden');
+                    }
+                    if (previewPlaceholderManifesto) {
+                        previewPlaceholderManifesto.classList.add('hidden');
+                    }
+
+                    const img = new Image();
+                    img.onload = function() {
+                        document.getElementById('ctrl-manifesto-file-res').textContent = `${img.width} x ${img.height} px`;
+                    };
+                    img.src = dataURL;
+
+                    logCtrl(`PAYLOAD BUFFER LOADED: ${file.name} [OK]`);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Commit Manifesto Changes Action
+        document.getElementById('btn-commit-manifesto').addEventListener('click', async () => {
+            playTickSound('click');
+            const token = localStorage.getItem('ctrl-github-token') || '';
+            const owner = localStorage.getItem('ctrl-github-owner') || '';
+            const repo = localStorage.getItem('ctrl-github-repo') || '';
+
+            if (!token || !owner || !repo) {
+                logCtrl("ERROR: AUTHENTICATE NODE CREDENTIALS BEFORE TRANSMITTING.");
+                return;
+            }
+
+            logCtrl("========================================");
+            logCtrl("INITIATING MANIFESTO ARCHIVE WRITE...");
+
+            try {
+                const subtitle = document.getElementById('ctrl-manifesto-subtitle').value.trim() || "01 / GREETING";
+                const title = document.getElementById('ctrl-manifesto-title').value.trim() || "ANTHOLOGY";
+                const paragraphs = [
+                    document.getElementById('ctrl-manifesto-p1').value.trim(),
+                    document.getElementById('ctrl-manifesto-p2').value.trim(),
+                    document.getElementById('ctrl-manifesto-p3').value.trim()
+                ].filter(p => p !== '');
+
+                const parameters = [];
+                for (let i = 1; i <= 4; i++) {
+                    const label = document.getElementById(`ctrl-manifesto-param-l${i}`).value.trim();
+                    const value = document.getElementById(`ctrl-manifesto-param-v${i}`).value.trim();
+                    if (label || value) {
+                        parameters.push({ label, value });
+                    }
+                }
+
+                const socials = [];
+                for (let i = 1; i <= 3; i++) {
+                    const platform = document.getElementById(`ctrl-manifesto-social-p${i}`).value.trim();
+                    const url = document.getElementById(`ctrl-manifesto-social-u${i}`).value.trim();
+                    const icon = document.getElementById(`ctrl-manifesto-social-i${i}`).value;
+                    if (platform || url) {
+                        socials.push({ platform, url, icon });
+                    }
+                }
+
+                const selectedImgId = document.getElementById('ctrl-manifesto-select-image').value;
+                let relativeImgUrl = null;
+
+                // 1. Upload new image if chosen
+                if (selectedManifestoFile && selectedManifestoFileBase64) {
+                    const timestamp = Date.now();
+                    const cleanFileName = selectedManifestoFile.name.replace(/[^a-zA-Z0-9.]/g, '_').toLowerCase();
+                    const newImgId = selectedImgId || `MANIFESTO_IMG_${timestamp}`;
+                    const imagePath = `assets/manifesto_${newImgId.toLowerCase()}_${timestamp}_${cleanFileName}`;
+
+                    logCtrl(`COMMITTING IMAGE TO REPOSITORY: ${imagePath}...`);
+
+                    const imgUploadUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${imagePath}`;
+                    const imgUploadRes = await fetch(imgUploadUrl, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: `Upload manifesto image asset: ${newImgId}`,
+                            content: selectedManifestoFileBase64
+                        })
+                    });
+
+                    if (!imgUploadRes.ok) {
+                        const errorDetails = await imgUploadRes.json();
+                        throw new Error(`Asset upload failed: ${errorDetails.message}`);
+                    }
+                    logCtrl(`ASSET SECURED [OK]`);
+                    relativeImgUrl = `./assets/manifesto_${newImgId.toLowerCase()}_${timestamp}_${cleanFileName}`;
+                }
+
+                // 2. Update manifestoData images array
+                if (!manifestoData.images) manifestoData.images = [];
+
+                const aspectRatioVal = document.getElementById('ctrl-manifesto-aspect-ratio').value;
+                const colSpanVal = document.getElementById('ctrl-manifesto-colspan').value;
+                const speedVal = document.getElementById('ctrl-manifesto-speed').value;
+                const coordX = document.getElementById('ctrl-manifesto-coord-x').value.trim() || (Math.random() * 80 + 10).toFixed(1);
+                const coordY = document.getElementById('ctrl-manifesto-coord-y').value.trim() || (Math.random() * 80 + 10).toFixed(1);
+
+                if (!selectedImgId) {
+                    // Add new image only if file is uploaded
+                    if (relativeImgUrl) {
+                        const newId = `MANIFESTO_IMG_${Date.now()}`;
+                        manifestoData.images.push({
+                            id: newId,
+                            imgUrl: relativeImgUrl,
+                            aspectRatio: aspectRatioVal,
+                            colSpan: colSpanVal,
+                            speed: speedVal,
+                            coordinates: { x: coordX, y: coordY }
+                        });
+                    }
+                } else {
+                    // Update existing image
+                    const existingImgObj = manifestoData.images.find(img => img.id === selectedImgId);
+                    if (existingImgObj) {
+                        if (relativeImgUrl) {
+                            existingImgObj.imgUrl = relativeImgUrl;
+                        }
+                        existingImgObj.aspectRatio = aspectRatioVal;
+                        existingImgObj.colSpan = colSpanVal;
+                        existingImgObj.speed = speedVal;
+                        existingImgObj.coordinates = { x: coordX, y: coordY };
+                    }
+                }
+
+                // 3. Construct final manifesto data
+                const finalManifestoData = {
+                    subtitle,
+                    title,
+                    paragraphs,
+                    parameters,
+                    socials,
+                    images: manifestoData.images
+                };
+
+                // 4. Fetch current manifesto.json SHA from GitHub
+                logCtrl("FETCHING CURRENT MANIFESTO META FROM GITHUB...");
+                const manifestFileUrl = `https://api.github.com/repos/${owner}/${repo}/contents/manifesto.json`;
+                let manifestSha = null;
+
+                const getManifestRes = await fetch(manifestFileUrl, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (getManifestRes.ok) {
+                    const manifestMetadata = await getManifestRes.json();
+                    manifestSha = manifestMetadata.sha;
+                }
+
+                // 5. Commit updated config back to GitHub
+                logCtrl("PUSHING UPDATED MANIFESTO CONFIG TO GITHUB...");
+                const manifestContentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(finalManifestoData, null, 2))));
+                const commitBody = {
+                    message: `Manifesto configuration update`,
+                    content: manifestContentBase64
+                };
+                if (manifestSha) {
+                    commitBody.sha = manifestSha;
+                }
+
+                const commitManifestRes = await fetch(manifestFileUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(commitBody)
+                });
+
+                if (!commitManifestRes.ok) {
+                    const errDetails = await commitManifestRes.json();
+                    throw new Error(`Manifesto upload failed: ${errDetails.message}`);
+                }
+
+                logCtrl("MANIFESTO ARCHIVE COMMITTED [OK]");
+                logCtrl("========================================");
+                logCtrl("COMMIT COMPLETED SUCCESSFULLY.");
+                logCtrl("NOTE: DEPLOYMENT TAKES ~60 SECONDS TO REFLECT.");
+
+                playTickSound('glitch');
+
+                // Update in-memory state and cache
+                manifestoData = finalManifestoData;
+                localStorage.setItem('manifesto-local', JSON.stringify(manifestoData));
+
+                renderManifesto();
+                populateManifestoImagesDropdown();
+
+            } catch (err) {
+                console.error(err);
+                logCtrl(`ERROR: ${err.message}`);
+            }
+        });
+
+        // Delete Image Action
+        document.getElementById('btn-delete-manifesto-image').addEventListener('click', async () => {
+            playTickSound('click');
+            const imgId = document.getElementById('ctrl-manifesto-select-image').value;
+            if (!imgId) {
+                logCtrl("ERROR: NO IMAGE SELECTED TO DELETE.");
+                return;
+            }
+
+            const confirmDel = confirm(`ARE YOU SURE YOU WANT TO REMOVE IMAGE '${imgId}' FROM MANIFESTO SHOWCASE?\nTHIS WILL IMMEDIATELY DISCARD IT FROM DISPLAY.`);
+            if (!confirmDel) {
+                logCtrl("DELETION CANCELLED.");
+                return;
+            }
+
+            const token = localStorage.getItem('ctrl-github-token') || '';
+            const owner = localStorage.getItem('ctrl-github-owner') || '';
+            const repo = localStorage.getItem('ctrl-github-repo') || '';
+
+            if (!token || !owner || !repo) {
+                logCtrl("ERROR: AUTHENTICATE NODE CREDENTIALS BEFORE TRANSMITTING.");
+                return;
+            }
+
+            logCtrl("========================================");
+            logCtrl(`DELETING SHOWCASE IMAGE ${imgId}...`);
+
+            try {
+                if (manifestoData && manifestoData.images) {
+                    manifestoData.images = manifestoData.images.filter(img => img.id !== imgId);
+                }
+
+                logCtrl("FETCHING CURRENT MANIFESTO META FROM GITHUB...");
+                const manifestFileUrl = `https://api.github.com/repos/${owner}/${repo}/contents/manifesto.json`;
+                let manifestSha = null;
+
+                const getManifestRes = await fetch(manifestFileUrl, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (getManifestRes.ok) {
+                    const manifestMetadata = await getManifestRes.json();
+                    manifestSha = manifestMetadata.sha;
+                }
+
+                logCtrl("PUSHING UPDATED MANIFESTO CONFIG TO GITHUB...");
+                const manifestContentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(manifestoData, null, 2))));
+                const commitBody = {
+                    message: `Manifesto showcase image deletion: ${imgId}`,
+                    content: manifestContentBase64
+                };
+                if (manifestSha) {
+                    commitBody.sha = manifestSha;
+                }
+
+                const commitManifestRes = await fetch(manifestFileUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(commitBody)
+                });
+
+                if (!commitManifestRes.ok) {
+                    const errDetails = await commitManifestRes.json();
+                    throw new Error(`Manifesto upload failed: ${errDetails.message}`);
+                }
+
+                logCtrl("MANIFESTO IMAGE REMOVED [OK]");
+                logCtrl("========================================");
+                logCtrl("DELETION COMPLETED SUCCESSFULLY.");
+
+                playTickSound('glitch');
+
+                localStorage.setItem('manifesto-local', JSON.stringify(manifestoData));
+                renderManifesto();
+                populateManifestoImagesDropdown();
 
             } catch (err) {
                 console.error(err);

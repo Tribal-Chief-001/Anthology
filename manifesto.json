@@ -1,0 +1,57 @@
+{
+  "subtitle": "01 / GREETING",
+  "title": "ANTHOLOGY",
+  "paragraphs": [
+    "I draw because the physical line is absolute. Unlike digital renders, a black ink drawing cannot lie about its structure.",
+    "Anthology is a digital vault housing my structural, architectural, and brutalist ink specimens. These lines represent hours of physical tension, architectural drafts, and spatial exploration mapping out physical concepts into high-contrast voids.",
+    "This website serves as an archival register, logging vector data coordinates, material attributes, and volumetric densities. Treat each specimen not as a flat drawing, but as a monument in a speculative grid."
+  ],
+  "parameters": [
+    {
+      "label": "GRID",
+      "value": "12-COLUMN SUBDIVISIONS"
+    },
+    {
+      "label": "CONTRAST",
+      "value": "BINARY ABSOLUTE (0/1)"
+    },
+    {
+      "label": "TYPOGRAPHY",
+      "value": "GEIST + SYNE + SPACE MONO"
+    },
+    {
+      "label": "SOURCE",
+      "value": "HAND-DRAWN SPECIMENS (100% INK)"
+    }
+  ],
+  "socials": [
+    {
+      "platform": "INSTAGRAM",
+      "url": "https://instagram.com/tribal_chief_001",
+      "icon": "link"
+    },
+    {
+      "platform": "BEHANCE",
+      "url": "https://behance.net",
+      "icon": "link"
+    },
+    {
+      "platform": "EMAIL",
+      "url": "mailto:lucifer@example.com",
+      "icon": "mail"
+    }
+  ],
+  "images": [
+    {
+      "id": "MANIFESTO_IMG_01",
+      "imgUrl": "./assets/archive_12_1780704224835_img_20250811_202012.jpg",
+      "aspectRatio": "aspect-square",
+      "colSpan": "col-span-4 md:col-start-7 md:col-span-5",
+      "speed": "0.05",
+      "coordinates": {
+        "x": "64.2",
+        "y": "12.8"
+      }
+    }
+  ]
+}
