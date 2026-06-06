@@ -477,7 +477,7 @@
                     </svg>
                     @TWISTYO1512
                 </a>
-                <a class="hover:text-primary transition-colors flex items-center gap-2" href="mailto:raghvendra12101976@gmail.com">
+                <a class="hover:text-primary transition-colors flex items-center gap-2" href="mailto:twisty.easel1512@gmail.com">
                     <svg class="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24">
                         <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                     </svg>
@@ -1981,7 +1981,7 @@
             socials: [
                 { platform: "INSTAGRAM", url: "https://instagram.com/tribal_chief_001", icon: "link" },
                 { platform: "BEHANCE", url: "https://behance.net", icon: "link" },
-                { platform: "EMAIL", url: "mailto:lucifer@example.com", icon: "mail" }
+                { platform: "EMAIL", url: "mailto:twisty.easel1512@gmail.com", icon: "mail" }
             ],
             images: [
                 {
@@ -3093,19 +3093,68 @@
         const transmissionForm = document.getElementById('transmission-form');
 
         sendBtn.addEventListener('click', () => {
-            const identVal = document.getElementById('identifier').value || 'GUEST_RELAY';
-            const subVal = document.getElementById('subject').value || 'EMPTY_NODE';
-            const payloadVal = document.getElementById('payload').value || 'NO_DATA';
+            const identVal = document.getElementById('identifier').value.trim();
+            const subVal = document.getElementById('subject').value.trim();
+            const payloadVal = document.getElementById('payload').value.trim();
+
+            if (!identVal || !subVal || !payloadVal) {
+                dataDumpText.innerHTML = `INITIATING SECURE HANDSHAKE...
+[!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!] ERROR
+SYSTEM PARAMETERS UNDEFINED.
+ALL STREAMS (IDENTIFIER, SUBJECT, PAYLOAD) MUST BE POPULATED.
+TRANSMISSION TERMINATED.
+`;
+                dataDump.style.display = 'block';
+                transmissionForm.style.opacity = '0.05';
+                sendBtn.style.opacity = '0.05';
+                playTickSound('glitch');
+                
+                setTimeout(() => {
+                    dataDump.style.display = 'none';
+                    transmissionForm.style.opacity = '1';
+                    sendBtn.style.opacity = '1';
+                }, 3000);
+                return;
+            }
 
             // Generate diagnostic logs for terminal sequence
-            dataDumpText.innerHTML = `
-01010111 01100001 01101011 01100101 00100000 01110101 01110000 
+            dataDumpText.innerHTML = `01010111 01100001 01101011 01100101 00100000 01110101 01110000 
 INITIATING SECURE HANDSHAKE...
 ESTABLISHING CONNECTION PROTOCOL...
 SENDER: ${identVal.toUpperCase()}
 SUBJECT: ${subVal.toUpperCase()}
 STREAM_LENGTH: ${payloadVal.length} BYTES
 
+CONNECTING TO OUTPOST RELAY...
+`;
+            dataDump.style.display = 'block';
+            transmissionForm.style.opacity = '0.05';
+            sendBtn.style.opacity = '0.05';
+            playTickSound('glitch');
+
+            const startTime = Date.now();
+
+            fetch("https://formsubmit.co/ajax/twisty.easel1512@gmail.com", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    email: identVal,
+                    _subject: `Anthology Contact: ${subVal}`,
+                    message: payloadVal
+                })
+            })
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                return res.json();
+            })
+            .then(data => {
+                const elapsed = Date.now() - startTime;
+                const remaining = Math.max(0, 1500 - elapsed);
+                setTimeout(() => {
+                    dataDumpText.innerHTML += `
 [################################] 100%
 UPLOADING PAYLOAD SEGMENTS...
 FRAG_01 (HEADER): OK
@@ -3116,36 +3165,49 @@ ${Array.from({length: 4}, () => '0x' + Array.from({length: 32}, () => Math.floor
 
 DATA TRANSMISSION SUCCESSFUL.
 CLOSING RELAY CONNECTION.
-            `;
+`;
+                    playTickSound('glitch');
 
-            dataDump.style.display = 'block';
-            transmissionForm.style.opacity = '0.05';
-            sendBtn.style.opacity = '0.05';
-            playTickSound('glitch');
-
-            setTimeout(() => {
-                dataDump.style.display = 'none';
-                transmissionComplete.classList.remove('opacity-0', 'pointer-events-none');
+                    setTimeout(() => {
+                        dataDump.style.display = 'none';
+                        transmissionComplete.classList.remove('opacity-0', 'pointer-events-none');
+                        playTickSound('glitch');
+                        
+                        setTimeout(() => {
+                            transmissionComplete.classList.add('opacity-0', 'pointer-events-none');
+                            transmissionForm.style.opacity = '1';
+                            sendBtn.style.opacity = '1';
+                            
+                            // Reset inputs
+                            inputs.forEach(id => {
+                                const input = document.getElementById(id);
+                                input.value = '';
+                                const placeholder = document.getElementById(`${id}-placeholder`);
+                                placeholder.style.display = 'block';
+                                input.classList.add('blinking-cursor');
+                            });
+                            
+                            // Redirect back to Index dashboard
+                            window.location.hash = '#/index';
+                        }, 2000);
+                    }, 2000);
+                }, remaining);
+            })
+            .catch(err => {
+                dataDumpText.innerHTML += `
+[!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!] ERROR
+ROUTING FAILURE DETECTED.
+DIAGNOSTIC: ${err.message || err}
+TRANSMISSION TERMINATED.
+`;
                 playTickSound('glitch');
                 
                 setTimeout(() => {
-                    transmissionComplete.classList.add('opacity-0', 'pointer-events-none');
+                    dataDump.style.display = 'none';
                     transmissionForm.style.opacity = '1';
                     sendBtn.style.opacity = '1';
-                    
-                    // Reset inputs
-                    inputs.forEach(id => {
-                        const input = document.getElementById(id);
-                        input.value = '';
-                        const placeholder = document.getElementById(`${id}-placeholder`);
-                        placeholder.style.display = 'block';
-                        input.classList.add('blinking-cursor');
-                    });
-                    
-                    // Redirect back to Index dashboard
-                    window.location.hash = '#/index';
-                }, 2000);
-            }, 2600);
+                }, 4000);
+            });
         });
 
 
