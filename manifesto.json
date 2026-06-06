@@ -43,17 +43,6 @@
   ],
   "images": [
     {
-      "id": "MANIFESTO_IMG_01",
-      "imgUrl": "./assets/archive_12_1780704224835_img_20250811_202012.jpg",
-      "aspectRatio": "aspect-square",
-      "colSpan": "col-span-4 md:col-start-7 md:col-span-5",
-      "speed": "0.05",
-      "coordinates": {
-        "x": "64.2",
-        "y": "12.8"
-      }
-    },
-    {
       "id": "MANIFESTO_IMG_1780746069381",
       "imgUrl": "./assets/manifesto_manifesto_img_1780746067322_1780746067322_download__11_.jpg",
       "aspectRatio": "aspect-[4/5]",
