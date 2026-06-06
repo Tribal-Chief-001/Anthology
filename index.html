@@ -2507,9 +2507,9 @@
                         manualTop
                     );
 
-                    // Format coordinates for display
-                    const dispX = String(Math.round(leftPct * 100)).padStart(4, '0');
-                    const dispY = String(Math.round(computedTop)).padStart(4, '0');
+                    // Format coordinates for display — show raw values matching manage panel input
+                    const dispX = parseFloat(s.coordinates?.x || 0).toFixed(1);
+                    const dispY = parseFloat(s.coordinates?.y || 0).toFixed(1);
 
                     article.innerHTML = `
                         <a href="#/artifact/${s.id}" class="block w-full">
