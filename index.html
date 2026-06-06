@@ -1739,10 +1739,14 @@
                         <span class="material-symbols-outlined transform group-hover:translate-x-1 transition-transform text-[16px]">delete</span>
                     </button>
                 </div>
-                <div id="btn-container-manifesto" class="hidden w-full grid grid-cols-2">
+                <div id="btn-container-manifesto" class="hidden w-full grid grid-cols-3">
                     <button class="w-full bg-primary text-on-primary py-md font-label-technical text-[10px] md:text-[14px] font-bold uppercase hover:bg-surface hover:text-primary transition-colors duration-300 border-t-2 border-primary flex items-center justify-center gap-xs group relative z-10 border-r border-primary" id="btn-commit-manifesto" type="button">
                         COMMIT_MANIFESTO
                         <span class="material-symbols-outlined transform group-hover:translate-x-1 transition-transform text-[16px]">send</span>
+                    </button>
+                    <button class="w-full bg-surface text-primary py-md font-label-technical text-[10px] md:text-[14px] font-bold uppercase hover:bg-primary hover:text-on-primary transition-colors duration-300 border-t-2 border-primary flex items-center justify-center gap-xs group relative z-10 border-r border-primary" id="btn-reset-manifesto-cache" type="button">
+                        RESET_CACHE
+                        <span class="material-symbols-outlined transform group-hover:translate-x-1 transition-transform text-[16px]">refresh</span>
                     </button>
                     <button class="w-full bg-error text-on-error py-md font-label-technical text-[10px] md:text-[14px] font-bold uppercase hover:bg-surface hover:text-error transition-colors duration-300 border-t-2 border-primary flex items-center justify-center gap-xs group relative z-10" id="btn-delete-manifesto-image" type="button">
                         DELETE_IMAGE
@@ -5146,15 +5150,6 @@ TRANSMISSION TERMINATED.
         // Commit Manifesto Changes Action
         document.getElementById('btn-commit-manifesto').addEventListener('click', async () => {
             playTickSound('click');
-            const token = localStorage.getItem('ctrl-github-token') || '';
-            const owner = localStorage.getItem('ctrl-github-owner') || '';
-            const repo = localStorage.getItem('ctrl-github-repo') || '';
-
-            if (!token || !owner || !repo) {
-                logCtrl("ERROR: AUTHENTICATE NODE CREDENTIALS BEFORE TRANSMITTING.");
-                return;
-            }
-
             logCtrl("========================================");
             logCtrl("INITIATING MANIFESTO ARCHIVE WRITE...");
 
@@ -5187,6 +5182,74 @@ TRANSMISSION TERMINATED.
                 }
 
                 const selectedImgId = document.getElementById('ctrl-manifesto-select-image').value;
+                const aspectRatioVal = document.getElementById('ctrl-manifesto-aspect-ratio').value;
+                const colSpanVal = document.getElementById('ctrl-manifesto-colspan').value;
+                const speedVal = document.getElementById('ctrl-manifesto-speed').value;
+                const coordX = document.getElementById('ctrl-manifesto-coord-x').value.trim() || (Math.random() * 80 + 10).toFixed(1);
+                const coordY = document.getElementById('ctrl-manifesto-coord-y').value.trim() || (Math.random() * 80 + 10).toFixed(1);
+
+                const token = localStorage.getItem('ctrl-github-token') || '';
+                const owner = localStorage.getItem('ctrl-github-owner') || '';
+                const repo = localStorage.getItem('ctrl-github-repo') || '';
+
+                if (!token || !owner || !repo) {
+                    logCtrl("SYSTEM // GITHUB AUTH NOT SET. INITIATING LOCAL CACHE SAVE...");
+
+                    if (!manifestoData.images) manifestoData.images = [];
+
+                    let localImgUrl = null;
+                    if (selectedManifestoFile && selectedManifestoFileBase64) {
+                        localImgUrl = document.getElementById('ctrl-manifesto-preview-img').src;
+                    }
+
+                    if (!selectedImgId) {
+                        // Add new image only if file is uploaded
+                        if (localImgUrl) {
+                            const newId = `MANIFESTO_IMG_${Date.now()}`;
+                            manifestoData.images.push({
+                                id: newId,
+                                imgUrl: localImgUrl,
+                                aspectRatio: aspectRatioVal,
+                                colSpan: colSpanVal,
+                                speed: speedVal,
+                                coordinates: { x: coordX, y: coordY }
+                            });
+                        } else {
+                            logCtrl("ERROR: NO IMAGE UPLOADED FOR NEW ENTRY.");
+                            return;
+                        }
+                    } else {
+                        // Update existing image
+                        const existingImgObj = manifestoData.images.find(img => img.id === selectedImgId);
+                        if (existingImgObj) {
+                            if (localImgUrl) {
+                                existingImgObj.imgUrl = localImgUrl;
+                            }
+                            existingImgObj.aspectRatio = aspectRatioVal;
+                            existingImgObj.colSpan = colSpanVal;
+                            existingImgObj.speed = speedVal;
+                            existingImgObj.coordinates = { x: coordX, y: coordY };
+                        }
+                    }
+
+                    const finalManifestoData = {
+                        subtitle,
+                        title,
+                        paragraphs,
+                        parameters,
+                        socials,
+                        images: manifestoData.images
+                    };
+
+                    manifestoData = finalManifestoData;
+                    localStorage.setItem('manifesto-local', JSON.stringify(manifestoData));
+
+                    renderManifesto();
+                    populateManifestoImagesDropdown();
+                    logCtrl("LOCAL CACHE UPDATE COMPLETED [OK]");
+                    return;
+                }
+
                 let relativeImgUrl = null;
 
                 // 1. Upload new image if chosen
@@ -5222,12 +5285,6 @@ TRANSMISSION TERMINATED.
 
                 // 2. Update manifestoData images array
                 if (!manifestoData.images) manifestoData.images = [];
-
-                const aspectRatioVal = document.getElementById('ctrl-manifesto-aspect-ratio').value;
-                const colSpanVal = document.getElementById('ctrl-manifesto-colspan').value;
-                const speedVal = document.getElementById('ctrl-manifesto-speed').value;
-                const coordX = document.getElementById('ctrl-manifesto-coord-x').value.trim() || (Math.random() * 80 + 10).toFixed(1);
-                const coordY = document.getElementById('ctrl-manifesto-coord-y').value.trim() || (Math.random() * 80 + 10).toFixed(1);
 
                 if (!selectedImgId) {
                     // Add new image only if file is uploaded
@@ -5344,12 +5401,15 @@ TRANSMISSION TERMINATED.
                 return;
             }
 
-            const token = localStorage.getItem('ctrl-github-token') || '';
-            const owner = localStorage.getItem('ctrl-github-owner') || '';
-            const repo = localStorage.getItem('ctrl-github-repo') || '';
-
             if (!token || !owner || !repo) {
-                logCtrl("ERROR: AUTHENTICATE NODE CREDENTIALS BEFORE TRANSMITTING.");
+                logCtrl("SYSTEM // GITHUB AUTH NOT SET. INITIATING LOCAL CACHE SAVE...");
+                if (manifestoData && manifestoData.images) {
+                    manifestoData.images = manifestoData.images.filter(img => img.id !== imgId);
+                }
+                localStorage.setItem('manifesto-local', JSON.stringify(manifestoData));
+                renderManifesto();
+                populateManifestoImagesDropdown();
+                logCtrl("MANIFESTO IMAGE REMOVED LOCALLY [OK]");
                 return;
             }
 
@@ -5416,6 +5476,34 @@ TRANSMISSION TERMINATED.
                 console.error(err);
                 logCtrl(`ERROR: ${err.message}`);
             }
+        });
+
+        // Reset Manifesto Cache Action
+        document.getElementById('btn-reset-manifesto-cache').addEventListener('click', async () => {
+            playTickSound('click');
+            const confirmReset = confirm("ARE YOU SURE YOU WANT TO CLEAR ALL LOCAL MANIFESTO CHANGES AND RESET TO DEFAULTS?");
+            if (!confirmReset) return;
+
+            logCtrl("========================================");
+            logCtrl("RESETTING MANIFESTO TO DATABASE DEFAULTS...");
+
+            localStorage.removeItem('manifesto-local');
+
+            try {
+                const resManifesto = await fetch('./manifesto.json?t=' + Date.now());
+                if (resManifesto.ok) {
+                    manifestoData = await resManifesto.json();
+                } else {
+                    manifestoData = JSON.parse(JSON.stringify(DEFAULT_MANIFESTO));
+                }
+            } catch (err) {
+                console.warn("manifesto.json not found on server, using defaults:", err);
+                manifestoData = JSON.parse(JSON.stringify(DEFAULT_MANIFESTO));
+            }
+
+            renderManifesto();
+            populateManifestoForm();
+            logCtrl("RESET COMPLETED SUCCESSFULLY. CACHE REMOVED.");
         });
 
         // ====================================================
