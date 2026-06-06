@@ -2469,38 +2469,33 @@
                 container.style.height = '';
             }
 
-            // === SLOT-MAPPING + GRAVITY LAYOUT (desktop) ===
-            // 1. Extract layout slots from all specimens
-            // 2. Sort slots by Y (then X) to establish top-to-bottom visual order
-            // 3. Resolve vertical collisions via gravity algorithm
-            // 4. Map sorted specimens to adjusted slots
-            let adjustedSlots = [];
-            if (isDesktop) {
-                const rawSlots = specimens.map(s => ({
-                    coordinates: { x: parseFloat(s.coordinates?.x || 0), y: parseFloat(s.coordinates?.y || 0) },
-                    colSpan: s.colSpan,
-                    aspectRatio: s.aspectRatio,
-                    speed: s.speed
-                }));
+            // Gravity collision resolution: process cards in sorted order,
+            // each card uses its OWN properties but top is adjusted to prevent overlaps
+            const placedCards = [];
 
-                // Sort slots top-to-bottom (by Y, then left-to-right by X)
-                rawSlots.sort((a, b) => {
-                    if (a.coordinates.y !== b.coordinates.y) return a.coordinates.y - b.coordinates.y;
-                    return a.coordinates.x - b.coordinates.x;
-                });
-
-                // Gravity collision resolution
-                const GAP = 60; // vertical gap between cards in px
-                rawSlots.forEach(slot => {
-                    const parsed = parseGridClasses(slot.colSpan);
+            sortedList.forEach(s => {
+                const article = document.createElement('article');
+                article.className = `${s.colSpan} flex flex-col group parallax-item interactive-card`;
+                article.setAttribute('data-speed', s.speed);
+                article.style.cursor = 'none';
+                
+                const avgRating = s.rating || 0;
+                const voteCount = s.ratings ? s.ratings.length : 0;
+                const uploadDate = getUploadDate(s);
+                
+                if (isDesktop) {
+                    const parsed = parseGridClasses(s.colSpan);
                     const widthPct = (parsed.desktopSpan / 12) * 100;
-                    const leftPct = slot.coordinates.x * (1 - widthPct / 100); // proportional scaling
-                    const cardHeight = estimateCardHeight(slot.aspectRatio);
-                    const manualTop = slot.coordinates.y * 30;
+                    // Proportional left scaling: prevents cards from going off-screen right
+                    const rawX = parseFloat(s.coordinates?.x || '0');
+                    const leftPct = rawX * (1 - widthPct / 100);
+                    const cardHeight = estimateCardHeight(s.aspectRatio);
+                    const manualTop = parseFloat(s.coordinates?.y || '0') * 30;
 
-                    // Find max bottom among already-placed slots that overlap horizontally
+                    // Find max bottom among already-placed cards that overlap horizontally
                     let maxBelow = 0;
-                    adjustedSlots.forEach(other => {
+                    const GAP = 60;
+                    placedCards.forEach(other => {
                         const horizontalOverlap = (leftPct < other.right) && (leftPct + widthPct > other.left);
                         if (horizontalOverlap && other.bottom > maxBelow) {
                             maxBelow = other.bottom;
@@ -2508,69 +2503,75 @@
                     });
 
                     const computedTop = Math.max(
-                        adjustedSlots.length > 0 ? maxBelow + GAP : 0,
+                        placedCards.length > 0 ? maxBelow + GAP : 0,
                         manualTop
                     );
 
-                    adjustedSlots.push({
+                    // Format coordinates for display
+                    const dispX = String(Math.round(leftPct * 100)).padStart(4, '0');
+                    const dispY = String(Math.round(computedTop)).padStart(4, '0');
+
+                    article.innerHTML = `
+                        <a href="#/artifact/${s.id}" class="block w-full">
+                            <div class="flex items-center w-full mb-xs">
+                                <span class="font-label-technical text-label-technical bg-primary text-on-primary px-xs py-base">${s.id}</span>
+                                <div class="h-[1px] bg-primary flex-grow ml-xs"></div>
+                            </div>
+                            <div class="border border-primary p-xs bg-surface relative overflow-hidden">
+                                <div class="bounding-box"></div>
+                                <img alt="${s.title}" class="w-full ${s.aspectRatio} object-cover grayscale-contrast block" src="${s.imgUrl}" loading="lazy"/>
+                            </div>
+                            <div class="mt-sm border-t border-primary pt-xs flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-headline-md text-headline-md uppercase leading-none mb-xs">${s.title}</h3>
+                                    ${s.indexCaption ? `<p class="font-label-technical text-[12px] font-semibold text-primary leading-relaxed mb-1 max-w-[280px]" style="text-transform: none; letter-spacing: 0.01em;">${s.indexCaption}</p>` : ''}
+                                    <div class="font-label-technical text-[9px] text-secondary uppercase tracking-wider">
+                                        RATING: ${avgRating > 0 ? avgRating.toFixed(1) : '0.0'} (${voteCount} ${voteCount === 1 ? 'VOTE' : 'VOTES'}) <br/>
+                                        ORIGIN: ${s.originDate || 'N/A'} | ADDED: ${uploadDate}
+                                    </div>
+                                </div>
+                                <span class="font-label-technical text-[9px] text-secondary whitespace-nowrap">X:${dispX} Y:${dispY}</span>
+                            </div>
+                        </a>
+                    `;
+
+                    article.style.position = 'absolute';
+                    article.style.left = `${leftPct}%`;
+                    article.style.top = `${computedTop}px`;
+                    article.style.width = `calc(${widthPct}% - 24px)`;
+
+                    const bottom = computedTop + cardHeight;
+                    if (bottom > maxBottom) maxBottom = bottom;
+
+                    placedCards.push({
                         left: leftPct,
                         right: leftPct + widthPct,
-                        width: widthPct,
                         top: computedTop,
-                        bottom: computedTop + cardHeight,
-                        colSpan: slot.colSpan,
-                        aspectRatio: slot.aspectRatio,
-                        speed: slot.speed
+                        bottom: bottom
                     });
-                });
-            }
-
-            sortedList.forEach((s, idx) => {
-                // On desktop, use the adjusted slot for this index; on mobile, use specimen's own props
-                const slot = isDesktop && adjustedSlots[idx] ? adjustedSlots[idx] : null;
-                const displayColSpan = slot ? slot.colSpan : s.colSpan;
-                const displayAspectRatio = slot ? slot.aspectRatio : s.aspectRatio;
-                const displaySpeed = slot ? slot.speed : s.speed;
-
-                const article = document.createElement('article');
-                article.className = `${displayColSpan} flex flex-col group parallax-item interactive-card`;
-                article.setAttribute('data-speed', displaySpeed);
-                article.style.cursor = 'none';
-                
-                const avgRating = s.rating || 0;
-                const voteCount = s.ratings ? s.ratings.length : 0;
-                const uploadDate = getUploadDate(s);
-                
-                article.innerHTML = `
-                    <a href="#/artifact/${s.id}" class="block w-full">
-                        <div class="flex items-center w-full mb-xs">
-                            <span class="font-label-technical text-label-technical bg-primary text-on-primary px-xs py-base">${s.id}</span>
-                            <div class="h-[1px] bg-primary flex-grow ml-xs"></div>
-                        </div>
-                        <div class="border border-primary p-xs bg-surface relative overflow-hidden">
-                            <div class="bounding-box"></div>
-                            <img alt="${s.title}" class="w-full ${displayAspectRatio} object-cover grayscale-contrast block" src="${s.imgUrl}" loading="lazy"/>
-                        </div>
-                        <div class="mt-sm border-t border-primary pt-xs flex justify-between items-start">
-                            <div>
-                                <h3 class="font-headline-md text-headline-md uppercase leading-none mb-xs">${s.title}</h3>
-                                ${s.indexCaption ? `<p class="font-label-technical text-[12px] font-semibold text-primary leading-relaxed mb-1 max-w-[280px]" style="text-transform: none; letter-spacing: 0.01em;">${s.indexCaption}</p>` : ''}
-                                <div class="font-label-technical text-[9px] text-secondary uppercase tracking-wider">
-                                    RATING: ${avgRating > 0 ? avgRating.toFixed(1) : '0.0'} (${voteCount} ${voteCount === 1 ? 'VOTE' : 'VOTES'}) <br/>
-                                    ORIGIN: ${s.originDate || 'N/A'} | ADDED: ${uploadDate}
+                } else {
+                    article.innerHTML = `
+                        <a href="#/artifact/${s.id}" class="block w-full">
+                            <div class="flex items-center w-full mb-xs">
+                                <span class="font-label-technical text-label-technical bg-primary text-on-primary px-xs py-base">${s.id}</span>
+                                <div class="h-[1px] bg-primary flex-grow ml-xs"></div>
+                            </div>
+                            <div class="border border-primary p-xs bg-surface relative overflow-hidden">
+                                <div class="bounding-box"></div>
+                                <img alt="${s.title}" class="w-full ${s.aspectRatio} object-cover grayscale-contrast block" src="${s.imgUrl}" loading="lazy"/>
+                            </div>
+                            <div class="mt-sm border-t border-primary pt-xs flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-headline-md text-headline-md uppercase leading-none mb-xs">${s.title}</h3>
+                                    ${s.indexCaption ? `<p class="font-label-technical text-[12px] font-semibold text-primary leading-relaxed mb-1 max-w-[280px]" style="text-transform: none; letter-spacing: 0.01em;">${s.indexCaption}</p>` : ''}
+                                    <div class="font-label-technical text-[9px] text-secondary uppercase tracking-wider">
+                                        RATING: ${avgRating > 0 ? avgRating.toFixed(1) : '0.0'} (${voteCount} ${voteCount === 1 ? 'VOTE' : 'VOTES'}) <br/>
+                                        ORIGIN: ${s.originDate || 'N/A'} | ADDED: ${uploadDate}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                `;
-
-                if (isDesktop && slot) {
-                    article.style.position = 'absolute';
-                    article.style.left = `${slot.left}%`;
-                    article.style.top = `${slot.top}px`;
-                    article.style.width = `calc(${slot.width}% - 24px)`;
-
-                    if (slot.bottom > maxBottom) maxBottom = slot.bottom;
+                        </a>
+                    `;
                 }
 
                 container.appendChild(article);
@@ -2667,50 +2668,13 @@
 
                 // Gravity collision resolution for manifesto images
                 const manifestoImages = manifestoData.images || [];
-                let manifestoSlots = [];
-                if (isDesktop) {
-                    const GAP = 60;
-                    manifestoImages.forEach(img => {
-                        const colSpan = img.colSpan || 'col-span-4 md:col-start-7 md:col-span-5';
-                        const parsed = parseGridClasses(colSpan);
-                        const widthPct = (parsed.desktopSpan / 12) * 100;
-                        const rawX = parseFloat(img.coordinates?.x || 0);
-                        const leftPct = rawX * (1 - widthPct / 100);
-                        const cardHeight = estimateCardHeight(img.aspectRatio);
-                        const manualTop = parseFloat(img.coordinates?.y || 0) * 30;
+                const manifestoPlaced = [];
 
-                        let maxBelow = 0;
-                        manifestoSlots.forEach(other => {
-                            const horizontalOverlap = (leftPct < other.right) && (leftPct + widthPct > other.left);
-                            if (horizontalOverlap && other.bottom > maxBelow) {
-                                maxBelow = other.bottom;
-                            }
-                        });
-
-                        const computedTop = Math.max(
-                            manifestoSlots.length > 0 ? maxBelow + GAP : 0,
-                            manualTop
-                        );
-
-                        manifestoSlots.push({
-                            left: leftPct,
-                            right: leftPct + widthPct,
-                            width: widthPct,
-                            top: computedTop,
-                            bottom: computedTop + cardHeight,
-                            colSpan: colSpan,
-                            aspectRatio: img.aspectRatio,
-                            speed: img.speed
-                        });
-                    });
-                }
-
-                manifestoImages.forEach((img, idx) => {
-                    const slot = isDesktop && manifestoSlots[idx] ? manifestoSlots[idx] : null;
-                    const colSpan = slot ? slot.colSpan : (img.colSpan || 'col-span-4 md:col-start-7 md:col-span-5');
+                manifestoImages.forEach(img => {
+                    const colSpan = img.colSpan || 'col-span-4 md:col-start-7 md:col-span-5';
                     const card = document.createElement('div');
                     card.className = `${colSpan} flex flex-col group parallax-item interactive-card relative z-10`;
-                    card.setAttribute('data-speed', slot ? slot.speed || '0.05' : img.speed || '0.05');
+                    card.setAttribute('data-speed', img.speed || '0.05');
                     card.style.cursor = 'none';
 
                     card.innerHTML = `
@@ -2718,7 +2682,7 @@
                         <div class="border border-primary bg-surface transition-all duration-300 relative group-hover:shadow-[4px_4px_0px_#000] dark:group-hover:shadow-[4px_4px_0px_#fff]">
                             
                             <!-- Specimen Image Container Box -->
-                            <div class="relative w-full ${slot ? slot.aspectRatio || 'aspect-square' : img.aspectRatio || 'aspect-square'} overflow-hidden bg-black flex items-center justify-center">
+                            <div class="relative w-full ${img.aspectRatio || 'aspect-square'} overflow-hidden bg-black flex items-center justify-center">
                                 <img src="${img.imgUrl}" class="w-full h-full object-cover grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" loading="lazy" />
                                 <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                                 <div class="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.1)_50%)] bg-[size:100%_4px] pointer-events-none"></div>
@@ -2727,13 +2691,42 @@
                         </div>
                     `;
 
-                    if (isDesktop && slot) {
-                        card.style.position = 'absolute';
-                        card.style.left = `${slot.left}%`;
-                        card.style.top = `${slot.top}px`;
-                        card.style.width = `calc(${slot.width}% - 24px)`;
+                    if (isDesktop) {
+                        const parsed = parseGridClasses(colSpan);
+                        const widthPct = (parsed.desktopSpan / 12) * 100;
+                        const rawX = parseFloat(img.coordinates?.x || 0);
+                        const leftPct = rawX * (1 - widthPct / 100);
+                        const cardHeight = estimateCardHeight(img.aspectRatio);
+                        const manualTop = parseFloat(img.coordinates?.y || 0) * 30;
 
-                        if (slot.bottom > maxBottom) maxBottom = slot.bottom;
+                        let maxBelow = 0;
+                        const GAP = 60;
+                        manifestoPlaced.forEach(other => {
+                            const horizontalOverlap = (leftPct < other.right) && (leftPct + widthPct > other.left);
+                            if (horizontalOverlap && other.bottom > maxBelow) {
+                                maxBelow = other.bottom;
+                            }
+                        });
+
+                        const computedTop = Math.max(
+                            manifestoPlaced.length > 0 ? maxBelow + GAP : 0,
+                            manualTop
+                        );
+
+                        card.style.position = 'absolute';
+                        card.style.left = `${leftPct}%`;
+                        card.style.top = `${computedTop}px`;
+                        card.style.width = `calc(${widthPct}% - 24px)`;
+
+                        const bottom = computedTop + cardHeight;
+                        if (bottom > maxBottom) maxBottom = bottom;
+
+                        manifestoPlaced.push({
+                            left: leftPct,
+                            right: leftPct + widthPct,
+                            top: computedTop,
+                            bottom: bottom
+                        });
                     }
 
                     gridContainer.appendChild(card);
