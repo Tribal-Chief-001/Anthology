@@ -2512,7 +2512,7 @@
                     });
 
                     const computedTop = Math.max(
-                        placedCards.length > 0 ? maxBelow + GAP : 0,
+                        maxBelow > 0 ? maxBelow + GAP : 0,
                         manualTop
                     );
 
@@ -2723,7 +2723,7 @@
                         });
 
                         const computedTop = Math.max(
-                            manifestoPlaced.length > 0 ? maxBelow + GAP : 0,
+                            maxBelow > 0 ? maxBelow + GAP : 0,
                             manualTop
                         );
 
@@ -5400,6 +5400,10 @@ TRANSMISSION TERMINATED.
                 logCtrl("DELETION CANCELLED.");
                 return;
             }
+
+            const token = localStorage.getItem('ctrl-github-token') || '';
+            const owner = localStorage.getItem('ctrl-github-owner') || '';
+            const repo = localStorage.getItem('ctrl-github-repo') || '';
 
             if (!token || !owner || !repo) {
                 logCtrl("SYSTEM // GITHUB AUTH NOT SET. INITIATING LOCAL CACHE SAVE...");
