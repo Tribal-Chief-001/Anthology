@@ -3,7 +3,7 @@
   "title": "ANTHOLOGY",
   "paragraphs": [
     "I draw because some things are easier to understand with a pencil than with words.",
-    "This archive contains sketches made from curiosity, boredom, admiration, stubbornness, late-night impulses, and the occasional challenge I should have probably ignored. Some pieces were carefully planned. Others began with a simple thought: \"this might be fun to draw.\"\n\nThe collection moves between portrait studies, cross-hatching experiments, character sketches, and whatever else managed to occupy my attention long enough to make it onto paper. Every line records a decision, every shadow a small negotiation between patience and frustration.",
+    "This archive contains sketches made from curiosity, boredom, admiration, stubbornness, late-night impulses, and the occasional challenge I should have probably ignored. Some pieces were carefully planned. Others began with a simple thought: \"this might be fun to draw.\"\n\nThe collection moves between portrait studies, cross-hatching experiments, character sketches, and whatever else managed to occupy my attention long enough to make it onto paper. Every line has a reason behind it, and every shadow is the result of messing around until it finally looked right.",
     "Sometimes a sketch exists because a face was interesting, a composition felt right, or I simply wanted to see if I could pull it off.\n\nConsider this website an archive of observations, experiments, and moments of fixation—proof that given enough time, graphite, ink, and questionable levels of determination, almost anything can become a drawing."
   ],
   "parameters": [
@@ -84,6 +84,17 @@
       "coordinates": {
         "x": "95",
         "y": "11"
+      }
+    },
+    {
+      "id": "MANIFESTO_IMG_1780825361453",
+      "imgUrl": "./assets/manifesto_manifesto_img_1780825359895_1780825359895_taichi_pfp.jfif",
+      "aspectRatio": "aspect-square",
+      "colSpan": "col-span-4 md:col-start-8 md:col-span-3 md:-mt-[820px]",
+      "speed": "0.12",
+      "coordinates": {
+        "x": "97",
+        "y": "17"
       }
     }
   ]
