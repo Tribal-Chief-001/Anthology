@@ -388,6 +388,46 @@
             width: 0%;
             transition: width 1.2s ease-in-out;
         }
+
+        /* ---- Sidebar Slide Animation ---- */
+        #global-sidebar {
+            transform: translateX(0%);
+            transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.35s ease;
+            will-change: transform, opacity;
+        }
+        #global-sidebar.sidebar-collapsed {
+            transform: translateX(-105%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        /* Stagger-in for sidebar children when opening */
+        #global-sidebar:not(.sidebar-collapsed) > * {
+            animation: sidebarItemSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        #global-sidebar:not(.sidebar-collapsed) > *:nth-child(1) { animation-delay: 0.05s; }
+        #global-sidebar:not(.sidebar-collapsed) > *:nth-child(2) { animation-delay: 0.1s; }
+        #global-sidebar:not(.sidebar-collapsed) > *:nth-child(3) { animation-delay: 0.15s; }
+        @keyframes sidebarItemSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        /* Hamburger icon rotation */
+        #sidebar-toggle-icon {
+            transition: transform 0.35s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        #sidebar-toggle-icon.rotated {
+            transform: rotate(180deg);
+        }
+        /* Main content shift when sidebar is open */
+        .page-container {
+            transition: opacity 0.4s ease, padding-left 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+        }
     </style>
 </head>
 <body class="bg-surface text-primary antialiased min-h-screen selection:bg-primary selection:text-surface-lowest overflow-x-hidden">
@@ -408,14 +448,14 @@
     <!-- ---------------------------------------------------- -->
     <!-- GLOBAL TOP HEADER (Hidden on initialization screen) -->
     <!-- ---------------------------------------------------- -->
-    <header id="global-header" class="fixed top-0 left-0 w-full z-50 justify-between items-center px-margin-mobile md:px-margin-desktop h-16 bg-surface border-b border-primary hidden">
-        <div class="flex items-center h-full gap-sm">
+    <header id="global-header" class="fixed top-0 left-0 w-full z-50 justify-between items-center pl-3 pr-margin-mobile md:pr-margin-desktop h-16 bg-surface border-b border-primary hidden">
+        <div class="flex items-center h-full gap-2">
             <!-- Sidebar Toggle (Hamburger) -->
-            <button id="sidebar-toggle" class="hidden md:flex text-primary hover:bg-primary hover:text-on-primary transition-colors duration-200 p-1.5 items-center justify-center border border-transparent hover:border-primary" title="Toggle Sidebar">
-                <span class="material-symbols-outlined text-[20px]" id="sidebar-toggle-icon">menu</span>
+            <button id="sidebar-toggle" class="hidden md:flex text-primary hover:bg-primary hover:text-on-primary transition-colors duration-200 p-1 items-center justify-center border border-transparent hover:border-primary" title="Toggle Sidebar">
+                <span class="material-symbols-outlined text-[22px]" id="sidebar-toggle-icon">menu</span>
             </button>
             <a href="#/index" class="flex items-center gap-2 font-headline-md text-headline-md font-bold tracking-tighter text-primary uppercase select-none hover:text-secondary transition-colors">
-                <img src="./favicon.png" alt="Logo" class="w-7 h-7 object-contain" style="filter: contrast(1.5);" />
+                <img src="./logo.png" alt="Logo" class="w-8 h-8 object-contain" />
                 ANTHOLOGY
             </a>
         </div>
@@ -438,7 +478,7 @@
     <!-- ---------------------------------------------------- -->
     <!-- GLOBAL SIDEBAR NAVIGATION (Hidden on initialization) -->
     <!-- ---------------------------------------------------- -->
-    <aside id="global-sidebar" class="fixed left-0 top-0 h-full w-64 hidden flex-col pt-24 pb-12 px-xs bg-surface border-r border-primary z-40 transition-transform duration-300 ease-in-out">
+    <aside id="global-sidebar" class="fixed left-0 top-0 h-full w-64 hidden flex-col pt-24 pb-12 px-xs bg-surface border-r border-primary z-40">
         <div class="mb-xl px-xs border-b border-primary pb-sm">
             <h1 class="font-headline-md text-xl tracking-tighter text-primary uppercase text-flicker">ARCHIVE_COORD</h1>
             <p class="font-label-technical text-label-technical text-secondary mt-base">V.1.0.A // SECURE</p>
@@ -2135,28 +2175,37 @@
             const isCollapsed = sidebar.classList.contains('sidebar-collapsed');
             
             if (isCollapsed) {
-                // Open sidebar
-                sidebar.classList.remove('sidebar-collapsed', 'hidden');
+                // Open sidebar — make visible first, then animate in
+                sidebar.classList.remove('hidden');
                 sidebar.classList.add('md:flex', 'flex');
+                // Force reflow so the browser registers the un-hidden state
+                void sidebar.offsetWidth;
+                sidebar.classList.remove('sidebar-collapsed');
                 icon.textContent = 'menu';
-                // Restore page padding
-                document.querySelectorAll('.page-container:not(#page-initialization)').forEach(p => {
-                    p.classList.add('md:pl-64');
-                });
+                icon.classList.remove('rotated');
+                // Play glitch sound on open
+                if (typeof playTickSound === 'function') playTickSound('glitch');
             } else {
-                // Close sidebar
-                sidebar.classList.add('sidebar-collapsed', 'hidden');
-                sidebar.classList.remove('md:flex', 'flex');
+                // Close sidebar — animate out, then hide after transition
+                sidebar.classList.add('sidebar-collapsed');
                 icon.textContent = 'menu_open';
-                // Remove page padding
-                document.querySelectorAll('.page-container').forEach(p => {
-                    p.classList.remove('md:pl-64');
+                icon.classList.add('rotated');
+                // Play glitch sound on close
+                if (typeof playTickSound === 'function') playTickSound('click');
+                // After transition ends, hide from DOM flow
+                sidebar.addEventListener('transitionend', function handler() {
+                    sidebar.removeEventListener('transitionend', handler);
+                    if (sidebar.classList.contains('sidebar-collapsed')) {
+                        // Keep visible but pointer-events none via CSS
+                    }
                 });
             }
             
-            // Re-render grids to adapt to new width
-            if (typeof renderIndexGrid === 'function') renderIndexGrid();
-            if (typeof renderManifesto === 'function') renderManifesto();
+            // Re-render grids to adapt to new width after transition completes
+            setTimeout(() => {
+                if (typeof renderIndexGrid === 'function') renderIndexGrid();
+                if (typeof renderManifesto === 'function') renderManifesto();
+            }, 500);
         });
 
         // Add Hover Audio blips to all interactive items
