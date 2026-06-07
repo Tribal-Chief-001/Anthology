@@ -409,8 +409,13 @@
     <!-- GLOBAL TOP HEADER (Hidden on initialization screen) -->
     <!-- ---------------------------------------------------- -->
     <header id="global-header" class="fixed top-0 left-0 w-full z-50 justify-between items-center px-margin-mobile md:px-margin-desktop h-16 bg-surface border-b border-primary hidden">
-        <div class="flex items-center h-full">
-            <a href="#/index" class="font-headline-md text-headline-md font-bold tracking-tighter text-primary uppercase select-none hover:text-secondary transition-colors">
+        <div class="flex items-center h-full gap-sm">
+            <!-- Sidebar Toggle (Hamburger) -->
+            <button id="sidebar-toggle" class="hidden md:flex text-primary hover:bg-primary hover:text-on-primary transition-colors duration-200 p-1.5 items-center justify-center border border-transparent hover:border-primary" title="Toggle Sidebar">
+                <span class="material-symbols-outlined text-[20px]" id="sidebar-toggle-icon">menu</span>
+            </button>
+            <a href="#/index" class="flex items-center gap-2 font-headline-md text-headline-md font-bold tracking-tighter text-primary uppercase select-none hover:text-secondary transition-colors">
+                <img src="./favicon.png" alt="Logo" class="w-7 h-7 object-contain" style="filter: contrast(1.5);" />
                 ANTHOLOGY
             </a>
         </div>
@@ -433,7 +438,7 @@
     <!-- ---------------------------------------------------- -->
     <!-- GLOBAL SIDEBAR NAVIGATION (Hidden on initialization) -->
     <!-- ---------------------------------------------------- -->
-    <aside id="global-sidebar" class="fixed left-0 top-0 h-full w-64 hidden flex-col pt-24 pb-12 px-xs bg-surface border-r border-primary z-40">
+    <aside id="global-sidebar" class="fixed left-0 top-0 h-full w-64 hidden flex-col pt-24 pb-12 px-xs bg-surface border-r border-primary z-40 transition-transform duration-300 ease-in-out">
         <div class="mb-xl px-xs border-b border-primary pb-sm">
             <h1 class="font-headline-md text-xl tracking-tighter text-primary uppercase text-flicker">ARCHIVE_COORD</h1>
             <p class="font-label-technical text-label-technical text-secondary mt-base">V.1.0.A // SECURE</p>
@@ -2123,6 +2128,37 @@
             }
         });
 
+        // Bind Sidebar Toggle Action
+        document.getElementById('sidebar-toggle').addEventListener('click', () => {
+            const sidebar = document.getElementById('global-sidebar');
+            const icon = document.getElementById('sidebar-toggle-icon');
+            const isCollapsed = sidebar.classList.contains('sidebar-collapsed');
+            
+            if (isCollapsed) {
+                // Open sidebar
+                sidebar.classList.remove('sidebar-collapsed', 'hidden');
+                sidebar.classList.add('md:flex', 'flex');
+                icon.textContent = 'menu';
+                // Restore page padding
+                document.querySelectorAll('.page-container:not(#page-initialization)').forEach(p => {
+                    p.classList.add('md:pl-64');
+                });
+            } else {
+                // Close sidebar
+                sidebar.classList.add('sidebar-collapsed', 'hidden');
+                sidebar.classList.remove('md:flex', 'flex');
+                icon.textContent = 'menu_open';
+                // Remove page padding
+                document.querySelectorAll('.page-container').forEach(p => {
+                    p.classList.remove('md:pl-64');
+                });
+            }
+            
+            // Re-render grids to adapt to new width
+            if (typeof renderIndexGrid === 'function') renderIndexGrid();
+            if (typeof renderManifesto === 'function') renderManifesto();
+        });
+
         // Add Hover Audio blips to all interactive items
         function bindHoverAudio(selector) {
             document.querySelectorAll(selector).forEach(el => {
@@ -2188,12 +2224,16 @@
                 header.classList.add('hidden');
                 sidebar.classList.remove('md:flex');
                 sidebar.classList.add('hidden');
+                sidebar.classList.remove('sidebar-collapsed');
                 body.classList.remove('pl-64');
             } else {
                 header.classList.remove('hidden');
                 header.classList.add('md:flex', 'flex');
-                sidebar.classList.remove('hidden');
-                sidebar.classList.add('md:flex', 'flex');
+                // Only show sidebar if it hasn't been collapsed by user
+                if (!sidebar.classList.contains('sidebar-collapsed')) {
+                    sidebar.classList.remove('hidden');
+                    sidebar.classList.add('md:flex', 'flex');
+                }
             }
 
             // Toggle page containers by applying/removing hidden class
