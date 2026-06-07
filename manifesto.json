@@ -43,17 +43,6 @@
   ],
   "images": [
     {
-      "id": "MANIFESTO_IMG_1780773537288",
-      "imgUrl": "./assets/manifesto_manifesto_img_1780773535508_1780773535508_edited_manifesto_1780773503315.jpg",
-      "aspectRatio": "aspect-square",
-      "colSpan": "col-span-4 md:col-start-8 md:col-span-3 md:-mt-[60px]",
-      "speed": "0.12",
-      "coordinates": {
-        "x": "88",
-        "y": "11"
-      }
-    },
-    {
       "id": "MANIFESTO_IMG_1780818859944",
       "imgUrl": "./assets/manifesto_manifesto_img_1780818858441_1780818858441_download__12_.jfif",
       "aspectRatio": "aspect-square",
