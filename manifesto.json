@@ -57,7 +57,7 @@
       "id": "MANIFESTO_IMG_1780819346927",
       "imgUrl": "./assets/manifesto_manifesto_img_1780819345333_1780819345333_snapchat_1362752632.jpg",
       "aspectRatio": "aspect-square",
-      "colSpan": "col-span-4 md:col-start-8 md:col-span-3 md:-mt-[60px]",
+      "colSpan": "col-span-4 md:col-start-8 md:col-span-3 md:-mt-[100px]",
       "speed": "0.12",
       "coordinates": {
         "x": "84",
